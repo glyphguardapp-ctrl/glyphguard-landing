@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-03-19T13:47:49.514Z",
+  "sourceRoot": "/Users/mac/Documents/myProject/3337/GlyphGuard",
+  "outputDir": "/Users/mac/Documents/myProject/3337/GlyphGuard/dist/public-landing",
+  "requiredEntries": [
+    "index.html",
+    "privacy-policy.html",
+    "adaptive-icon.png",
+    "bg-1024.png",
+    "fon_1024x1024.png",
+    "icon-512.png",
+    "icon.png",
+    "landing/store-buttons.html",
+    "landing/store-buttons-en.html"
+  ],
+  "optionalEntries": [
+    {
+      "relativePath": "gallery",
+      "status": "copied"
+    }
+  ]
+}

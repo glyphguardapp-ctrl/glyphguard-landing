@@ -1,0 +1,1706 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlyphGuard - Link safety in 2 seconds</title>
+  <meta id="metaDescription" name="description" content="Check links before opening. Download GlyphGuard on App Store, Google Play, and AppGallery." />
+  <meta property="og:title" content="GlyphGuard" />
+  <meta id="metaOgDescription" property="og:description" content="Check links before opening. Download GlyphGuard." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./icon-512.png?v=5" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta id="metaTwitterDescription" name="twitter:description" content="Check links before opening. Download GlyphGuard." />
+  <meta name="twitter:image" content="./icon-512.png?v=5" />
+  <meta name="theme-color" content="#0f1629" />
+  <link id="faviconPng" rel="icon" type="image/png" href="./icon-512.png?v=5" />
+  <link id="shortcutFavicon" rel="shortcut icon" type="image/png" href="./icon-512.png?v=5" />
+  <link id="appleTouchIcon" rel="apple-touch-icon" href="./icon-512.png?v=5" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #0f1629;
+      --bg-2: #1a2644;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.18);
+      --text: #f7f9ff;
+      --text-dim: #c6d0ee;
+      --gold: #f7c64e;
+      --gold-2: #ffdd80;
+      --accent-blue: #3f8cff;
+      --accent-red: #d81f45;
+      --accent-dark: #0f1116;
+      --radius: 18px;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Manrope", "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(160deg, rgba(7, 14, 36, 0.9), rgba(5, 10, 26, 0.92)),
+        radial-gradient(65vw 65vw at 50% 35%, rgba(38, 205, 255, 0.2) 0%, rgba(38, 205, 255, 0) 72%),
+        url("./fon_1024x1024.png") center / cover no-repeat;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 28px 16px 42px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 780px;
+    }
+
+    .hero-lang {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 4;
+    }
+
+    html[dir="rtl"] .hero-lang {
+      right: auto;
+      left: 12px;
+    }
+
+    .lang-picker {
+      position: relative;
+      min-width: 96px;
+      max-width: 168px;
+      height: 42px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(7, 13, 30, 0.62);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.26);
+      transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+    }
+
+    .lang-picker:hover,
+    .lang-picker:focus-within {
+      border-color: rgba(247, 198, 78, 0.75);
+      background: rgba(247, 198, 78, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .lang-name {
+      font-size: 12px;
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #f5f8ff;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      text-align: center;
+    }
+
+    .lang-select {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      border: 0;
+    }
+
+    .lang-select option {
+      color: #11192f;
+      background: #eef3ff;
+      font-weight: 600;
+    }
+
+    .hero {
+      position: relative;
+      border-radius: calc(var(--radius) + 6px);
+      padding: 26px 22px 22px;
+      border: 1px solid var(--card-border);
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(7px);
+      text-align: center;
+      animation: fadeSlide 500ms ease;
+    }
+
+    .logo {
+      width: min(148px, 38vw);
+      height: auto;
+      display: block;
+      margin: 0 auto 12px;
+      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.3));
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 12px auto 0;
+      max-width: 560px;
+      color: var(--text-dim);
+      font-size: clamp(15px, 2.8vw, 19px);
+      line-height: 1.4;
+    }
+
+    .stores {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      gap: 12px;
+      margin-top: 26px;
+      text-align: left;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+    }
+
+    .stores::-webkit-scrollbar { display: none; }
+
+    .store-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border-radius: 14px;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+      flex: 0 0 auto;
+      min-width: 176px;
+      white-space: nowrap;
+    }
+
+    .store-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.32);
+    }
+
+    .store-link:active {
+      transform: translateY(0);
+    }
+
+    .store-link.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+      filter: saturate(0.35);
+    }
+
+    .store-icon {
+      width: 22px;
+      height: 22px;
+      flex: 0 0 22px;
+      text-align: center;
+      font-size: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .store-icon svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+
+    .store-name {
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .store-appstore { background: linear-gradient(145deg, #0f1116, #070809); }
+    .store-google { background: linear-gradient(145deg, #3f8cff, #1f5ec4); }
+    .store-gallery { background: linear-gradient(145deg, #d81f45, #971232); }
+
+    @media (min-width: 780px) {
+      .stores {
+        justify-content: center;
+        overflow: visible;
+      }
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #ffdf9e;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .panel {
+      grid-column: span 12;
+      border-radius: var(--radius);
+      border: 1px solid var(--card-border);
+      background: var(--card);
+      padding: 16px;
+      animation: fadeSlide 550ms ease;
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+    }
+
+    .features {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text-dim);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .features li + li { margin-top: 6px; }
+
+    .links-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .ghost-btn {
+      border: 1px solid rgba(247, 198, 78, 0.38);
+      color: var(--gold-2);
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.16s ease;
+    }
+
+    .ghost-btn:hover {
+      background: rgba(247, 198, 78, 0.12);
+      border-color: rgba(247, 198, 78, 0.8);
+    }
+
+    .muted {
+      color: var(--text-dim);
+      font-size: 13px;
+      margin: 8px 0 0;
+      line-height: 1.45;
+    }
+
+    .gallery {
+      margin-top: 14px;
+    }
+
+    .gallery-head {
+      margin-bottom: 14px;
+    }
+
+    .gallery-carousel {
+      overflow: hidden;
+      position: relative;
+      margin: 0 -6px;
+    }
+
+    .gallery-track {
+      --card-width: min(66vw, 278px);
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 8px calc(50% - (var(--card-width) / 2)) 12px;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .gallery-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .shot-card {
+      flex: 0 0 var(--card-width);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(10, 18, 39, 0.46);
+      padding: 12px;
+      scroll-snap-align: center;
+      transition: transform 0.26s ease, opacity 0.26s ease, border-color 0.26s ease;
+      transform: scale(0.92);
+      opacity: 0.58;
+    }
+
+    .shot-card.is-active {
+      transform: scale(1);
+      opacity: 1;
+      border-color: rgba(247, 198, 78, 0.5);
+    }
+
+    .shot-visual {
+      position: relative;
+      border-radius: 12px;
+      min-height: 220px;
+      aspect-ratio: 9 / 16;
+      background: #0d1326;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    .shot-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .shot-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .shot-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0));
+      pointer-events: none;
+    }
+
+    .shot-chip {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      padding: 3px 6px;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(4, 8, 18, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+    }
+
+    .shot-title {
+      margin: 10px 0 4px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .shot-note {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-dim);
+    }
+
+    .shot-note code {
+      color: #f5f8ff;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 2px 6px;
+      word-break: break-all;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: rgba(226, 232, 255, 0.72);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 16px;
+      margin-top: 8px;
+    }
+
+    .footer-link {
+      color: rgba(247, 198, 78, 0.75);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      transition: color 0.16s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--gold-2);
+    }
+
+    @media (min-width: 780px) {
+      .panel.span6 { grid-column: span 6; }
+      .gallery-track { --card-width: 260px; }
+      .shot-visual { min-height: 300px; }
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-lang">
+        <label class="lang-picker" for="langSelect" title="Language">
+          <span id="langNameBadge" class="lang-name" aria-hidden="true">English</span>
+          <select id="langSelect" class="lang-select" aria-label="Language"></select>
+        </label>
+      </div>
+
+      <img class="logo" id="logoImage" src="./icon-512.png" alt="GlyphGuard app icon" onerror="if (this.dataset.fallback !== '1') { this.dataset.fallback = '1'; this.src='./icon.png'; return; } this.onerror=null;" />
+      <h1 data-i18n="title">GlyphGuard</h1>
+      <p class="subtitle" data-i18n="subtitle"></p>
+
+      <div class="stores">
+        <a class="store-link store-appstore" id="appStoreLink" href="#" target="_blank" rel="noopener noreferrer">
+          <span class="store-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+          </span>
+          <span class="store-name">App Store</span>
+        </a>
+        <a class="store-link store-google" id="googlePlayLink" href="#" target="_blank" rel="noopener noreferrer">
+          <span class="store-icon" aria-hidden="true">
+            <svg viewBox="0 0 20 22" role="img" aria-hidden="true">
+              <path d="M0.35 0.76C0.13 1.01 0 1.38 0 1.85v18.3c0 .47.13.84.35 1.09l.06.05L11.3 10.5v-.12L.41.71.35.76z"/>
+              <path d="M14.93 14.15L11.3 10.5v-.12l3.63-3.63.08.05 4.3 2.44c1.23.7 1.23 1.84 0 2.53l-4.3 2.44-.08.04z"/>
+              <path d="M15.01 14.1L11.3 10.44.35 21.2c.4.43 1.07.48 1.82.03l12.84-7.13z"/>
+              <path d="M15.01 6.78L2.17.65C1.42.2.76.25.35.68l10.95 10.76 3.71-3.66z"/>
+            </svg>
+          </span>
+          <span class="store-name">Google Play</span>
+        </a>
+        <a class="store-link store-gallery" id="appGalleryLink" href="#" target="_blank" rel="noopener noreferrer">
+          <span class="store-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 8l4 8 4-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="store-name">Huawei AppGallery</span>
+        </a>
+      </div>
+      <div class="hint" data-i18n="storeHint"></div>
+    </section>
+
+    <section class="panel gallery">
+      <div class="gallery-head">
+        <h2 data-i18n="galleryTitle"></h2>
+        <p class="muted" data-i18n="gallerySubtitle"></p>
+      </div>
+
+      <div class="gallery-carousel">
+        <div class="gallery-track" id="galleryTrack">
+        <article class="shot-card">
+          <a class="shot-link" href="./gallery/dark-theme-4k.webp" target="_blank" rel="noopener noreferrer">
+            <div class="shot-visual">
+              <img class="shot-image" src="./gallery/dark-theme-4k.webp" alt="GlyphGuard dark theme screenshot" loading="lazy" decoding="async" />
+              <span class="shot-chip">4K</span>
+            </div>
+          </a>
+          <p class="shot-title" data-i18n="shotDark"></p>
+          <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/dark-theme-4k.webp</code></p>
+        </article>
+
+        <article class="shot-card">
+          <a class="shot-link" href="./gallery/light-theme-4k.webp" target="_blank" rel="noopener noreferrer">
+            <div class="shot-visual">
+              <img class="shot-image" src="./gallery/light-theme-4k.webp" alt="GlyphGuard light theme screenshot" loading="lazy" decoding="async" />
+              <span class="shot-chip">4K</span>
+            </div>
+          </a>
+          <p class="shot-title" data-i18n="shotLight"></p>
+          <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/light-theme-4k.webp</code></p>
+        </article>
+
+        <article class="shot-card">
+          <a class="shot-link" href="./gallery/royal-gold-4k.webp" target="_blank" rel="noopener noreferrer">
+            <div class="shot-visual">
+              <img class="shot-image" src="./gallery/royal-gold-4k.webp" alt="GlyphGuard royal gold theme screenshot" loading="lazy" decoding="async" />
+              <span class="shot-chip">4K</span>
+            </div>
+          </a>
+          <p class="shot-title" data-i18n="shotRoyal"></p>
+          <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/royal-gold-4k.webp</code></p>
+        </article>
+
+        <article class="shot-card">
+          <a class="shot-link" href="./gallery/robot-buddy-4k.webp" target="_blank" rel="noopener noreferrer">
+            <div class="shot-visual">
+              <img class="shot-image" src="./gallery/robot-buddy-4k.webp" alt="GlyphGuard robot buddy theme screenshot" loading="lazy" decoding="async" />
+              <span class="shot-chip">4K</span>
+            </div>
+          </a>
+          <p class="shot-title" data-i18n="shotRobot"></p>
+          <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/robot-buddy-4k.webp</code></p>
+        </article>
+
+        <article class="shot-card">
+          <a class="shot-link" href="./gallery/obsidian-titan-4k.webp" target="_blank" rel="noopener noreferrer">
+            <div class="shot-visual">
+              <img class="shot-image" src="./gallery/obsidian-titan-4k.webp" alt="GlyphGuard obsidian titan theme screenshot" loading="lazy" decoding="async" />
+              <span class="shot-chip">4K</span>
+            </div>
+          </a>
+          <p class="shot-title" data-i18n="shotObsidian"></p>
+          <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/obsidian-titan-4k.webp</code></p>
+        </article>
+
+        <article class="shot-card">
+          <a class="shot-link" href="./gallery/emerald-vault-4k.webp" target="_blank" rel="noopener noreferrer">
+            <div class="shot-visual">
+              <img class="shot-image" src="./gallery/emerald-vault-4k.webp" alt="GlyphGuard emerald vault theme screenshot" loading="lazy" decoding="async" />
+              <span class="shot-chip">4K</span>
+            </div>
+          </a>
+          <p class="shot-title" data-i18n="shotEmerald"></p>
+          <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/emerald-vault-4k.webp</code></p>
+        </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="panel span6">
+        <h2 data-i18n="whyTitle"></h2>
+        <ul class="features">
+          <li data-i18n="f1"></li>
+          <li data-i18n="f2"></li>
+          <li data-i18n="f3"></li>
+          <li data-i18n="f4"></li>
+        </ul>
+      </article>
+
+      <article class="panel span6">
+        <h2 data-i18n="studioTitle"></h2>
+        <p class="muted" data-i18n="studioText"></p>
+        <div class="links-row">
+          <a class="ghost-btn" id="moreAppsLink" href="#" target="_blank" rel="noopener noreferrer" data-i18n="moreApps"></a>
+          <a class="ghost-btn" id="donateLink" href="#" target="_blank" rel="noopener noreferrer" data-i18n="donate"></a>
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <p data-i18n="footer"></p>
+      <div class="footer-links">
+        <a class="footer-link" href="./privacy-policy.html" id="privacyPolicyLink" data-i18n="privacyPolicy">Privacy Policy</a>
+        <a class="footer-link" href="mailto:glyphguard.app@gmail.com" data-i18n="contactUs">Write to developer</a>
+        <a class="footer-link" href="#" id="donateFooterLink" target="_blank" rel="noopener noreferrer" data-i18n="donate">Support / Donate</a>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    const STORE_LINKS = {
+      appStore: "https://apps.apple.com/app/glyphguard/id6740001394",
+      googlePlay: "YOUR_GOOGLE_PLAY_URL",
+      appGallery: "YOUR_APPGALLERY_URL",
+      moreApps: "https://github.com/glyphguardapp-ctrl",
+      donate: "mailto:glyphguard.app@gmail.com?subject=GlyphGuard%20Support"
+    };
+    const SERVICE_LINKS_CONFIG_URL = "https://glyphguard-threat-lookup.glyphguard-app.workers.dev/public/service-links";
+
+    const APP_LANGS = ["en", "ru", "uk", "zh", "es", "fr", "ar", "pt", "de", "hi", "ko", "ja", "it", "tr", "id", "vi", "th", "pl", "nl", "sv", "no", "da", "cs", "ro", "hu", "fa", "ms"];
+    const RTL_LANGS = new Set(["ar", "fa"]);
+
+    const LANG_LABELS = {
+      en: "English", ru: "Русский", uk: "Українська", zh: "中文", es: "Español", fr: "Français", ar: "العربية",
+      pt: "Português", de: "Deutsch", hi: "हिन्दी", ko: "한국어", ja: "日本語", it: "Italiano", tr: "Türkçe",
+      id: "Bahasa Indonesia", vi: "Tiếng Việt", th: "ไทย", pl: "Polski", nl: "Nederlands", sv: "Svenska",
+      no: "Norsk", da: "Dansk", cs: "Čeština", ro: "Română", hu: "Magyar", fa: "فارسی", ms: "Bahasa Melayu"
+    };
+
+    const LANDING_ICON_LOCAL = "./icon-512.png";
+    const LANDING_ICON_ABS = new URL("./icon-512.png?v=5", window.location.href).toString();
+
+    const EN_COPY = {
+      title: "GlyphGuard",
+      subtitle: "Check links in 2 seconds before opening. Stay safe from phishing and scam pages.",
+      appStore: "Download on App Store",
+      googlePlay: "Get it on Google Play",
+      appGallery: "Explore on AppGallery",
+      storeHint: "Replace placeholder links in code before publishing.",
+      whyTitle: "Why people use GlyphGuard",
+      f1: "Detects invisible character substitution in URLs",
+      f2: "Checks domains against an offline threat database",
+      f3: "Works fast and privacy-first",
+      f4: "Helps protect family, team, and customers",
+      studioTitle: "Your app studio page",
+      studioText: "Use this landing as your central traffic hub. Add your next apps, social links, and support channels.",
+      moreApps: "See all apps",
+      donate: "Support / Donate",
+      galleryTitle: "4K screenshot gallery",
+      gallerySubtitle: "Upload premium screenshots for dark, light, and all color themes. These slots are ready for App Store / Play listing quality.",
+      shotDark: "Dark theme",
+      shotLight: "Light theme",
+      shotRoyal: "Royal Gold theme",
+      shotRobot: "Robot Buddy theme",
+      shotObsidian: "Obsidian Titan theme",
+      shotEmerald: "Emerald Vault theme",
+      shotHint: "File:",
+      langLabel: "Language",
+      langAria: "Choose language",
+      pageTagline: "Link safety in 2 seconds",
+      footer: "© 2026 GlyphGuard · Voldirex",
+      privacyPolicy: "Privacy Policy",
+      contactUs: "Write to developer"
+    };
+
+    const LOCALIZED_COPY = {
+      ru: {
+        privacyPolicy: "Политика конфиденциальности",
+        contactUs: "Написать разработчику",
+        subtitle: "Проверяйте ссылки за 2 секунды до открытия. Защититесь от фишинга и мошеннических страниц.",
+        appStore: "Скачать в App Store",
+        googlePlay: "Открыть в Google Play",
+        appGallery: "Открыть в AppGallery",
+        storeHint: "Перед публикацией замените ссылки-заглушки в коде.",
+        whyTitle: "Почему выбирают GlyphGuard",
+        f1: "Находит невидимую подмену символов в URL",
+        f2: "Проверяет домены по офлайн-базе угроз",
+        f3: "Работает быстро и бережно к приватности",
+        f4: "Помогает защищать семью, команду и клиентов",
+        studioTitle: "Страница вашей студии",
+        studioText: "Используйте этот лендинг как единый центр трафика: добавляйте новые приложения, соцсети и поддержку.",
+        moreApps: "Все приложения",
+        donate: "Поддержать / Донат",
+        galleryTitle: "Галерея скриншотов 4K",
+        gallerySubtitle: "Загрузите премиальные скриншоты для тёмной, светлой и всех цветовых тем.",
+        shotDark: "Тёмная тема",
+        shotLight: "Светлая тема",
+        shotRoyal: "Тема Royal Gold",
+        shotRobot: "Тема Robot Buddy",
+        shotObsidian: "Тема Obsidian Titan",
+        shotEmerald: "Тема Emerald Vault",
+        shotHint: "Файл:",
+        langLabel: "Язык",
+        langAria: "Выберите язык",
+        pageTagline: "Безопасность ссылок за 2 секунды"
+      },
+      uk: {
+        privacyPolicy: "Політика конфіденційності",
+        contactUs: "Зв'язатися з нами",
+        subtitle: "Перевіряйте посилання за 2 секунди перед відкриттям. Захищайтесь від фішингу та шахрайських сторінок.",
+        appStore: "Завантажити в App Store",
+        googlePlay: "Відкрити в Google Play",
+        appGallery: "Відкрити в AppGallery",
+        storeHint: "Перед публікацією замініть посилання-заглушки.",
+        whyTitle: "Чому обирають GlyphGuard",
+        f1: "Виявляє невидиму підміну символів в URL",
+        f2: "Перевіряє домени за офлайн-базою загроз",
+        f3: "Працює швидко та з повагою до приватності",
+        f4: "Допомагає захищати родину, команду й клієнтів",
+        studioTitle: "Сторінка вашої студії",
+        studioText: "Використовуйте цей лендинг як єдиний центр трафіку: додавайте нові застосунки, соцмережі й підтримку.",
+        moreApps: "Усі застосунки",
+        donate: "Підтримати / Донат",
+        galleryTitle: "Галерея скріншотів 4K",
+        gallerySubtitle: "Додайте преміальні скріншоти для темної, світлої та всіх кольорових тем.",
+        shotDark: "Темна тема",
+        shotLight: "Світла тема",
+        shotRoyal: "Тема Royal Gold",
+        shotRobot: "Тема Robot Buddy",
+        shotObsidian: "Тема Obsidian Titan",
+        shotEmerald: "Тема Emerald Vault",
+        shotHint: "Файл:",
+        langLabel: "Мова",
+        langAria: "Виберіть мову",
+        pageTagline: "Безпека посилань за 2 секунди"
+      },
+      zh: {
+        privacyPolicy: "隐私政策",
+        contactUs: "联系我们",
+        subtitle: "打开链接前 2 秒完成检测，远离钓鱼和诈骗页面。",
+        appStore: "在 App Store 下载",
+        googlePlay: "在 Google Play 获取",
+        appGallery: "在 AppGallery 查看",
+        storeHint: "发布前请先替换占位链接。",
+        whyTitle: "为什么选择 GlyphGuard",
+        f1: "检测 URL 中的不可见字符替换",
+        f2: "使用离线威胁数据库检查域名",
+        f3: "速度快并注重隐私",
+        f4: "帮助保护家人、团队和客户",
+        studioTitle: "你的应用工作室页面",
+        studioText: "将此落地页作为流量中心，添加你的应用、社交链接和支持渠道。",
+        moreApps: "查看全部应用",
+        donate: "支持 / 捐赠",
+        galleryTitle: "4K 截图画廊",
+        gallerySubtitle: "上传深色、浅色及所有彩色主题的高质量截图。",
+        shotDark: "深色主题",
+        shotLight: "浅色主题",
+        shotRoyal: "Royal Gold 主题",
+        shotRobot: "Robot Buddy 主题",
+        shotObsidian: "Obsidian Titan 主题",
+        shotEmerald: "Emerald Vault 主题",
+        shotHint: "文件:",
+        langLabel: "语言",
+        langAria: "选择语言",
+        pageTagline: "2 秒完成链接安全检测"
+      },
+      es: {
+        privacyPolicy: "Política de privacidad",
+        contactUs: "Contáctenos",
+        subtitle: "Revisa enlaces en 2 segundos antes de abrirlos. Mantente a salvo de phishing y fraudes.",
+        appStore: "Descargar en App Store",
+        googlePlay: "Obtener en Google Play",
+        appGallery: "Ver en AppGallery",
+        storeHint: "Reemplaza los enlaces de ejemplo antes de publicar.",
+        whyTitle: "Por qué la gente usa GlyphGuard",
+        f1: "Detecta sustitución invisible de caracteres en URLs",
+        f2: "Verifica dominios con una base de amenazas offline",
+        f3: "Funciona rápido y prioriza la privacidad",
+        f4: "Ayuda a proteger familia, equipo y clientes",
+        studioTitle: "Página de tu estudio",
+        studioText: "Usa este landing como centro de tráfico: añade tus apps, redes y canales de soporte.",
+        moreApps: "Ver todas las apps",
+        donate: "Apoyar / Donar",
+        galleryTitle: "Galería de capturas 4K",
+        gallerySubtitle: "Sube capturas premium para tema oscuro, claro y todos los temas de color.",
+        shotDark: "Tema oscuro",
+        shotLight: "Tema claro",
+        shotRoyal: "Tema Royal Gold",
+        shotRobot: "Tema Robot Buddy",
+        shotObsidian: "Tema Obsidian Titan",
+        shotEmerald: "Tema Emerald Vault",
+        shotHint: "Archivo:",
+        langLabel: "Idioma",
+        langAria: "Elegir idioma",
+        pageTagline: "Seguridad de enlaces en 2 segundos"
+      },
+      fr: {
+        privacyPolicy: "Politique de confidentialité",
+        contactUs: "Nous contacter",
+        subtitle: "Vérifiez les liens en 2 secondes avant ouverture. Restez à l'abri du phishing et des arnaques.",
+        appStore: "Télécharger sur App Store",
+        googlePlay: "Disponible sur Google Play",
+        appGallery: "Voir sur AppGallery",
+        storeHint: "Remplacez les liens d'exemple avant publication.",
+        whyTitle: "Pourquoi utiliser GlyphGuard",
+        f1: "Détecte la substitution invisible de caractères dans les URLs",
+        f2: "Vérifie les domaines via une base de menaces hors ligne",
+        f3: "Rapide et respectueux de la vie privée",
+        f4: "Protège votre famille, votre équipe et vos clients",
+        studioTitle: "Page de votre studio",
+        studioText: "Utilisez cette page comme hub central : ajoutez vos apps, réseaux sociaux et supports.",
+        moreApps: "Voir toutes les apps",
+        donate: "Soutenir / Faire un don",
+        galleryTitle: "Galerie de captures 4K",
+        gallerySubtitle: "Ajoutez des captures premium pour les thèmes sombre, clair et colorés.",
+        shotDark: "Thème sombre",
+        shotLight: "Thème clair",
+        shotRoyal: "Thème Royal Gold",
+        shotRobot: "Thème Robot Buddy",
+        shotObsidian: "Thème Obsidian Titan",
+        shotEmerald: "Thème Emerald Vault",
+        shotHint: "Fichier :",
+        langLabel: "Langue",
+        langAria: "Choisir la langue",
+        pageTagline: "Sécurité des liens en 2 secondes"
+      },
+      ar: {
+        privacyPolicy: "سياسة الخصوصية",
+        contactUs: "اتصل بنا",
+        subtitle: "افحص الروابط خلال ثانيتين قبل فتحها واحمِ نفسك من التصيد والاحتيال.",
+        appStore: "حمّل من App Store",
+        googlePlay: "احصل عليه من Google Play",
+        appGallery: "استكشفه على AppGallery",
+        storeHint: "استبدل روابط الاختبار قبل النشر.",
+        whyTitle: "لماذا يستخدم الناس GlyphGuard",
+        f1: "يكشف استبدال الأحرف غير المرئية داخل الروابط",
+        f2: "يفحص النطاقات عبر قاعدة تهديدات غير متصلة",
+        f3: "سريع ويراعي الخصوصية",
+        f4: "يساعد في حماية العائلة والفريق والعملاء",
+        studioTitle: "صفحة استوديو تطبيقاتك",
+        studioText: "استخدم هذه الصفحة كمركز لحركة المرور وأضف تطبيقاتك وروابطك الاجتماعية وقنوات الدعم.",
+        moreApps: "كل التطبيقات",
+        donate: "الدعم / التبرع",
+        galleryTitle: "معرض لقطات 4K",
+        gallerySubtitle: "أضف لقطات عالية الجودة للوضع الداكن والفاتح وكل السمات اللونية.",
+        shotDark: "الوضع الداكن",
+        shotLight: "الوضع الفاتح",
+        shotRoyal: "سمة Royal Gold",
+        shotRobot: "سمة Robot Buddy",
+        shotObsidian: "سمة Obsidian Titan",
+        shotEmerald: "سمة Emerald Vault",
+        shotHint: "الملف:",
+        langLabel: "اللغة",
+        langAria: "اختر اللغة",
+        pageTagline: "أمان الروابط خلال ثانيتين"
+      },
+      pt: {
+        privacyPolicy: "Política de privacidade",
+        contactUs: "Contate-nos",
+        subtitle: "Verifique links em 2 segundos antes de abrir. Fique seguro contra phishing e golpes.",
+        appStore: "Baixar na App Store",
+        googlePlay: "Obter no Google Play",
+        appGallery: "Explorar na AppGallery",
+        storeHint: "Troque os links de exemplo antes de publicar.",
+        whyTitle: "Por que usar o GlyphGuard",
+        f1: "Detecta substituição invisível de caracteres em URLs",
+        f2: "Verifica domínios com base offline de ameaças",
+        f3: "Rápido e com foco em privacidade",
+        f4: "Ajuda a proteger família, equipe e clientes",
+        studioTitle: "Página do seu estúdio",
+        studioText: "Use esta landing como hub central: adicione seus apps, redes sociais e canais de suporte.",
+        moreApps: "Ver todos os apps",
+        donate: "Apoiar / Doar",
+        galleryTitle: "Galeria de screenshots 4K",
+        gallerySubtitle: "Adicione capturas premium para tema escuro, claro e todas as cores.",
+        shotDark: "Tema escuro",
+        shotLight: "Tema claro",
+        shotRoyal: "Tema Royal Gold",
+        shotRobot: "Tema Robot Buddy",
+        shotObsidian: "Tema Obsidian Titan",
+        shotEmerald: "Tema Emerald Vault",
+        shotHint: "Arquivo:",
+        langLabel: "Idioma",
+        langAria: "Escolher idioma",
+        pageTagline: "Segurança de links em 2 segundos"
+      },
+      de: {
+        privacyPolicy: "Datenschutzerklärung",
+        contactUs: "Kontakt",
+        subtitle: "Prüfe Links in 2 Sekunden vor dem Öffnen. Schütze dich vor Phishing und Betrug.",
+        appStore: "Im App Store laden",
+        googlePlay: "Bei Google Play holen",
+        appGallery: "In AppGallery ansehen",
+        storeHint: "Ersetze Platzhalter-Links vor der Veröffentlichung.",
+        whyTitle: "Warum Menschen GlyphGuard nutzen",
+        f1: "Erkennt unsichtbaren Zeichenaustausch in URLs",
+        f2: "Prüft Domains gegen eine Offline-Bedrohungsdatenbank",
+        f3: "Schnell und datenschutzfreundlich",
+        f4: "Hilft Familie, Team und Kunden zu schützen",
+        studioTitle: "Deine Studio-Seite",
+        studioText: "Nutze diese Landingpage als Traffic-Hub: füge Apps, Social Links und Support-Kanäle hinzu.",
+        moreApps: "Alle Apps ansehen",
+        donate: "Unterstützen / Spenden",
+        galleryTitle: "4K-Screenshot-Galerie",
+        gallerySubtitle: "Füge Premium-Screenshots für Dark, Light und alle Farbthemen hinzu.",
+        shotDark: "Dunkles Thema",
+        shotLight: "Helles Thema",
+        shotRoyal: "Royal Gold Thema",
+        shotRobot: "Robot Buddy Thema",
+        shotObsidian: "Obsidian Titan Thema",
+        shotEmerald: "Emerald Vault Thema",
+        shotHint: "Datei:",
+        langLabel: "Sprache",
+        langAria: "Sprache auswählen",
+        pageTagline: "Link-Sicherheit in 2 Sekunden"
+      },
+      hi: {
+        subtitle: "लिंक खोलने से पहले 2 सेकंड में जांचें। फ़िशिंग और स्कैम से सुरक्षित रहें।",
+        appStore: "App Store पर डाउनलोड करें",
+        googlePlay: "Google Play पर पाएं",
+        appGallery: "AppGallery पर देखें",
+        storeHint: "पब्लिश करने से पहले प्लेसहोल्डर लिंक बदलें।",
+        whyTitle: "लोग GlyphGuard क्यों चुनते हैं",
+        f1: "URL में छिपे कैरेक्टर बदलने की पहचान करता है",
+        f2: "ऑफ़लाइन थ्रेट डेटाबेस से डोमेन जांचता है",
+        f3: "तेज़ और प्राइवेसी-फर्स्ट",
+        f4: "परिवार, टीम और ग्राहकों की सुरक्षा में मदद",
+        studioTitle: "आपके स्टूडियो का पेज",
+        studioText: "इस लैंडिंग को अपना ट्रैफिक हब बनाएं: ऐप्स, सोशल लिंक और सपोर्ट चैनल जोड़ें।",
+        moreApps: "सभी ऐप्स देखें",
+        donate: "सपोर्ट / डोनेट",
+        galleryTitle: "4K स्क्रीनशॉट गैलरी",
+        gallerySubtitle: "डार्क, लाइट और सभी कलर थीम के लिए प्रीमियम स्क्रीनशॉट जोड़ें।",
+        shotDark: "डार्क थीम",
+        shotLight: "लाइट थीम",
+        shotRoyal: "रॉयल गोल्ड थीम",
+        shotRobot: "रोबोट बडी थीम",
+        shotObsidian: "ओब्सिडियन टाइटन थीम",
+        shotEmerald: "एमराल्ड वॉल्ट थीम",
+        shotHint: "फ़ाइल:",
+        langLabel: "भाषा",
+        langAria: "भाषा चुनें",
+        pageTagline: "2 सेकंड में लिंक सुरक्षा"
+      },
+      ko: {
+        privacyPolicy: "개인정보 처리방침",
+        contactUs: "문의하기",
+        subtitle: "링크를 열기 전에 2초 만에 검사하세요. 피싱과 사기 페이지로부터 안전을 지키세요.",
+        appStore: "App Store에서 다운로드",
+        googlePlay: "Google Play에서 받기",
+        appGallery: "AppGallery에서 보기",
+        storeHint: "게시 전에 예시 링크를 실제 링크로 바꾸세요.",
+        whyTitle: "사람들이 GlyphGuard를 쓰는 이유",
+        f1: "URL의 보이지 않는 문자 치환을 감지",
+        f2: "오프라인 위협 데이터베이스로 도메인 검사",
+        f3: "빠르고 개인정보 중심",
+        f4: "가족, 팀, 고객 보호에 도움",
+        studioTitle: "앱 스튜디오 페이지",
+        studioText: "이 랜딩을 트래픽 허브로 사용하고 앱, 소셜 링크, 지원 채널을 추가하세요.",
+        moreApps: "모든 앱 보기",
+        donate: "후원 / 기부",
+        galleryTitle: "4K 스크린샷 갤러리",
+        gallerySubtitle: "다크/라이트 및 모든 컬러 테마용 프리미엄 스크린샷을 추가하세요.",
+        shotDark: "다크 테마",
+        shotLight: "라이트 테마",
+        shotRoyal: "로열 골드 테마",
+        shotRobot: "로봇 버디 테마",
+        shotObsidian: "옵시디언 타이탄 테마",
+        shotEmerald: "에메랄드 볼트 테마",
+        shotHint: "파일:",
+        langLabel: "언어",
+        langAria: "언어 선택",
+        pageTagline: "2초 링크 보안"
+      },
+      ja: {
+        privacyPolicy: "プライバシーポリシー",
+        contactUs: "お問い合わせ",
+        subtitle: "リンクを開く前に2秒でチェック。フィッシングや詐欺ページから身を守ります。",
+        appStore: "App Storeでダウンロード",
+        googlePlay: "Google Playで入手",
+        appGallery: "AppGalleryで見る",
+        storeHint: "公開前にプレースホルダーリンクを置き換えてください。",
+        whyTitle: "GlyphGuardが選ばれる理由",
+        f1: "URL内の不可視文字の置換を検出",
+        f2: "オフライン脅威データベースでドメインを確認",
+        f3: "高速でプライバシー重視",
+        f4: "家族・チーム・顧客の保護に役立つ",
+        studioTitle: "あなたのスタジオページ",
+        studioText: "このランディングをトラフィックハブとして使い、アプリやSNS、サポートリンクを追加できます。",
+        moreApps: "すべてのアプリを見る",
+        donate: "サポート / 寄付",
+        galleryTitle: "4Kスクリーンショットギャラリー",
+        gallerySubtitle: "ダーク・ライト・全カラーテーマ向けの高品質スクリーンショットを追加してください。",
+        shotDark: "ダークテーマ",
+        shotLight: "ライトテーマ",
+        shotRoyal: "Royal Gold テーマ",
+        shotRobot: "Robot Buddy テーマ",
+        shotObsidian: "Obsidian Titan テーマ",
+        shotEmerald: "Emerald Vault テーマ",
+        shotHint: "ファイル:",
+        langLabel: "言語",
+        langAria: "言語を選択",
+        pageTagline: "2秒でリンク安全チェック"
+      },
+      it: {
+        subtitle: "Controlla i link in 2 secondi prima di aprirli. Proteggiti da phishing e truffe.",
+        appStore: "Scarica su App Store",
+        googlePlay: "Disponibile su Google Play",
+        appGallery: "Scopri su AppGallery",
+        storeHint: "Sostituisci i link segnaposto prima della pubblicazione.",
+        whyTitle: "Perché usare GlyphGuard",
+        f1: "Rileva sostituzioni invisibili di caratteri negli URL",
+        f2: "Controlla i domini con database minacce offline",
+        f3: "Veloce e orientato alla privacy",
+        f4: "Aiuta a proteggere famiglia, team e clienti",
+        studioTitle: "Pagina del tuo studio",
+        studioText: "Usa questa landing come hub centrale: aggiungi app, social e canali di supporto.",
+        moreApps: "Vedi tutte le app",
+        donate: "Supporta / Dona",
+        galleryTitle: "Galleria screenshot 4K",
+        gallerySubtitle: "Aggiungi screenshot premium per tema scuro, chiaro e tutte le varianti colore.",
+        shotDark: "Tema scuro",
+        shotLight: "Tema chiaro",
+        shotRoyal: "Tema Royal Gold",
+        shotRobot: "Tema Robot Buddy",
+        shotObsidian: "Tema Obsidian Titan",
+        shotEmerald: "Tema Emerald Vault",
+        shotHint: "File:",
+        langLabel: "Lingua",
+        langAria: "Scegli lingua",
+        pageTagline: "Sicurezza link in 2 secondi"
+      },
+      tr: {
+        subtitle: "Bağlantıları açmadan önce 2 saniyede kontrol edin. Oltalama ve dolandırıcılığa karşı güvende kalın.",
+        appStore: "App Store'dan indir",
+        googlePlay: "Google Play'de edin",
+        appGallery: "AppGallery'de keşfet",
+        storeHint: "Yayınlamadan önce örnek bağlantıları değiştirin.",
+        whyTitle: "İnsanlar neden GlyphGuard kullanıyor",
+        f1: "URL'lerde görünmez karakter değişimini algılar",
+        f2: "Alan adlarını çevrimdışı tehdit veritabanıyla kontrol eder",
+        f3: "Hızlıdır ve gizliliği önceler",
+        f4: "Aileyi, ekibi ve müşterileri korumaya yardımcı olur",
+        studioTitle: "Stüdyo sayfanız",
+        studioText: "Bu landing'i trafik merkezi olarak kullanın: uygulamalarınızı, sosyal linkleri ve destek kanallarını ekleyin.",
+        moreApps: "Tüm uygulamalar",
+        donate: "Destek / Bağış",
+        galleryTitle: "4K ekran görüntüsü galerisi",
+        gallerySubtitle: "Koyu, açık ve tüm renk temaları için premium ekran görüntüleri ekleyin.",
+        shotDark: "Koyu tema",
+        shotLight: "Açık tema",
+        shotRoyal: "Royal Gold tema",
+        shotRobot: "Robot Buddy tema",
+        shotObsidian: "Obsidian Titan tema",
+        shotEmerald: "Emerald Vault tema",
+        shotHint: "Dosya:",
+        langLabel: "Dil",
+        langAria: "Dil seç",
+        pageTagline: "2 saniyede bağlantı güvenliği"
+      },
+      id: {
+        subtitle: "Periksa tautan dalam 2 detik sebelum dibuka. Tetap aman dari phishing dan penipuan.",
+        appStore: "Unduh di App Store",
+        googlePlay: "Dapatkan di Google Play",
+        appGallery: "Jelajahi di AppGallery",
+        storeHint: "Ganti tautan placeholder sebelum dipublikasikan.",
+        whyTitle: "Mengapa orang memakai GlyphGuard",
+        f1: "Mendeteksi substitusi karakter tak terlihat di URL",
+        f2: "Memeriksa domain dengan basis ancaman offline",
+        f3: "Cepat dan mengutamakan privasi",
+        f4: "Membantu melindungi keluarga, tim, dan pelanggan",
+        studioTitle: "Halaman studio aplikasi Anda",
+        studioText: "Gunakan landing ini sebagai pusat trafik. Tambahkan aplikasi, tautan sosial, dan kanal dukungan.",
+        moreApps: "Lihat semua aplikasi",
+        donate: "Dukung / Donasi",
+        galleryTitle: "Galeri screenshot 4K",
+        gallerySubtitle: "Tambahkan screenshot premium untuk mode gelap, terang, dan semua tema warna.",
+        shotDark: "Tema gelap",
+        shotLight: "Tema terang",
+        shotRoyal: "Tema Royal Gold",
+        shotRobot: "Tema Robot Buddy",
+        shotObsidian: "Tema Obsidian Titan",
+        shotEmerald: "Tema Emerald Vault",
+        shotHint: "File:",
+        langLabel: "Bahasa",
+        langAria: "Pilih bahasa",
+        pageTagline: "Keamanan tautan dalam 2 detik"
+      },
+      vi: {
+        subtitle: "Kiểm tra liên kết trong 2 giây trước khi mở. Luôn an toàn trước lừa đảo và phishing.",
+        appStore: "Tải trên App Store",
+        googlePlay: "Tải trên Google Play",
+        appGallery: "Khám phá trên AppGallery",
+        storeHint: "Thay các liên kết mẫu trước khi xuất bản.",
+        whyTitle: "Vì sao mọi người dùng GlyphGuard",
+        f1: "Phát hiện thay thế ký tự vô hình trong URL",
+        f2: "Kiểm tra tên miền bằng cơ sở dữ liệu mối đe dọa offline",
+        f3: "Nhanh và ưu tiên quyền riêng tư",
+        f4: "Giúp bảo vệ gia đình, đội nhóm và khách hàng",
+        studioTitle: "Trang studio ứng dụng của bạn",
+        studioText: "Dùng landing này làm trung tâm lưu lượng: thêm ứng dụng, liên kết mạng xã hội và kênh hỗ trợ.",
+        moreApps: "Xem tất cả ứng dụng",
+        donate: "Ủng hộ / Quyên góp",
+        galleryTitle: "Thư viện ảnh chụp 4K",
+        gallerySubtitle: "Thêm ảnh premium cho giao diện tối, sáng và mọi chủ đề màu.",
+        shotDark: "Chủ đề tối",
+        shotLight: "Chủ đề sáng",
+        shotRoyal: "Chủ đề Royal Gold",
+        shotRobot: "Chủ đề Robot Buddy",
+        shotObsidian: "Chủ đề Obsidian Titan",
+        shotEmerald: "Chủ đề Emerald Vault",
+        shotHint: "Tệp:",
+        langLabel: "Ngôn ngữ",
+        langAria: "Chọn ngôn ngữ",
+        pageTagline: "An toàn liên kết trong 2 giây"
+      },
+      th: {
+        subtitle: "ตรวจสอบลิงก์ภายใน 2 วินาทีก่อนเปิด ป้องกันฟิชชิงและการหลอกลวง",
+        appStore: "ดาวน์โหลดบน App Store",
+        googlePlay: "รับบน Google Play",
+        appGallery: "ดูบน AppGallery",
+        storeHint: "แทนที่ลิงก์ตัวอย่างก่อนเผยแพร่",
+        whyTitle: "ทำไมผู้ใช้ถึงเลือก GlyphGuard",
+        f1: "ตรวจจับการแทนที่ตัวอักษรที่มองไม่เห็นใน URL",
+        f2: "ตรวจสอบโดเมนด้วยฐานข้อมูลภัยคุกคามแบบออฟไลน์",
+        f3: "รวดเร็วและเน้นความเป็นส่วนตัว",
+        f4: "ช่วยปกป้องครอบครัว ทีม และลูกค้า",
+        studioTitle: "หน้าสตูดิโอแอปของคุณ",
+        studioText: "ใช้หน้าแลนดิ้งนี้เป็นศูนย์กลางทราฟฟิก เพิ่มแอป ลิงก์โซเชียล และช่องทางช่วยเหลือ",
+        moreApps: "ดูแอปทั้งหมด",
+        donate: "สนับสนุน / บริจาค",
+        galleryTitle: "แกลเลอรีภาพหน้าจอ 4K",
+        gallerySubtitle: "เพิ่มภาพพรีเมียมสำหรับธีมมืด สว่าง และทุกธีมสี",
+        shotDark: "ธีมมืด",
+        shotLight: "ธีมสว่าง",
+        shotRoyal: "ธีม Royal Gold",
+        shotRobot: "ธีม Robot Buddy",
+        shotObsidian: "ธีม Obsidian Titan",
+        shotEmerald: "ธีม Emerald Vault",
+        shotHint: "ไฟล์:",
+        langLabel: "ภาษา",
+        langAria: "เลือกภาษา",
+        pageTagline: "ความปลอดภัยลิงก์ใน 2 วินาที"
+      },
+      pl: {
+        subtitle: "Sprawdź link w 2 sekundy przed otwarciem. Chroń się przed phishingiem i oszustwami.",
+        appStore: "Pobierz w App Store",
+        googlePlay: "Pobierz w Google Play",
+        appGallery: "Zobacz w AppGallery",
+        storeHint: "Przed publikacją podmień linki zastępcze.",
+        whyTitle: "Dlaczego ludzie wybierają GlyphGuard",
+        f1: "Wykrywa niewidoczną podmianę znaków w URL",
+        f2: "Sprawdza domeny z offline'ową bazą zagrożeń",
+        f3: "Działa szybko i stawia na prywatność",
+        f4: "Pomaga chronić rodzinę, zespół i klientów",
+        studioTitle: "Strona Twojego studia",
+        studioText: "Użyj tego landing page jako centrum ruchu: dodaj aplikacje, social media i kanały wsparcia.",
+        moreApps: "Zobacz wszystkie aplikacje",
+        donate: "Wesprzyj / Darowizna",
+        galleryTitle: "Galeria zrzutów 4K",
+        gallerySubtitle: "Dodaj premium zrzuty dla motywu ciemnego, jasnego i wszystkich kolorów.",
+        shotDark: "Motyw ciemny",
+        shotLight: "Motyw jasny",
+        shotRoyal: "Motyw Royal Gold",
+        shotRobot: "Motyw Robot Buddy",
+        shotObsidian: "Motyw Obsidian Titan",
+        shotEmerald: "Motyw Emerald Vault",
+        shotHint: "Plik:",
+        langLabel: "Język",
+        langAria: "Wybierz język",
+        pageTagline: "Bezpieczeństwo linków w 2 sekundy"
+      },
+      nl: {
+        subtitle: "Controleer links in 2 seconden voordat je ze opent. Blijf veilig tegen phishing en oplichting.",
+        appStore: "Download in App Store",
+        googlePlay: "Download via Google Play",
+        appGallery: "Bekijk op AppGallery",
+        storeHint: "Vervang voorbeeldlinks vóór publicatie.",
+        whyTitle: "Waarom mensen GlyphGuard gebruiken",
+        f1: "Detecteert onzichtbare tekenvervanging in URL's",
+        f2: "Controleert domeinen met een offline dreigingsdatabase",
+        f3: "Snel en privacygericht",
+        f4: "Helpt familie, team en klanten beschermen",
+        studioTitle: "Pagina van je studio",
+        studioText: "Gebruik deze landingspagina als verkeershub: voeg apps, social links en supportkanalen toe.",
+        moreApps: "Alle apps bekijken",
+        donate: "Steunen / Doneren",
+        galleryTitle: "4K screenshotgalerij",
+        gallerySubtitle: "Voeg premium screenshots toe voor donkere, lichte en alle kleurthema's.",
+        shotDark: "Donker thema",
+        shotLight: "Licht thema",
+        shotRoyal: "Royal Gold thema",
+        shotRobot: "Robot Buddy thema",
+        shotObsidian: "Obsidian Titan thema",
+        shotEmerald: "Emerald Vault thema",
+        shotHint: "Bestand:",
+        langLabel: "Taal",
+        langAria: "Kies taal",
+        pageTagline: "Linkveiligheid in 2 seconden"
+      },
+      sv: {
+        subtitle: "Kontrollera länkar på 2 sekunder innan du öppnar dem. Skydda dig mot phishing och bedrägerier.",
+        appStore: "Ladda ner på App Store",
+        googlePlay: "Hämta på Google Play",
+        appGallery: "Utforska på AppGallery",
+        storeHint: "Byt ut platshållarlänkar innan publicering.",
+        whyTitle: "Varför människor använder GlyphGuard",
+        f1: "Upptäcker osynlig teckenersättning i URL:er",
+        f2: "Kontrollerar domäner mot en offline-hotdatabas",
+        f3: "Snabb och integritetsfokuserad",
+        f4: "Hjälper till att skydda familj, team och kunder",
+        studioTitle: "Din studiosida",
+        studioText: "Använd denna landing som trafikhubb: lägg till appar, sociala länkar och supportkanaler.",
+        moreApps: "Se alla appar",
+        donate: "Stöd / Donera",
+        galleryTitle: "4K skärmbildsgalleri",
+        gallerySubtitle: "Lägg till premiumbilder för mörkt, ljust och alla färgteman.",
+        shotDark: "Mörkt tema",
+        shotLight: "Ljust tema",
+        shotRoyal: "Royal Gold-tema",
+        shotRobot: "Robot Buddy-tema",
+        shotObsidian: "Obsidian Titan-tema",
+        shotEmerald: "Emerald Vault-tema",
+        shotHint: "Fil:",
+        langLabel: "Språk",
+        langAria: "Välj språk",
+        pageTagline: "Länksäkerhet på 2 sekunder"
+      },
+      no: {
+        subtitle: "Sjekk lenker på 2 sekunder før du åpner dem. Beskytt deg mot phishing og svindel.",
+        appStore: "Last ned i App Store",
+        googlePlay: "Få den på Google Play",
+        appGallery: "Utforsk i AppGallery",
+        storeHint: "Bytt ut plassholderlenker før publisering.",
+        whyTitle: "Hvorfor folk bruker GlyphGuard",
+        f1: "Oppdager usynlig tegnsubstitusjon i URL-er",
+        f2: "Sjekker domener mot en offline trusseldatabase",
+        f3: "Rask og personvernvennlig",
+        f4: "Hjelper å beskytte familie, team og kunder",
+        studioTitle: "Din studioside",
+        studioText: "Bruk denne landingssiden som trafikkhub: legg til apper, sosiale lenker og supportkanaler.",
+        moreApps: "Se alle apper",
+        donate: "Støtt / Doner",
+        galleryTitle: "4K skjermbildegalleri",
+        gallerySubtitle: "Legg til premiumbilder for mørk, lys og alle fargetemaer.",
+        shotDark: "Mørkt tema",
+        shotLight: "Lyst tema",
+        shotRoyal: "Royal Gold-tema",
+        shotRobot: "Robot Buddy-tema",
+        shotObsidian: "Obsidian Titan-tema",
+        shotEmerald: "Emerald Vault-tema",
+        shotHint: "Fil:",
+        langLabel: "Språk",
+        langAria: "Velg språk",
+        pageTagline: "Lenkesikkerhet på 2 sekunder"
+      },
+      da: {
+        subtitle: "Tjek links på 2 sekunder før du åbner dem. Beskyt dig mod phishing og svindel.",
+        appStore: "Download i App Store",
+        googlePlay: "Hent på Google Play",
+        appGallery: "Udforsk på AppGallery",
+        storeHint: "Udskift eksempel-links før publicering.",
+        whyTitle: "Hvorfor folk bruger GlyphGuard",
+        f1: "Registrerer usynlig tegnudskiftning i URL'er",
+        f2: "Kontrollerer domæner mod en offline trusselsdatabase",
+        f3: "Hurtig og privacy-først",
+        f4: "Hjælper med at beskytte familie, team og kunder",
+        studioTitle: "Din studioside",
+        studioText: "Brug denne landing som trafik-hub: tilføj apps, sociale links og supportkanaler.",
+        moreApps: "Se alle apps",
+        donate: "Støt / Donér",
+        galleryTitle: "4K screenshot-galleri",
+        gallerySubtitle: "Tilføj premiumbilleder til mørkt, lyst og alle farvetemaer.",
+        shotDark: "Mørkt tema",
+        shotLight: "Lyst tema",
+        shotRoyal: "Royal Gold tema",
+        shotRobot: "Robot Buddy tema",
+        shotObsidian: "Obsidian Titan tema",
+        shotEmerald: "Emerald Vault tema",
+        shotHint: "Fil:",
+        langLabel: "Sprog",
+        langAria: "Vælg sprog",
+        pageTagline: "Linksikkerhed på 2 sekunder"
+      },
+      cs: {
+        subtitle: "Zkontrolujte odkaz za 2 sekundy před otevřením. Chraňte se před phishingem a podvody.",
+        appStore: "Stáhnout v App Store",
+        googlePlay: "Získat na Google Play",
+        appGallery: "Prozkoumat v AppGallery",
+        storeHint: "Před publikací nahraďte zástupné odkazy.",
+        whyTitle: "Proč lidé používají GlyphGuard",
+        f1: "Odhalí neviditelnou záměnu znaků v URL",
+        f2: "Kontroluje domény proti offline databázi hrozeb",
+        f3: "Rychlý a s důrazem na soukromí",
+        f4: "Pomáhá chránit rodinu, tým i zákazníky",
+        studioTitle: "Stránka vašeho studia",
+        studioText: "Použijte tento landing jako centrum návštěvnosti: přidejte aplikace, sociální odkazy a podporu.",
+        moreApps: "Zobrazit všechny aplikace",
+        donate: "Podpořit / Darovat",
+        galleryTitle: "Galerie snímků 4K",
+        gallerySubtitle: "Přidejte prémiové screenshoty pro tmavý, světlý a všechny barevné motivy.",
+        shotDark: "Tmavý motiv",
+        shotLight: "Světlý motiv",
+        shotRoyal: "Motiv Royal Gold",
+        shotRobot: "Motiv Robot Buddy",
+        shotObsidian: "Motiv Obsidian Titan",
+        shotEmerald: "Motiv Emerald Vault",
+        shotHint: "Soubor:",
+        langLabel: "Jazyk",
+        langAria: "Vyberte jazyk",
+        pageTagline: "Bezpečnost odkazů za 2 sekundy"
+      },
+      ro: {
+        subtitle: "Verifică linkurile în 2 secunde înainte de deschidere. Protejează-te de phishing și fraude.",
+        appStore: "Descarcă din App Store",
+        googlePlay: "Disponibil pe Google Play",
+        appGallery: "Explorează pe AppGallery",
+        storeHint: "Înlocuiește linkurile placeholder înainte de publicare.",
+        whyTitle: "De ce oamenii folosesc GlyphGuard",
+        f1: "Detectează substituția invizibilă de caractere în URL-uri",
+        f2: "Verifică domeniile cu o bază de amenințări offline",
+        f3: "Rapid și orientat spre confidențialitate",
+        f4: "Ajută la protejarea familiei, echipei și clienților",
+        studioTitle: "Pagina studioului tău",
+        studioText: "Folosește acest landing ca hub central: adaugă aplicațiile, linkurile sociale și canalele de suport.",
+        moreApps: "Vezi toate aplicațiile",
+        donate: "Susține / Donează",
+        galleryTitle: "Galerie capturi 4K",
+        gallerySubtitle: "Adaugă capturi premium pentru temă întunecată, luminoasă și toate culorile.",
+        shotDark: "Temă întunecată",
+        shotLight: "Temă luminoasă",
+        shotRoyal: "Temă Royal Gold",
+        shotRobot: "Temă Robot Buddy",
+        shotObsidian: "Temă Obsidian Titan",
+        shotEmerald: "Temă Emerald Vault",
+        shotHint: "Fișier:",
+        langLabel: "Limbă",
+        langAria: "Alege limba",
+        pageTagline: "Siguranța linkurilor în 2 secunde"
+      },
+      hu: {
+        subtitle: "Ellenőrizd a linkeket 2 másodperc alatt megnyitás előtt. Védd magad az adathalászat és csalások ellen.",
+        appStore: "Letöltés az App Store-ból",
+        googlePlay: "Elérhető a Google Playen",
+        appGallery: "Felfedezés az AppGalleryben",
+        storeHint: "Publikálás előtt cseréld a helykitöltő linkeket.",
+        whyTitle: "Miért használják a GlyphGuardot",
+        f1: "Észleli a láthatatlan karaktercserét az URL-ekben",
+        f2: "Offline fenyegetési adatbázissal ellenőrzi a domaineket",
+        f3: "Gyors és adatvédelem-központú",
+        f4: "Segít védeni a családot, csapatot és ügyfeleket",
+        studioTitle: "A stúdiód oldala",
+        studioText: "Használd ezt a landing oldalt forgalmi központként: add hozzá appjaidat, social linkjeidet és támogatási csatornáidat.",
+        moreApps: "Összes alkalmazás",
+        donate: "Támogatás / Adomány",
+        galleryTitle: "4K képernyőkép galéria",
+        gallerySubtitle: "Adj hozzá prémium képeket sötét, világos és minden színtémához.",
+        shotDark: "Sötét téma",
+        shotLight: "Világos téma",
+        shotRoyal: "Royal Gold téma",
+        shotRobot: "Robot Buddy téma",
+        shotObsidian: "Obsidian Titan téma",
+        shotEmerald: "Emerald Vault téma",
+        shotHint: "Fájl:",
+        langLabel: "Nyelv",
+        langAria: "Nyelv kiválasztása",
+        pageTagline: "Linkbiztonság 2 másodperc alatt"
+      },
+      fa: {
+        subtitle: "لینک‌ها را در ۲ ثانیه پیش از باز کردن بررسی کنید و از فیشینگ و کلاهبرداری در امان بمانید.",
+        appStore: "دانلود از App Store",
+        googlePlay: "دریافت از Google Play",
+        appGallery: "مشاهده در AppGallery",
+        storeHint: "قبل از انتشار، لینک‌های نمونه را جایگزین کنید.",
+        whyTitle: "چرا کاربران GlyphGuard را انتخاب می‌کنند",
+        f1: "جایگزینی نامرئی کاراکترها در URL را تشخیص می‌دهد",
+        f2: "دامنه‌ها را با پایگاه تهدید آفلاین بررسی می‌کند",
+        f3: "سریع و حریم‌خصوصی‌محور",
+        f4: "به محافظت از خانواده، تیم و مشتریان کمک می‌کند",
+        studioTitle: "صفحه استودیوی شما",
+        studioText: "از این لندینگ به‌عنوان هاب مرکزی استفاده کنید: اپ‌ها، لینک‌های اجتماعی و کانال‌های پشتیبانی را اضافه کنید.",
+        moreApps: "همه برنامه‌ها",
+        donate: "حمایت / کمک مالی",
+        galleryTitle: "گالری اسکرین‌شات 4K",
+        gallerySubtitle: "اسکرین‌شات‌های باکیفیت برای حالت تیره، روشن و همه تم‌های رنگی اضافه کنید.",
+        shotDark: "تم تیره",
+        shotLight: "تم روشن",
+        shotRoyal: "تم Royal Gold",
+        shotRobot: "تم Robot Buddy",
+        shotObsidian: "تم Obsidian Titan",
+        shotEmerald: "تم Emerald Vault",
+        shotHint: "فایل:",
+        langLabel: "زبان",
+        langAria: "انتخاب زبان",
+        pageTagline: "امنیت لینک در ۲ ثانیه"
+      },
+      ms: {
+        subtitle: "Periksa pautan dalam 2 saat sebelum dibuka. Kekal selamat daripada phishing dan penipuan.",
+        appStore: "Muat turun di App Store",
+        googlePlay: "Dapatkan di Google Play",
+        appGallery: "Teroka di AppGallery",
+        storeHint: "Gantikan pautan contoh sebelum diterbitkan.",
+        whyTitle: "Mengapa orang pilih GlyphGuard",
+        f1: "Mengesan penggantian aksara tidak kelihatan dalam URL",
+        f2: "Menyemak domain dengan pangkalan ancaman luar talian",
+        f3: "Pantas dan mengutamakan privasi",
+        f4: "Membantu melindungi keluarga, pasukan dan pelanggan",
+        studioTitle: "Halaman studio aplikasi anda",
+        studioText: "Gunakan landing ini sebagai hab trafik utama. Tambah aplikasi, pautan sosial dan saluran sokongan.",
+        moreApps: "Lihat semua aplikasi",
+        donate: "Sokong / Derma",
+        galleryTitle: "Galeri tangkapan skrin 4K",
+        gallerySubtitle: "Tambah tangkapan premium untuk tema gelap, cerah dan semua tema warna.",
+        shotDark: "Tema gelap",
+        shotLight: "Tema cerah",
+        shotRoyal: "Tema Royal Gold",
+        shotRobot: "Tema Robot Buddy",
+        shotObsidian: "Tema Obsidian Titan",
+        shotEmerald: "Tema Emerald Vault",
+        shotHint: "Fail:",
+        langLabel: "Bahasa",
+        langAria: "Pilih bahasa",
+        pageTagline: "Keselamatan pautan dalam 2 saat"
+      }
+    };
+
+    const COPY = APP_LANGS.reduce((acc, lang) => {
+      const localized = LOCALIZED_COPY[lang] || {};
+      acc[lang] = {
+        ...EN_COPY,
+        ...localized,
+        title: "GlyphGuard",
+        footer: "© 2026 GlyphGuard · Voldirex"
+      };
+      return acc;
+    }, { en: EN_COPY });
+
+    function normalizeLang(raw) {
+      if (!raw || typeof raw !== "string") return "en";
+      const normalized = raw.trim().toLowerCase();
+      if (!normalized) return "en";
+      if (APP_LANGS.includes(normalized)) return normalized;
+      const base = normalized.split("-")[0];
+      return APP_LANGS.includes(base) ? base : "en";
+    }
+
+    function detectLang() {
+      const fromQueryRaw = new URLSearchParams(window.location.search).get("lang");
+      if (fromQueryRaw) {
+        return normalizeLang(fromQueryRaw);
+      }
+      return normalizeLang(navigator.language || "en");
+    }
+
+    function setHref(id, href) {
+      const node = document.getElementById(id);
+      if (!node) return;
+      node.href = href;
+      const isPlaceholder = typeof href === "string" && href.includes("YOUR_");
+      node.classList.toggle("disabled", isPlaceholder);
+    }
+
+    async function applyRemoteServiceLinks() {
+      const endpoint = String(SERVICE_LINKS_CONFIG_URL || "").trim();
+      if (!endpoint) return;
+
+      try {
+        const response = await fetch(endpoint, { method: "GET", headers: { accept: "application/json" } });
+        if (!response.ok) return;
+        const payload = await response.json().catch(() => null);
+        const remoteLinks = payload && payload.links && typeof payload.links === "object" ? payload.links : null;
+        if (!remoteLinks) return;
+
+        for (const key of Object.keys(STORE_LINKS)) {
+          const remoteValue = String(remoteLinks[key] || "").trim();
+          if (remoteValue) STORE_LINKS[key] = remoteValue;
+        }
+      } catch {
+        // keep local fallback links when remote config is unavailable
+      }
+    }
+
+    function setMetaContent(id, value) {
+      const el = document.getElementById(id);
+      if (!el || !value) return;
+      el.setAttribute("content", value);
+    }
+
+    function applyLandingIconTargets() {
+      const iconTargets = ["faviconPng", "shortcutFavicon", "appleTouchIcon"];
+      const useLocalIcon = window.location.protocol === "file:";
+      const iconHref = useLocalIcon ? LANDING_ICON_LOCAL : LANDING_ICON_ABS;
+
+      iconTargets.forEach((id) => {
+        const node = document.getElementById(id);
+        if (node) node.setAttribute("href", iconHref);
+      });
+
+      const logoImage = document.getElementById("logoImage");
+      if (logoImage) {
+        logoImage.setAttribute("src", LANDING_ICON_LOCAL);
+      }
+    }
+
+    function applyLang(lang) {
+      const selectedLang = normalizeLang(lang);
+      const dict = COPY[selectedLang] || COPY.en;
+
+      const langSelect = document.getElementById("langSelect");
+      if (langSelect) {
+        langSelect.value = selectedLang;
+        langSelect.setAttribute("aria-label", dict.langAria || dict.langLabel || "Language");
+      }
+
+      const langNameBadge = document.getElementById("langNameBadge");
+      if (langNameBadge) {
+        langNameBadge.textContent = LANG_LABELS[selectedLang] || dict.langLabel || selectedLang.toUpperCase();
+      }
+
+      const langPicker = document.querySelector(".lang-picker");
+      if (langPicker) {
+        langPicker.setAttribute("title", dict.langAria || dict.langLabel || "Language");
+      }
+
+      document.documentElement.lang = selectedLang;
+      document.documentElement.dir = RTL_LANGS.has(selectedLang) ? "rtl" : "ltr";
+      document.title = `${dict.title} - ${dict.pageTagline || COPY.en.pageTagline}`;
+      setMetaContent("metaDescription", dict.subtitle);
+      setMetaContent("metaOgDescription", dict.subtitle);
+      setMetaContent("metaTwitterDescription", dict.subtitle);
+
+      document.querySelectorAll("[data-i18n]").forEach((node) => {
+        const key = node.getAttribute("data-i18n");
+        if (dict[key]) node.textContent = dict[key];
+      });
+
+      const next = new URL(window.location.href);
+      next.searchParams.set("lang", selectedLang);
+      window.history.replaceState({}, "", next.toString());
+    }
+
+    function buildLangSelector(selected) {
+      const langSelect = document.getElementById("langSelect");
+      if (!langSelect) return;
+
+      langSelect.innerHTML = "";
+
+      APP_LANGS.forEach((lang) => {
+        const option = document.createElement("option");
+        option.value = lang;
+        option.textContent = LANG_LABELS[lang] || lang.toUpperCase();
+        langSelect.appendChild(option);
+      });
+
+      langSelect.value = selected;
+      langSelect.addEventListener("change", (event) => {
+        applyLang(event.target.value);
+      });
+    }
+
+    function initGalleryCarousel() {
+      const track = document.getElementById("galleryTrack");
+      if (!track) return;
+
+      const sourceCards = Array.from(track.querySelectorAll(".shot-card"));
+      if (sourceCards.length === 0) return;
+
+      const canLoopSeamlessly = sourceCards.length > 1;
+      if (canLoopSeamlessly) {
+        const firstClone = sourceCards[0].cloneNode(true);
+        firstClone.setAttribute("data-clone", "after");
+        const lastClone = sourceCards[sourceCards.length - 1].cloneNode(true);
+        lastClone.setAttribute("data-clone", "before");
+        track.appendChild(firstClone);
+        track.insertBefore(lastClone, track.firstChild);
+      }
+
+      const cards = Array.from(track.querySelectorAll(".shot-card"));
+
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const firstRealIndex = canLoopSeamlessly ? 1 : 0;
+      const lastRealIndex = canLoopSeamlessly ? cards.length - 2 : cards.length - 1;
+      let activeIndex = firstRealIndex;
+      let autoTimer = null;
+      let rafId = null;
+      let settleTimer = null;
+
+      function normalizeIndex(index) {
+        if (!canLoopSeamlessly) return index;
+        if (index <= 0) return lastRealIndex;
+        if (index >= cards.length - 1) return firstRealIndex;
+        return index;
+      }
+
+      function updateActiveCard() {
+        const rect = track.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+
+        let nearestIndex = 0;
+        let nearestDistance = Number.POSITIVE_INFINITY;
+
+        cards.forEach((card, index) => {
+          const cardRect = card.getBoundingClientRect();
+          const cardCenter = cardRect.left + cardRect.width / 2;
+          const distance = Math.abs(cardCenter - centerX);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearestIndex = index;
+          }
+        });
+
+        activeIndex = nearestIndex;
+        const activeRealIndex = normalizeIndex(nearestIndex);
+        cards.forEach((card, index) => {
+          card.classList.toggle("is-active", normalizeIndex(index) === activeRealIndex);
+        });
+      }
+
+      function settleLoopEdges() {
+        if (!canLoopSeamlessly) return;
+        if (activeIndex <= 0) {
+          activeIndex = lastRealIndex;
+          scrollToCard(activeIndex, "auto");
+          queueUpdate();
+          return;
+        }
+        if (activeIndex >= cards.length - 1) {
+          activeIndex = firstRealIndex;
+          scrollToCard(activeIndex, "auto");
+          queueUpdate();
+        }
+      }
+
+      function queueUpdate() {
+        if (rafId) return;
+        rafId = window.requestAnimationFrame(() => {
+          rafId = null;
+          updateActiveCard();
+
+          if (settleTimer) window.clearTimeout(settleTimer);
+          settleTimer = window.setTimeout(() => {
+            settleLoopEdges();
+          }, 90);
+        });
+      }
+
+      function scrollToCard(index, behavior = "smooth") {
+        const target = cards[index];
+        if (!target) return;
+        const left = target.offsetLeft - (track.clientWidth - target.offsetWidth) / 2;
+        track.scrollTo({ left: Math.max(0, left), behavior });
+      }
+
+      function stopAuto() {
+        if (!autoTimer) return;
+        window.clearInterval(autoTimer);
+        autoTimer = null;
+      }
+
+      function startAuto() {
+        if (prefersReducedMotion || cards.length < 2) return;
+        stopAuto();
+        autoTimer = window.setInterval(() => {
+          const nextIndex = activeIndex + 1;
+          activeIndex = nextIndex;
+          scrollToCard(nextIndex, "smooth");
+        }, 3200);
+      }
+
+      track.addEventListener("scroll", queueUpdate, { passive: true });
+      track.addEventListener("pointerenter", stopAuto);
+      track.addEventListener("pointerleave", startAuto);
+      track.addEventListener("touchstart", stopAuto, { passive: true });
+      track.addEventListener("touchend", startAuto);
+      window.addEventListener("resize", queueUpdate);
+
+      cards.forEach((card, index) => {
+        card.addEventListener("click", () => {
+          activeIndex = normalizeIndex(index);
+          scrollToCard(activeIndex);
+          queueUpdate();
+        });
+      });
+
+      scrollToCard(firstRealIndex, "auto");
+      updateActiveCard();
+      startAuto();
+    }
+
+    (async () => {
+      await applyRemoteServiceLinks();
+
+      setHref("appStoreLink", STORE_LINKS.appStore);
+      setHref("googlePlayLink", STORE_LINKS.googlePlay);
+      setHref("appGalleryLink", STORE_LINKS.appGallery);
+      setHref("moreAppsLink", STORE_LINKS.moreApps);
+      setHref("donateLink", STORE_LINKS.donate);
+      setHref("donateFooterLink", STORE_LINKS.donate);
+
+      const selected = detectLang();
+      applyLandingIconTargets();
+      buildLangSelector(selected);
+      applyLang(selected);
+      initGalleryCarousel();
+    })();
+  </script>
+</body>
+</html>
