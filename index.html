@@ -678,6 +678,16 @@
     </footer>
   </main>
 
+  <div class="modal-backdrop" id="donateModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="donateModalTitle" aria-describedby="donateModalBody">
+      <h3 id="donateModalTitle"></h3>
+      <p id="donateModalBody"></p>
+      <div class="modal-actions">
+        <button class="modal-close" id="donateModalClose" type="button">OK</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const STORE_LINKS = {
       appStore: "https://apps.apple.com/app/glyphguard/id6740001394",
@@ -1596,9 +1606,29 @@
       node.classList.remove("disabled");
     }
 
-    function showDonateCardSoon(lang) {
+    function updateDonateModalCopy(lang) {
       const dict = COPY[normalizeLang(lang)] || COPY.en;
-      window.alert(dict.donateCardSoon || COPY.en.donateCardSoon);
+      const title = document.getElementById("donateModalTitle");
+      const body = document.getElementById("donateModalBody");
+      const closeButton = document.getElementById("donateModalClose");
+      if (title) title.textContent = dict.donateCard || COPY.en.donateCard;
+      if (body) body.textContent = dict.donateCardSoon || COPY.en.donateCardSoon;
+      if (closeButton) closeButton.textContent = "OK";
+    }
+
+    function closeDonateModal() {
+      const modal = document.getElementById("donateModal");
+      if (!modal) return;
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    function showDonateCardSoon(lang) {
+      updateDonateModalCopy(lang);
+      const modal = document.getElementById("donateModal");
+      if (!modal) return;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
     }
 
     async function applyRemoteServiceLinks() {
@@ -1674,6 +1704,8 @@
         const key = node.getAttribute("data-i18n");
         if (dict[key]) node.textContent = dict[key];
       });
+
+      updateDonateModalCopy(selectedLang);
 
       const next = new URL(window.location.href);
       next.searchParams.set("lang", selectedLang);
@@ -1854,6 +1886,20 @@
       setupDonateToggle("donateFooterToggle", "donateFooterMenu");
       document.addEventListener("click", () => {
         document.querySelectorAll(".donate-menu.open").forEach(m => m.classList.remove("open"));
+      });
+
+      const donateModal = document.getElementById("donateModal");
+      const donateModalClose = document.getElementById("donateModalClose");
+      if (donateModal) {
+        donateModal.addEventListener("click", (event) => {
+          if (event.target === donateModal) closeDonateModal();
+        });
+      }
+      if (donateModalClose) {
+        donateModalClose.addEventListener("click", closeDonateModal);
+      }
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeDonateModal();
       });
 
       ["donateCardButton", "donateCardFooterButton"].forEach((id) => {
