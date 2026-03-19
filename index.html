@@ -256,6 +256,7 @@
       background: var(--card);
       padding: 16px;
       animation: fadeSlide 550ms ease;
+      overflow: visible;
     }
 
     .panel h2 {
@@ -290,12 +291,58 @@
       font-size: 13px;
       font-weight: 700;
       transition: all 0.16s ease;
+      background: none;
+      cursor: pointer;
     }
 
     .ghost-btn:hover {
       background: rgba(247, 198, 78, 0.12);
       border-color: rgba(247, 198, 78, 0.8);
     }
+
+    .donate-wrap {
+      position: relative;
+      display: inline-block;
+    }
+    .donate-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-panel);
+      border: 1px solid rgba(247, 198, 78, 0.3);
+      border-radius: 12px;
+      padding: 6px;
+      min-width: 180px;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .donate-menu.menu-up {
+      top: auto;
+      bottom: calc(100% + 6px);
+    }
+    .donate-menu.open { display: flex; flex-direction: column; gap: 4px; }
+    .donate-menu a,
+    .donate-menu button {
+      display: block;
+      padding: 8px 14px;
+      border-radius: 8px;
+      color: var(--gold-2);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: background 0.14s;
+      background: none;
+      border: 0;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .donate-menu a:hover,
+    .donate-menu button:hover { background: rgba(247, 198, 78, 0.12); }
 
     .muted {
       color: var(--text-dim);
@@ -442,6 +489,10 @@
       font-size: 12px;
       font-weight: 600;
       transition: color 0.16s ease;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
     }
 
     .footer-link:hover {
@@ -600,7 +651,13 @@
         <p class="muted" data-i18n="studioText"></p>
         <div class="links-row">
           <a class="ghost-btn" id="moreAppsLink" href="#" target="_blank" rel="noopener noreferrer" data-i18n="moreApps"></a>
-          <a class="ghost-btn" id="donateLink" href="#" target="_blank" rel="noopener noreferrer" data-i18n="donate"></a>
+          <div class="donate-wrap">
+            <button class="ghost-btn" id="donateToggle" type="button" data-i18n="donate"></button>
+            <div class="donate-menu" id="donateMenu">
+              <a id="donateCryptoLink" href="#" target="_blank" rel="noopener noreferrer" data-i18n="donateCrypto">₿ Crypto</a>
+              <button id="donateCardButton" type="button" data-i18n="donateCardSoon">💳 Card — coming soon</button>
+            </div>
+          </div>
         </div>
       </article>
     </section>
@@ -610,7 +667,13 @@
       <div class="footer-links">
         <a class="footer-link" href="./privacy-policy.html" id="privacyPolicyLink" data-i18n="privacyPolicy">Privacy Policy</a>
         <a class="footer-link" href="mailto:glyphguard.app@gmail.com" data-i18n="contactUs">Write to developer</a>
-        <a class="footer-link" href="#" id="donateFooterLink" target="_blank" rel="noopener noreferrer" data-i18n="donate">Support / Donate</a>
+        <div class="donate-wrap">
+          <button class="footer-link" id="donateFooterToggle" type="button" data-i18n="donate">Support / Donate</button>
+          <div class="donate-menu menu-up" id="donateFooterMenu">
+            <a id="donateCryptoFooterLink" href="#" target="_blank" rel="noopener noreferrer" data-i18n="donateCrypto">₿ Crypto</a>
+            <button id="donateCardFooterButton" type="button" data-i18n="donateCardSoon">💳 Card — coming soon</button>
+          </div>
+        </div>
       </div>
     </footer>
   </main>
@@ -618,10 +681,12 @@
   <script>
     const STORE_LINKS = {
       appStore: "https://apps.apple.com/app/glyphguard/id6740001394",
-      googlePlay: "YOUR_GOOGLE_PLAY_URL",
-      appGallery: "YOUR_APPGALLERY_URL",
+      googlePlay: "https://play.google.com/store/apps/details?id=com.glyphguard.offline",
+      appGallery: "",
       moreApps: "https://github.com/glyphguardapp-ctrl",
-      donate: "mailto:glyphguard.app@gmail.com?subject=GlyphGuard%20Support"
+      donate: "mailto:glyphguard.app@gmail.com?subject=GlyphGuard%20Support",
+      donateCrypto: "https://nowpayments.io/donation/glyphguard",
+      privacyPolicy: "https://docs.google.com/document/d/1FBk5u0gWrLRw8Td5uDySeHvomkLmElonlIJVVXLsg28/edit?usp=sharing"
     };
     const SERVICE_LINKS_CONFIG_URL = "https://glyphguard-threat-lookup.glyphguard-app.workers.dev/public/service-links";
 
@@ -654,6 +719,9 @@
       studioText: "Use this landing as your central traffic hub. Add your next apps, social links, and support channels.",
       moreApps: "See all apps",
       donate: "Support / Donate",
+      donateCrypto: "₿ Crypto",
+      donateCard: "💳 Card",
+      donateCardSoon: "💳 Card — coming soon",
       galleryTitle: "4K screenshot gallery",
       gallerySubtitle: "Upload premium screenshots for dark, light, and all color themes. These slots are ready for App Store / Play listing quality.",
       shotDark: "Dark theme",
@@ -689,7 +757,9 @@
         studioText: "Используйте этот лендинг как единый центр трафика: добавляйте новые приложения, соцсети и поддержку.",
         moreApps: "Все приложения",
         donate: "Поддержать / Донат",
-        galleryTitle: "Галерея скриншотов 4K",
+        donateCrypto: "₿ Крипто",
+        donateCard: "💳 Карта",
+        donateCardSoon: "💳 Карта — скоро",
         gallerySubtitle: "Загрузите премиальные скриншоты для тёмной, светлой и всех цветовых тем.",
         shotDark: "Тёмная тема",
         shotLight: "Светлая тема",
@@ -719,7 +789,9 @@
         studioText: "Використовуйте цей лендинг як єдиний центр трафіку: додавайте нові застосунки, соцмережі й підтримку.",
         moreApps: "Усі застосунки",
         donate: "Підтримати / Донат",
-        galleryTitle: "Галерея скріншотів 4K",
+        donateCrypto: "₿ Крипто",
+        donateCard: "💳 Картка",
+        donateCardSoon: "💳 Картка — незабаром",
         gallerySubtitle: "Додайте преміальні скріншоти для темної, світлої та всіх кольорових тем.",
         shotDark: "Темна тема",
         shotLight: "Світла тема",
@@ -749,7 +821,9 @@
         studioText: "将此落地页作为流量中心，添加你的应用、社交链接和支持渠道。",
         moreApps: "查看全部应用",
         donate: "支持 / 捐赠",
-        galleryTitle: "4K 截图画廊",
+        donateCrypto: "₿ 加密货币",
+        donateCard: "💳 银行卡",
+        donateCardSoon: "💳 银行卡 — 即将推出",
         gallerySubtitle: "上传深色、浅色及所有彩色主题的高质量截图。",
         shotDark: "深色主题",
         shotLight: "浅色主题",
@@ -779,7 +853,9 @@
         studioText: "Usa este landing como centro de tráfico: añade tus apps, redes y canales de soporte.",
         moreApps: "Ver todas las apps",
         donate: "Apoyar / Donar",
-        galleryTitle: "Galería de capturas 4K",
+        donateCrypto: "₿ Cripto",
+        donateCard: "💳 Tarjeta",
+        donateCardSoon: "💳 Tarjeta — próximamente",
         gallerySubtitle: "Sube capturas premium para tema oscuro, claro y todos los temas de color.",
         shotDark: "Tema oscuro",
         shotLight: "Tema claro",
@@ -809,7 +885,9 @@
         studioText: "Utilisez cette page comme hub central : ajoutez vos apps, réseaux sociaux et supports.",
         moreApps: "Voir toutes les apps",
         donate: "Soutenir / Faire un don",
-        galleryTitle: "Galerie de captures 4K",
+        donateCrypto: "₿ Crypto",
+        donateCard: "💳 Carte",
+        donateCardSoon: "💳 Carte — bientôt",
         gallerySubtitle: "Ajoutez des captures premium pour les thèmes sombre, clair et colorés.",
         shotDark: "Thème sombre",
         shotLight: "Thème clair",
@@ -839,7 +917,9 @@
         studioText: "استخدم هذه الصفحة كمركز لحركة المرور وأضف تطبيقاتك وروابطك الاجتماعية وقنوات الدعم.",
         moreApps: "كل التطبيقات",
         donate: "الدعم / التبرع",
-        galleryTitle: "معرض لقطات 4K",
+        donateCrypto: "₿ عملة رقمية",
+        donateCard: "💳 بطاقة",
+        donateCardSoon: "💳 بطاقة — قريبًا",
         gallerySubtitle: "أضف لقطات عالية الجودة للوضع الداكن والفاتح وكل السمات اللونية.",
         shotDark: "الوضع الداكن",
         shotLight: "الوضع الفاتح",
@@ -869,7 +949,9 @@
         studioText: "Use esta landing como hub central: adicione seus apps, redes sociais e canais de suporte.",
         moreApps: "Ver todos os apps",
         donate: "Apoiar / Doar",
-        galleryTitle: "Galeria de screenshots 4K",
+        donateCrypto: "₿ Cripto",
+        donateCard: "💳 Cartão",
+        donateCardSoon: "💳 Cartão — em breve",
         gallerySubtitle: "Adicione capturas premium para tema escuro, claro e todas as cores.",
         shotDark: "Tema escuro",
         shotLight: "Tema claro",
@@ -899,7 +981,9 @@
         studioText: "Nutze diese Landingpage als Traffic-Hub: füge Apps, Social Links und Support-Kanäle hinzu.",
         moreApps: "Alle Apps ansehen",
         donate: "Unterstützen / Spenden",
-        galleryTitle: "4K-Screenshot-Galerie",
+        donateCrypto: "₿ Krypto",
+        donateCard: "💳 Karte",
+        donateCardSoon: "💳 Karte — bald verfügbar",
         gallerySubtitle: "Füge Premium-Screenshots für Dark, Light und alle Farbthemen hinzu.",
         shotDark: "Dunkles Thema",
         shotLight: "Helles Thema",
@@ -927,7 +1011,9 @@
         studioText: "इस लैंडिंग को अपना ट्रैफिक हब बनाएं: ऐप्स, सोशल लिंक और सपोर्ट चैनल जोड़ें।",
         moreApps: "सभी ऐप्स देखें",
         donate: "सपोर्ट / डोनेट",
-        galleryTitle: "4K स्क्रीनशॉट गैलरी",
+        donateCrypto: "₿ क्रिप्टो",
+        donateCard: "💳 कार्ड",
+        donateCardSoon: "💳 कार्ड — जल्द ही",
         gallerySubtitle: "डार्क, लाइट और सभी कलर थीम के लिए प्रीमियम स्क्रीनशॉट जोड़ें।",
         shotDark: "डार्क थीम",
         shotLight: "लाइट थीम",
@@ -957,7 +1043,9 @@
         studioText: "이 랜딩을 트래픽 허브로 사용하고 앱, 소셜 링크, 지원 채널을 추가하세요.",
         moreApps: "모든 앱 보기",
         donate: "후원 / 기부",
-        galleryTitle: "4K 스크린샷 갤러리",
+        donateCrypto: "₿ 암호화폐",
+        donateCard: "💳 카드",
+        donateCardSoon: "💳 카드 — 곧 출시",
         gallerySubtitle: "다크/라이트 및 모든 컬러 테마용 프리미엄 스크린샷을 추가하세요.",
         shotDark: "다크 테마",
         shotLight: "라이트 테마",
@@ -987,7 +1075,9 @@
         studioText: "このランディングをトラフィックハブとして使い、アプリやSNS、サポートリンクを追加できます。",
         moreApps: "すべてのアプリを見る",
         donate: "サポート / 寄付",
-        galleryTitle: "4Kスクリーンショットギャラリー",
+        donateCrypto: "₿ 暗号通貨",
+        donateCard: "💳 カード",
+        donateCardSoon: "💳 カード — 近日公開",
         gallerySubtitle: "ダーク・ライト・全カラーテーマ向けの高品質スクリーンショットを追加してください。",
         shotDark: "ダークテーマ",
         shotLight: "ライトテーマ",
@@ -1015,7 +1105,9 @@
         studioText: "Usa questa landing come hub centrale: aggiungi app, social e canali di supporto.",
         moreApps: "Vedi tutte le app",
         donate: "Supporta / Dona",
-        galleryTitle: "Galleria screenshot 4K",
+        donateCrypto: "₿ Cripto",
+        donateCard: "💳 Carta",
+        donateCardSoon: "💳 Carta — in arrivo",
         gallerySubtitle: "Aggiungi screenshot premium per tema scuro, chiaro e tutte le varianti colore.",
         shotDark: "Tema scuro",
         shotLight: "Tema chiaro",
@@ -1043,7 +1135,9 @@
         studioText: "Bu landing'i trafik merkezi olarak kullanın: uygulamalarınızı, sosyal linkleri ve destek kanallarını ekleyin.",
         moreApps: "Tüm uygulamalar",
         donate: "Destek / Bağış",
-        galleryTitle: "4K ekran görüntüsü galerisi",
+        donateCrypto: "₿ Kripto",
+        donateCard: "💳 Kart",
+        donateCardSoon: "💳 Kart — yakında",
         gallerySubtitle: "Koyu, açık ve tüm renk temaları için premium ekran görüntüleri ekleyin.",
         shotDark: "Koyu tema",
         shotLight: "Açık tema",
@@ -1071,6 +1165,9 @@
         studioText: "Gunakan landing ini sebagai pusat trafik. Tambahkan aplikasi, tautan sosial, dan kanal dukungan.",
         moreApps: "Lihat semua aplikasi",
         donate: "Dukung / Donasi",
+        donateCrypto: "₿ Kripto",
+        donateCard: "💳 Kartu",
+        donateCardSoon: "💳 Kartu — segera hadir",
         galleryTitle: "Galeri screenshot 4K",
         gallerySubtitle: "Tambahkan screenshot premium untuk mode gelap, terang, dan semua tema warna.",
         shotDark: "Tema gelap",
@@ -1099,6 +1196,9 @@
         studioText: "Dùng landing này làm trung tâm lưu lượng: thêm ứng dụng, liên kết mạng xã hội và kênh hỗ trợ.",
         moreApps: "Xem tất cả ứng dụng",
         donate: "Ủng hộ / Quyên góp",
+        donateCrypto: "₿ Tiền mã hóa",
+        donateCard: "💳 Thẻ",
+        donateCardSoon: "💳 Thẻ — sắp ra mắt",
         galleryTitle: "Thư viện ảnh chụp 4K",
         gallerySubtitle: "Thêm ảnh premium cho giao diện tối, sáng và mọi chủ đề màu.",
         shotDark: "Chủ đề tối",
@@ -1127,6 +1227,9 @@
         studioText: "ใช้หน้าแลนดิ้งนี้เป็นศูนย์กลางทราฟฟิก เพิ่มแอป ลิงก์โซเชียล และช่องทางช่วยเหลือ",
         moreApps: "ดูแอปทั้งหมด",
         donate: "สนับสนุน / บริจาค",
+        donateCrypto: "₿ คริปโต",
+        donateCard: "💳 บัตร",
+        donateCardSoon: "💳 บัตร — เร็วๆ นี้",
         galleryTitle: "แกลเลอรีภาพหน้าจอ 4K",
         gallerySubtitle: "เพิ่มภาพพรีเมียมสำหรับธีมมืด สว่าง และทุกธีมสี",
         shotDark: "ธีมมืด",
@@ -1155,6 +1258,9 @@
         studioText: "Użyj tego landing page jako centrum ruchu: dodaj aplikacje, social media i kanały wsparcia.",
         moreApps: "Zobacz wszystkie aplikacje",
         donate: "Wesprzyj / Darowizna",
+        donateCrypto: "₿ Krypto",
+        donateCard: "💳 Karta",
+        donateCardSoon: "💳 Karta — wkrótce",
         galleryTitle: "Galeria zrzutów 4K",
         gallerySubtitle: "Dodaj premium zrzuty dla motywu ciemnego, jasnego i wszystkich kolorów.",
         shotDark: "Motyw ciemny",
@@ -1183,6 +1289,9 @@
         studioText: "Gebruik deze landingspagina als verkeershub: voeg apps, social links en supportkanalen toe.",
         moreApps: "Alle apps bekijken",
         donate: "Steunen / Doneren",
+        donateCrypto: "₿ Crypto",
+        donateCard: "💳 Kaart",
+        donateCardSoon: "💳 Kaart — binnenkort",
         galleryTitle: "4K screenshotgalerij",
         gallerySubtitle: "Voeg premium screenshots toe voor donkere, lichte en alle kleurthema's.",
         shotDark: "Donker thema",
@@ -1211,6 +1320,9 @@
         studioText: "Använd denna landing som trafikhubb: lägg till appar, sociala länkar och supportkanaler.",
         moreApps: "Se alla appar",
         donate: "Stöd / Donera",
+        donateCrypto: "₿ Krypto",
+        donateCard: "💳 Kort",
+        donateCardSoon: "💳 Kort — kommer snart",
         galleryTitle: "4K skärmbildsgalleri",
         gallerySubtitle: "Lägg till premiumbilder för mörkt, ljust och alla färgteman.",
         shotDark: "Mörkt tema",
@@ -1239,6 +1351,9 @@
         studioText: "Bruk denne landingssiden som trafikkhub: legg til apper, sosiale lenker og supportkanaler.",
         moreApps: "Se alle apper",
         donate: "Støtt / Doner",
+        donateCrypto: "₿ Krypto",
+        donateCard: "💳 Kort",
+        donateCardSoon: "💳 Kort — kommer snart",
         galleryTitle: "4K skjermbildegalleri",
         gallerySubtitle: "Legg til premiumbilder for mørk, lys og alle fargetemaer.",
         shotDark: "Mørkt tema",
@@ -1267,6 +1382,9 @@
         studioText: "Brug denne landing som trafik-hub: tilføj apps, sociale links og supportkanaler.",
         moreApps: "Se alle apps",
         donate: "Støt / Donér",
+        donateCrypto: "₿ Krypto",
+        donateCard: "💳 Kort",
+        donateCardSoon: "💳 Kort — kommer snart",
         galleryTitle: "4K screenshot-galleri",
         gallerySubtitle: "Tilføj premiumbilleder til mørkt, lyst og alle farvetemaer.",
         shotDark: "Mørkt tema",
@@ -1295,6 +1413,9 @@
         studioText: "Použijte tento landing jako centrum návštěvnosti: přidejte aplikace, sociální odkazy a podporu.",
         moreApps: "Zobrazit všechny aplikace",
         donate: "Podpořit / Darovat",
+        donateCrypto: "₿ Krypto",
+        donateCard: "💳 Karta",
+        donateCardSoon: "💳 Karta — brzy",
         galleryTitle: "Galerie snímků 4K",
         gallerySubtitle: "Přidejte prémiové screenshoty pro tmavý, světlý a všechny barevné motivy.",
         shotDark: "Tmavý motiv",
@@ -1323,6 +1444,9 @@
         studioText: "Folosește acest landing ca hub central: adaugă aplicațiile, linkurile sociale și canalele de suport.",
         moreApps: "Vezi toate aplicațiile",
         donate: "Susține / Donează",
+        donateCrypto: "₿ Cripto",
+        donateCard: "💳 Card",
+        donateCardSoon: "💳 Card — în curând",
         galleryTitle: "Galerie capturi 4K",
         gallerySubtitle: "Adaugă capturi premium pentru temă întunecată, luminoasă și toate culorile.",
         shotDark: "Temă întunecată",
@@ -1351,6 +1475,9 @@
         studioText: "Használd ezt a landing oldalt forgalmi központként: add hozzá appjaidat, social linkjeidet és támogatási csatornáidat.",
         moreApps: "Összes alkalmazás",
         donate: "Támogatás / Adomány",
+        donateCrypto: "₿ Kripto",
+        donateCard: "💳 Kártya",
+        donateCardSoon: "💳 Kártya — hamarosan",
         galleryTitle: "4K képernyőkép galéria",
         gallerySubtitle: "Adj hozzá prémium képeket sötét, világos és minden színtémához.",
         shotDark: "Sötét téma",
@@ -1379,6 +1506,9 @@
         studioText: "از این لندینگ به‌عنوان هاب مرکزی استفاده کنید: اپ‌ها، لینک‌های اجتماعی و کانال‌های پشتیبانی را اضافه کنید.",
         moreApps: "همه برنامه‌ها",
         donate: "حمایت / کمک مالی",
+        donateCrypto: "₿ رمزارز",
+        donateCard: "💳 کارت",
+        donateCardSoon: "💳 کارت — به‌زودی",
         galleryTitle: "گالری اسکرین‌شات 4K",
         gallerySubtitle: "اسکرین‌شات‌های باکیفیت برای حالت تیره، روشن و همه تم‌های رنگی اضافه کنید.",
         shotDark: "تم تیره",
@@ -1407,6 +1537,9 @@
         studioText: "Gunakan landing ini sebagai hab trafik utama. Tambah aplikasi, pautan sosial dan saluran sokongan.",
         moreApps: "Lihat semua aplikasi",
         donate: "Sokong / Derma",
+        donateCrypto: "₿ Kripto",
+        donateCard: "💳 Kad",
+        donateCardSoon: "💳 Kad — akan datang",
         galleryTitle: "Galeri tangkapan skrin 4K",
         gallerySubtitle: "Tambah tangkapan premium untuk tema gelap, cerah dan semua tema warna.",
         shotDark: "Tema gelap",
@@ -1453,9 +1586,19 @@
     function setHref(id, href) {
       const node = document.getElementById(id);
       if (!node) return;
+      const isPlaceholder = !href || href === "#" || (typeof href === "string" && href.includes("YOUR_"));
+      if (isPlaceholder) {
+        node.style.display = "none";
+        return;
+      }
       node.href = href;
-      const isPlaceholder = typeof href === "string" && href.includes("YOUR_");
-      node.classList.toggle("disabled", isPlaceholder);
+      node.style.display = "";
+      node.classList.remove("disabled");
+    }
+
+    function showDonateCardSoon(lang) {
+      const dict = COPY[normalizeLang(lang)] || COPY.en;
+      window.alert(dict.donateCardSoon || COPY.en.donateCardSoon);
     }
 
     async function applyRemoteServiceLinks() {
@@ -1692,8 +1835,35 @@
       setHref("googlePlayLink", STORE_LINKS.googlePlay);
       setHref("appGalleryLink", STORE_LINKS.appGallery);
       setHref("moreAppsLink", STORE_LINKS.moreApps);
-      setHref("donateLink", STORE_LINKS.donate);
-      setHref("donateFooterLink", STORE_LINKS.donate);
+      setHref("donateCryptoLink", STORE_LINKS.donateCrypto);
+      setHref("donateCryptoFooterLink", STORE_LINKS.donateCrypto);
+      setHref("privacyPolicyLink", STORE_LINKS.privacyPolicy);
+
+      // donate dropdowns
+      function setupDonateToggle(btnId, menuId) {
+        const btn = document.getElementById(btnId);
+        const menu = document.getElementById(menuId);
+        if (!btn || !menu) return;
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          document.querySelectorAll(".donate-menu.open").forEach(m => { if (m !== menu) m.classList.remove("open"); });
+          menu.classList.toggle("open");
+        });
+      }
+      setupDonateToggle("donateToggle", "donateMenu");
+      setupDonateToggle("donateFooterToggle", "donateFooterMenu");
+      document.addEventListener("click", () => {
+        document.querySelectorAll(".donate-menu.open").forEach(m => m.classList.remove("open"));
+      });
+
+      ["donateCardButton", "donateCardFooterButton"].forEach((id) => {
+        const button = document.getElementById(id);
+        if (!button) return;
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          showDonateCardSoon(document.documentElement.lang || detectLang());
+        });
+      });
 
       const selected = detectLang();
       applyLandingIconTargets();

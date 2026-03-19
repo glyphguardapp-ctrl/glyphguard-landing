@@ -1,17 +1,44 @@
 {
-  "generatedAt": "2026-03-19T13:47:49.514Z",
+  "generatedAt": "2026-03-19T14:05:54.072Z",
   "sourceRoot": "/Users/mac/Documents/myProject/3337/GlyphGuard",
   "outputDir": "/Users/mac/Documents/myProject/3337/GlyphGuard/dist/public-landing",
   "requiredEntries": [
-    "index.html",
-    "privacy-policy.html",
-    "adaptive-icon.png",
-    "bg-1024.png",
-    "fon_1024x1024.png",
-    "icon-512.png",
-    "icon.png",
-    "landing/store-buttons.html",
-    "landing/store-buttons-en.html"
+    {
+      "source": "landing/github-pages/index.html",
+      "destination": "index.html"
+    },
+    {
+      "source": "privacy-policy.html",
+      "destination": "privacy-policy.html"
+    },
+    {
+      "source": "adaptive-icon.png",
+      "destination": "adaptive-icon.png"
+    },
+    {
+      "source": "bg-1024.png",
+      "destination": "bg-1024.png"
+    },
+    {
+      "source": "fon_1024x1024.png",
+      "destination": "fon_1024x1024.png"
+    },
+    {
+      "source": "icon-512.png",
+      "destination": "icon-512.png"
+    },
+    {
+      "source": "icon.png",
+      "destination": "icon.png"
+    },
+    {
+      "source": "landing/store-buttons.html",
+      "destination": "store-buttons.html"
+    },
+    {
+      "source": "landing/store-buttons-en.html",
+      "destination": "store-buttons-en.html"
+    }
   ],
   "optionalEntries": [
     {
