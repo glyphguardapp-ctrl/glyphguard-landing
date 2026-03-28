@@ -1,0 +1,14 @@
+# GlyphGuard
+
+> GlyphGuard is a mobile app that detects homoglyph phishing, suspicious domains, and scam links with offline-first analysis.
+
+/ : Main landing page for GlyphGuard. Includes app description, quick facts, FAQ, store links, and screenshots.
+/privacy-policy.html : Privacy policy for GlyphGuard, including offline-first analysis and limited network use for threat updates and optional online checks.
+
+## Key entities
+
+- Product: GlyphGuard
+- Type: Mobile security and utility app
+- Platforms: iOS, Android
+- Main use cases: homoglyph phishing detection, suspicious links, scam pages, risky domains, QR content review
+- Contact: glyphguard.app@gmail.com

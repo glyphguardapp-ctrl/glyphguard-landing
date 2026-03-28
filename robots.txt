@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://glyphguardapp-ctrl.github.io/glyphguard-landing/sitemap.xml

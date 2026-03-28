@@ -10,6 +10,7 @@ Recommended repository model:
 Before publishing:
 - replace `YOUR_PUBLIC_ICON_URL` in `store-buttons.html` and `store-buttons-en.html`
 - configure your actual store links in `index.html` if placeholders are still present
+- validate `llms.txt`, `robots.txt`, and `sitemap.xml` after the final public URL is live
 - make sure your GitHub Pages or other public hosting URL is final
 
 Optional assets copied:

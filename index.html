@@ -1,16 +1,20 @@
-<!doctype html>
+к<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GlyphGuard - Link safety in 2 seconds</title>
-  <meta id="metaDescription" name="description" content="Check links before opening. Download GlyphGuard on App Store, Google Play, and AppGallery." />
+  <title>GlyphGuard - Homoglyph phishing detector for links and text</title>
+  <meta id="metaDescription" name="description" content="Detect homoglyph phishing, suspicious domains, and scam links in 2 seconds. Offline-first mobile app for iPhone and Android." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://glyphguardapp-ctrl.github.io/glyphguard-landing/" />
   <meta property="og:title" content="GlyphGuard" />
-  <meta id="metaOgDescription" property="og:description" content="Check links before opening. Download GlyphGuard." />
+  <meta id="metaOgDescription" property="og:description" content="Detect homoglyph phishing, suspicious domains, and scam links in 2 seconds." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://glyphguardapp-ctrl.github.io/glyphguard-landing/" />
+  <meta property="og:site_name" content="GlyphGuard" />
   <meta property="og:image" content="./icon-512.png?v=5" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta id="metaTwitterDescription" name="twitter:description" content="Check links before opening. Download GlyphGuard." />
+  <meta id="metaTwitterDescription" name="twitter:description" content="Detect homoglyph phishing, suspicious domains, and scam links in 2 seconds." />
   <meta name="twitter:image" content="./icon-512.png?v=5" />
   <meta name="theme-color" content="#0f1629" />
   <link id="faviconPng" rel="icon" type="image/png" href="./icon-512.png?v=5" />
@@ -19,6 +23,96 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://glyphguardapp-ctrl.github.io/glyphguard-landing/#organization",
+          "name": "GlyphGuard",
+          "url": "https://glyphguardapp-ctrl.github.io/glyphguard-landing/",
+          "logo": "https://glyphguardapp-ctrl.github.io/glyphguard-landing/icon-512.png",
+          "email": "mailto:glyphguard.app@gmail.com"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://glyphguardapp-ctrl.github.io/glyphguard-landing/#website",
+          "url": "https://glyphguardapp-ctrl.github.io/glyphguard-landing/",
+          "name": "GlyphGuard",
+          "publisher": {
+            "@id": "https://glyphguardapp-ctrl.github.io/glyphguard-landing/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://glyphguardapp-ctrl.github.io/glyphguard-landing/#app",
+          "name": "GlyphGuard",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "iOS, Android",
+          "description": "GlyphGuard detects homoglyph phishing, suspicious domains, and scam links with offline-first analysis and optional online threat checks.",
+          "url": "https://glyphguardapp-ctrl.github.io/glyphguard-landing/",
+          "image": "https://glyphguardapp-ctrl.github.io/glyphguard-landing/icon-512.png",
+          "publisher": {
+            "@id": "https://glyphguardapp-ctrl.github.io/glyphguard-landing/#organization"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "downloadUrl": [
+            "https://apps.apple.com/app/glyphguard/id6740001394",
+            "https://play.google.com/store/apps/details?id=com.glyphguard.offline"
+          ],
+          "featureList": [
+            "Detects suspicious look-alike characters in links and text",
+            "Offline-first character analysis on device",
+            "Threat database support for known risky domains",
+            "Optional online URL reputation checks"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://glyphguardapp-ctrl.github.io/glyphguard-landing/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What does GlyphGuard detect?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "GlyphGuard helps detect homoglyph phishing, suspicious look-alike characters, risky domains, and scam links in text, URLs, QR content, and similar inputs."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does GlyphGuard work offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Core character analysis is offline-first and runs on the device. Some threat intelligence and URL reputation features need internet access."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does GlyphGuard send my text to a server?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Core local analysis stays on the device. Network requests are used only for threat database updates and optional online checks."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where can I download GlyphGuard?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "GlyphGuard is available on the App Store and Google Play. Huawei AppGallery can be added when the public release is ready there."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  </script>
   <style>
     :root {
       --bg-1: #0f1629;
@@ -236,10 +330,66 @@
     }
 
     .hint {
-      margin-top: 10px;
-      font-size: 12px;
-      color: #ffdf9e;
+      display: none;
+    }
+
+    .shot-note {
+      display: none;
+    }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .modal-card {
+      background: var(--bg-2, #1a2644);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 18px;
+      padding: 28px 24px 20px;
+      max-width: 360px;
+      width: 90%;
       text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      animation: fadeSlide 300ms ease;
+    }
+    .modal-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+    .modal-card p {
+      margin: 0 0 18px;
+      color: var(--text-dim);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+    }
+    .modal-close {
+      padding: 8px 32px;
+      border-radius: 12px;
+      border: 1px solid rgba(247, 198, 78, 0.4);
+      background: rgba(247, 198, 78, 0.12);
+      color: var(--gold-2);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.14s;
+    }
+    .modal-close:hover {
+      background: rgba(247, 198, 78, 0.22);
     }
 
     .grid {
@@ -263,6 +413,81 @@
       margin: 0 0 10px;
       font-size: 18px;
       letter-spacing: -0.01em;
+    }
+
+    .facts-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
+    .facts-table th,
+    .facts-table td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .facts-table th {
+      width: 42%;
+      color: var(--gold-2);
+      font-weight: 700;
+      padding-right: 14px;
+    }
+
+    .facts-table td {
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+
+    .steps {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--text-dim);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .steps li + li {
+      margin-top: 8px;
+    }
+
+    .faq-panel {
+      margin-top: 14px;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .faq-item {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      background: rgba(10, 18, 39, 0.42);
+      padding: 12px 14px;
+    }
+
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item p {
+      margin: 10px 0 0;
+      color: var(--text-dim);
+      font-size: 14px;
+      line-height: 1.6;
     }
 
     .features {
@@ -509,11 +734,89 @@
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
+  
+    /* --- PREMIUM REDESIGN INJECTIONS --- */
+    body {
+      background: linear-gradient(135deg, #090c14, #12182b, #090c14);
+      background-attachment: fixed;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    
+    h1, h2, h3 {
+      background: linear-gradient(to right, #f7c64e, #fff, #f7c64e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0px 4px 20px rgba(247, 198, 78, 0.2);
+    }
+    
+    .card, .faq-container {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+      border-radius: var(--radius, 18px);
+    }
+    
+    .card:hover, .faq-item:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 60px -15px rgba(247, 198, 78, 0.2);
+      border-color: rgba(247, 198, 78, 0.3);
+    }
+
+    button, .store-button {
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    
+    button::after, .store-button::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(transparent, rgba(255,255,255,0.15), transparent);
+      transform: rotate(45deg) translateY(-100%);
+      transition: all 0.6s ease;
+    }
+    
+    button:hover::after, .store-button:hover::after {
+      transform: rotate(45deg) translateY(100%);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes floatDrop {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .animate-up {
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+    
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    
+    .hero-icon {
+      animation: floatDrop 6s ease-in-out infinite;
+    }
+
   </style>
 </head>
 <body>
   <main class="page">
-    <section class="hero">
+    <section class="hero animate-up">
       <div class="hero-lang">
         <label class="lang-picker" for="langSelect" title="Language">
           <span id="langNameBadge" class="lang-name" aria-hidden="true">English</span>
@@ -558,7 +861,7 @@
       <div class="hint" data-i18n="storeHint"></div>
     </section>
 
-    <section class="panel gallery">
+    <section class="panel gallery animate-up">
       <div class="gallery-head">
         <h2 data-i18n="galleryTitle"></h2>
         <p class="muted" data-i18n="gallerySubtitle"></p>
@@ -635,7 +938,7 @@
       </div>
     </section>
 
-    <section class="grid">
+    <section class="grid animate-up">
       <article class="panel span6">
         <h2 data-i18n="whyTitle"></h2>
         <ul class="features">
@@ -660,6 +963,66 @@
           </div>
         </div>
       </article>
+    </section>
+
+    <section class="grid animate-up">
+      <article class="panel span6">
+        <h2 data-i18n="factsTitle"></h2>
+        <p class="muted" data-i18n="factsSubtitle"></p>
+        <table class="facts-table">
+          <tbody>
+            <tr>
+              <th data-i18n="factsCoreLabel"></th>
+              <td data-i18n="factsCoreValue"></td>
+            </tr>
+            <tr>
+              <th data-i18n="factsThreatLabel"></th>
+              <td data-i18n="factsThreatValue"></td>
+            </tr>
+            <tr>
+              <th data-i18n="factsPlatformsLabel"></th>
+              <td data-i18n="factsPlatformsValue"></td>
+            </tr>
+            <tr>
+              <th data-i18n="factsUseCasesLabel"></th>
+              <td data-i18n="factsUseCasesValue"></td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="panel span6">
+        <h2 data-i18n="workflowTitle"></h2>
+        <p class="muted" data-i18n="workflowSubtitle"></p>
+        <ol class="steps">
+          <li data-i18n="workflowStep1"></li>
+          <li data-i18n="workflowStep2"></li>
+          <li data-i18n="workflowStep3"></li>
+        </ol>
+      </article>
+    </section>
+
+    <section class="panel faq-panel animate-up">
+      <h2 data-i18n="faqTitle"></h2>
+      <p class="muted" data-i18n="faqSubtitle"></p>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary data-i18n="faq1Q"></summary>
+          <p data-i18n="faq1A"></p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq2Q"></summary>
+          <p data-i18n="faq2A"></p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq3Q"></summary>
+          <p data-i18n="faq3A"></p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq4Q"></summary>
+          <p data-i18n="faq4A"></p>
+        </details>
+      </div>
     </section>
 
     <footer class="footer">
@@ -696,7 +1059,7 @@
       moreApps: "https://github.com/glyphguardapp-ctrl",
       donate: "mailto:glyphguard.app@gmail.com?subject=GlyphGuard%20Support",
       donateCrypto: "https://nowpayments.io/donation/glyphguard",
-      privacyPolicy: "https://docs.google.com/document/d/1FBk5u0gWrLRw8Td5uDySeHvomkLmElonlIJVVXLsg28/edit?usp=sharing"
+      privacyPolicy: "https://glyphguardapp-ctrl.github.io/glyphguard-landing/privacy-policy.html"
     };
     const SERVICE_LINKS_CONFIG_URL = "https://glyphguard-threat-lookup.glyphguard-app.workers.dev/public/service-links";
 
@@ -715,7 +1078,7 @@
 
     const EN_COPY = {
       title: "GlyphGuard",
-      subtitle: "Check links in 2 seconds before opening. Stay safe from phishing and scam pages.",
+      subtitle: "Detect homoglyph phishing, suspicious domains, and scam links in 2 seconds before opening.",
       appStore: "Download on App Store",
       googlePlay: "Get it on Google Play",
       appGallery: "Explore on AppGallery",
@@ -741,9 +1104,34 @@
       shotObsidian: "Obsidian Titan theme",
       shotEmerald: "Emerald Vault theme",
       shotHint: "File:",
+      factsTitle: "Quick facts",
+      factsSubtitle: "A compact product summary for users, search engines, and AI assistants.",
+      factsCoreLabel: "Core analysis",
+      factsCoreValue: "On-device character checks for suspicious look-alike symbols",
+      factsThreatLabel: "Threat intelligence",
+      factsThreatValue: "Offline threat database with optional online URL reputation checks",
+      factsPlatformsLabel: "Platforms",
+      factsPlatformsValue: "iPhone and Android",
+      factsUseCasesLabel: "Best for",
+      factsUseCasesValue: "Phishing links, suspicious domains, QR content, and copied text",
+      workflowTitle: "How GlyphGuard works",
+      workflowSubtitle: "Short, explicit steps are easier for both people and AI systems to understand.",
+      workflowStep1: "Paste or share a link, domain, text snippet, or QR content into GlyphGuard.",
+      workflowStep2: "The app checks for homoglyph substitutions, suspicious character mixes, and known risky domains.",
+      workflowStep3: "You get a fast verdict before opening the link or trusting the text.",
+      faqTitle: "FAQ",
+      faqSubtitle: "Answers to the questions people and AI assistants are most likely to ask about GlyphGuard.",
+      faq1Q: "What does GlyphGuard detect?",
+      faq1A: "GlyphGuard helps detect homoglyph phishing, suspicious look-alike characters, risky domains, and scam links in text, URLs, QR content, and similar inputs.",
+      faq2Q: "Does GlyphGuard work offline?",
+      faq2A: "Yes. Core character analysis is offline-first and runs on your device. Some threat intelligence and URL reputation checks need internet access.",
+      faq3Q: "Does GlyphGuard send my text to a server?",
+      faq3A: "Core local analysis stays on your device. Network access is used for threat database updates and optional online checks.",
+      faq4Q: "Where can I download GlyphGuard?",
+      faq4A: "GlyphGuard is available on the App Store and Google Play. Huawei AppGallery can be enabled when the public release is ready there.",
       langLabel: "Language",
       langAria: "Choose language",
-      pageTagline: "Link safety in 2 seconds",
+      pageTagline: "Homoglyph phishing detection in 2 seconds",
       footer: "© 2026 GlyphGuard · Voldirex",
       privacyPolicy: "Privacy Policy",
       contactUs: "Write to developer"
@@ -753,7 +1141,7 @@
       ru: {
         privacyPolicy: "Политика конфиденциальности",
         contactUs: "Написать разработчику",
-        subtitle: "Проверяйте ссылки за 2 секунды до открытия. Защититесь от фишинга и мошеннических страниц.",
+        subtitle: "Находите гомоглифный фишинг, подозрительные домены и мошеннические ссылки за 2 секунды до открытия.",
         appStore: "Скачать в App Store",
         googlePlay: "Открыть в Google Play",
         appGallery: "Открыть в AppGallery",
@@ -778,9 +1166,34 @@
         shotObsidian: "Тема Obsidian Titan",
         shotEmerald: "Тема Emerald Vault",
         shotHint: "Файл:",
+        factsTitle: "Коротко о продукте",
+        factsSubtitle: "Сжатое описание приложения для пользователей, поиска и AI-ассистентов.",
+        factsCoreLabel: "Основная проверка",
+        factsCoreValue: "Локальный анализ символов и поиск подозрительных похожих знаков",
+        factsThreatLabel: "Threat intelligence",
+        factsThreatValue: "Офлайн-база угроз и опциональные онлайн-проверки URL",
+        factsPlatformsLabel: "Платформы",
+        factsPlatformsValue: "iPhone и Android",
+        factsUseCasesLabel: "Подходит для",
+        factsUseCasesValue: "Фишинговых ссылок, подозрительных доменов, QR-контента и скопированного текста",
+        workflowTitle: "Как работает GlyphGuard",
+        workflowSubtitle: "Короткие понятные шаги лучше читаются и людьми, и нейросетями.",
+        workflowStep1: "Вставьте или поделитесь ссылкой, доменом, фрагментом текста или QR-контентом в GlyphGuard.",
+        workflowStep2: "Приложение проверит гомоглифные подмены, смешение алфавитов и известные рискованные домены.",
+        workflowStep3: "Вы получите быстрый вердикт до открытия ссылки или доверия к тексту.",
+        faqTitle: "FAQ",
+        faqSubtitle: "Ответы на вопросы, которые чаще всего задают пользователи и AI-ассистенты о GlyphGuard.",
+        faq1Q: "Что именно находит GlyphGuard?",
+        faq1A: "GlyphGuard помогает выявлять гомоглифный фишинг, подозрительные похожие символы, рискованные домены и мошеннические ссылки в тексте, URL и QR-контенте.",
+        faq2Q: "Работает ли GlyphGuard офлайн?",
+        faq2A: "Да. Основной анализ символов работает офлайн на устройстве. Для части threat intelligence и URL reputation проверок нужен интернет.",
+        faq3Q: "Отправляет ли GlyphGuard мой текст на сервер?",
+        faq3A: "Базовый локальный анализ остаётся на устройстве. Сетевой доступ используется только для обновлений threat-базы и опциональных онлайн-проверок.",
+        faq4Q: "Где скачать GlyphGuard?",
+        faq4A: "GlyphGuard доступен в App Store и Google Play. Huawei AppGallery можно включить, когда публичный релиз там будет готов.",
         langLabel: "Язык",
         langAria: "Выберите язык",
-        pageTagline: "Безопасность ссылок за 2 секунды"
+        pageTagline: "Проверка гомоглифного фишинга за 2 секунды"
       },
       uk: {
         privacyPolicy: "Політика конфіденційності",
@@ -1918,5 +2331,22 @@
       initGalleryCarousel();
     })();
   </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const elements = document.querySelectorAll('.animate-up, .card, .faq-item');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, idx) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-up');
+            entry.target.style.animationDelay = (idx * 0.1) + 's';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      elements.forEach(c => observer.observe(c));
+    });
+  </script>
 </body>
+
 </html>

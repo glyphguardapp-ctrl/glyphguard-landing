@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-19T14:11:03.782Z",
+  "generatedAt": "2026-03-28T12:25:16.632Z",
   "sourceRoot": "/Users/mac/Documents/myProject/3337/GlyphGuard",
   "outputDir": "/Users/mac/Documents/myProject/3337/GlyphGuard/dist/public-landing",
   "requiredEntries": [
@@ -8,8 +8,20 @@
       "destination": "index.html"
     },
     {
-      "source": "privacy-policy.html",
+      "source": "landing/github-pages/privacy-policy.html",
       "destination": "privacy-policy.html"
+    },
+    {
+      "source": "landing/github-pages/llms.txt",
+      "destination": "llms.txt"
+    },
+    {
+      "source": "landing/github-pages/robots.txt",
+      "destination": "robots.txt"
+    },
+    {
+      "source": "landing/github-pages/sitemap.xml",
+      "destination": "sitemap.xml"
     },
     {
       "source": "adaptive-icon.png",
