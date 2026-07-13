@@ -1,27 +1,13 @@
 {
-  "generatedAt": "2026-03-28T13:56:47.626Z",
-  "sourceRoot": "/Users/mac/Documents/myProject/3337/GlyphGuard",
-  "outputDir": "/Users/mac/Documents/myProject/3337/GlyphGuard/dist/public-landing",
+  "generatedAt": "2026-07-13T20:16:54.695Z",
   "requiredEntries": [
     {
       "source": "landing/github-pages/index.html",
       "destination": "index.html"
     },
     {
-      "source": "landing/github-pages/privacy-policy.html",
+      "source": "privacy-policy.html",
       "destination": "privacy-policy.html"
-    },
-    {
-      "source": "landing/github-pages/llms.txt",
-      "destination": "llms.txt"
-    },
-    {
-      "source": "landing/github-pages/robots.txt",
-      "destination": "robots.txt"
-    },
-    {
-      "source": "landing/github-pages/sitemap.xml",
-      "destination": "sitemap.xml"
     },
     {
       "source": "adaptive-icon.png",
@@ -54,7 +40,27 @@
   ],
   "optionalEntries": [
     {
-      "relativePath": "gallery",
+      "relativePath": "landing/github-pages/gallery/dark-theme-4k.png",
+      "status": "copied"
+    },
+    {
+      "relativePath": "landing/github-pages/gallery/light-theme-4k.png",
+      "status": "copied"
+    },
+    {
+      "relativePath": "landing/github-pages/gallery/royal-gold-4k.png",
+      "status": "copied"
+    },
+    {
+      "relativePath": "landing/github-pages/gallery/robot-buddy-4k.png",
+      "status": "copied"
+    },
+    {
+      "relativePath": "landing/github-pages/gallery/obsidian-titan-4k.png",
+      "status": "copied"
+    },
+    {
+      "relativePath": "landing/github-pages/gallery/emerald-vault-4k.png",
       "status": "copied"
     }
   ]

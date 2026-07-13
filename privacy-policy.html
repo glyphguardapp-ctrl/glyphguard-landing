@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GlyphGuard — Privacy Policy</title>
-  <meta name="description" content="Privacy Policy for GlyphGuard — Scam & Phishing Detector app." />
+  <title>GlyphGuard - Privacy Policy</title>
+  <meta
+    name="description"
+    content="Privacy Policy for GlyphGuard, an offline-first mobile app for suspicious link, domain, QR, text, and file checks."
+  />
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/png" href="./icon.png" />
   <link rel="shortcut icon" type="image/png" href="./icon.png" />
@@ -14,195 +17,282 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-1: #0f1629;
-      --bg-2: #1a2644;
+      --bg: #081222;
+      --bg-accent: #0f2344;
       --card: rgba(255, 255, 255, 0.08);
-      --card-border: rgba(255, 255, 255, 0.18);
-      --text: #f7f9ff;
-      --text-dim: #c6d0ee;
-      --gold: #f7c64e;
-      --gold-2: #ffdd80;
-      --accent-blue: #3f8cff;
-      --radius: 18px;
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
+      --card-strong: rgba(255, 255, 255, 0.12);
+      --border: rgba(255, 255, 255, 0.16);
+      --text: #f5f7ff;
+      --text-dim: #cad5f2;
+      --text-soft: rgba(245, 247, 255, 0.74);
+      --accent: #67d3ff;
+      --accent-2: #b0f472;
+      --warning: #ffd670;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+      --radius: 20px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      font-family: "Manrope", "Segoe UI", Arial, sans-serif;
-      color: var(--text);
-      background:
-        linear-gradient(160deg, rgba(7, 14, 36, 0.95), rgba(5, 10, 26, 0.97)),
-        radial-gradient(65vw 65vw at 50% 20%, rgba(38, 205, 255, 0.12) 0%, rgba(38, 205, 255, 0) 72%),
-        #0a1020;
       min-height: 100vh;
+      color: var(--text);
+      font-family: "Manrope", "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(90vw 70vw at 12% 8%, rgba(103, 211, 255, 0.18) 0%, rgba(103, 211, 255, 0) 60%),
+        radial-gradient(85vw 60vw at 92% 18%, rgba(176, 244, 114, 0.08) 0%, rgba(176, 244, 114, 0) 60%),
+        linear-gradient(180deg, var(--bg-accent), var(--bg));
+      padding: 24px 16px 56px;
       display: flex;
       justify-content: center;
-      padding: 28px 16px 56px;
     }
 
     .page {
       width: 100%;
-      max-width: 760px;
+      max-width: 840px;
     }
 
     .back-link {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      color: var(--gold-2);
+      gap: 8px;
+      color: var(--warning);
       text-decoration: none;
       font-size: 13px;
       font-weight: 700;
-      margin-bottom: 20px;
-      opacity: 0.85;
-      transition: opacity 0.16s ease;
+      margin-bottom: 18px;
     }
 
-    .back-link:hover { opacity: 1; }
+    .back-link:hover {
+      opacity: 0.92;
+    }
 
-    .back-arrow {
-      font-size: 16px;
-      line-height: 1;
+    .hero,
+    .panel {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
     }
 
     .hero {
-      border-radius: calc(var(--radius) + 6px);
       padding: 28px 24px 24px;
-      border: 1px solid var(--card-border);
-      background: linear-gradient(165deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.04));
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(7px);
-      margin-bottom: 20px;
-      animation: fadeSlide 450ms ease;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.04));
+      margin-bottom: 18px;
     }
 
     .hero-top {
       display: flex;
       align-items: center;
       gap: 14px;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
 
     .logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      flex: 0 0 48px;
-      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      flex: 0 0 52px;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.24));
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(22px, 4vw, 30px);
-      letter-spacing: -0.02em;
-      line-height: 1.1;
+      font-size: clamp(24px, 4vw, 34px);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
     }
 
-    .effective-date {
+    .hero-meta {
       margin: 6px 0 0;
-      font-size: 13px;
       color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    .hero-copy {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .summary-card {
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(8, 18, 34, 0.32);
+      padding: 14px;
+    }
+
+    .summary-title {
+      margin: 0 0 6px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .summary-card p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text-soft);
     }
 
     .panel {
-      border-radius: var(--radius);
-      border: 1px solid var(--card-border);
       background: var(--card);
-      padding: 20px 22px;
+      padding: 22px;
       margin-bottom: 14px;
-      animation: fadeSlide 500ms ease;
     }
 
     .panel h2 {
       margin: 0 0 12px;
-      font-size: 16px;
+      color: var(--warning);
+      font-size: 17px;
       font-weight: 800;
-      letter-spacing: -0.01em;
-      color: var(--gold-2);
+      letter-spacing: -0.02em;
+    }
+
+    .panel p,
+    .panel li {
+      color: var(--text-dim);
+      font-size: 14px;
+      line-height: 1.72;
     }
 
     .panel p {
-      margin: 0 0 10px;
-      font-size: 14px;
-      line-height: 1.65;
-      color: var(--text-dim);
+      margin: 0 0 12px;
     }
 
-    .panel p:last-child { margin-bottom: 0; }
+    .panel p:last-child {
+      margin-bottom: 0;
+    }
 
     .panel ul {
-      margin: 8px 0 10px;
+      margin: 10px 0 12px;
       padding-left: 20px;
-      color: var(--text-dim);
-      font-size: 14px;
-      line-height: 1.65;
     }
 
-    .panel ul li + li { margin-top: 5px; }
+    .panel li + li {
+      margin-top: 6px;
+    }
 
-    .panel a {
-      color: var(--gold-2);
+    .notice {
+      border-radius: 14px;
+      border: 1px solid rgba(103, 211, 255, 0.22);
+      background: rgba(103, 211, 255, 0.08);
+      padding: 14px 16px;
+      color: #d8f5ff;
+      margin-bottom: 12px;
+      font-size: 14px;
+      line-height: 1.68;
+    }
+
+    a {
+      color: var(--accent);
       text-decoration: none;
-      border-bottom: 1px solid rgba(247, 198, 78, 0.3);
-      transition: border-color 0.16s ease;
+      border-bottom: 1px solid rgba(103, 211, 255, 0.35);
     }
 
-    .panel a:hover {
-      border-color: var(--gold-2);
+    a:hover {
+      border-bottom-color: var(--accent);
     }
 
-    .highlight-box {
-      background: rgba(63, 140, 255, 0.08);
-      border: 1px solid rgba(63, 140, 255, 0.22);
-      border-radius: 12px;
-      padding: 12px 16px;
-      margin-bottom: 10px;
-      font-size: 14px;
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .table th,
+    .table td {
+      text-align: left;
+      padding: 12px 14px;
+      vertical-align: top;
+      font-size: 13px;
       line-height: 1.6;
-      color: #b8d4ff;
+    }
+
+    .table th {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .table td {
+      color: var(--text-dim);
+      background: rgba(255, 255, 255, 0.03);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .footer {
+      margin-top: 26px;
       text-align: center;
-      margin-top: 24px;
-      color: rgba(226, 232, 255, 0.55);
+      color: rgba(245, 247, 255, 0.56);
       font-size: 12px;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     .footer-links {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
+      flex-wrap: wrap;
       gap: 8px 16px;
       margin-top: 8px;
     }
 
     .footer-link {
-      color: rgba(247, 198, 78, 0.75);
-      text-decoration: none;
-      font-size: 12px;
+      color: rgba(255, 214, 112, 0.86);
+      border-bottom: none;
       font-weight: 600;
-      transition: color 0.16s ease;
     }
 
-    .footer-link:hover { color: var(--gold-2); }
+    @media (max-width: 640px) {
+      .hero,
+      .panel {
+        padding: 18px;
+      }
 
-    @keyframes fadeSlide {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+      .table,
+      .table tbody,
+      .table tr,
+      .table td,
+      .table th {
+        display: block;
+        width: 100%;
+      }
+
+      .table thead {
+        display: none;
+      }
+
+      .table td {
+        border-top: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
     }
   </style>
 </head>
 <body>
   <main class="page">
-
-    <a class="back-link" href="./index.html">
-      <span class="back-arrow">←</span>
-      <span>GlyphGuard</span>
+    <a class="back-link" href="./index.html" aria-label="Back to GlyphGuard">
+      <span>&larr;</span>
+      <span>Back to GlyphGuard</span>
     </a>
 
     <section class="hero">
@@ -210,98 +300,212 @@
         <img class="logo" src="./icon.png" alt="GlyphGuard icon" onerror="this.style.display='none'" />
         <div>
           <h1>Privacy Policy</h1>
-          <p class="effective-date">Effective date: March 28, 2026</p>
+          <p class="hero-meta">Effective date: May 4, 2026</p>
         </div>
       </div>
-      <div class="highlight-box">
-        This Privacy Policy applies to the <strong>GlyphGuard — Scam &amp; Phishing Detector</strong> mobile app, provided by <strong>Voldirex</strong>. GlyphGuard is built around offline-first analysis: the main character and text safety checks run on your device.
+      <p class="hero-copy">
+        GlyphGuard is an offline-first mobile app that helps people inspect suspicious links, domains, QR content,
+        text, and files before opening them. Core character and text analysis runs locally on the device. When a user
+        asks for online threat intelligence or reputation checks, the app may send limited request data to GlyphGuard
+        services and, when the final AI second-opinion stage is enabled, to an AI service provider selected by
+        GlyphGuard so the check can complete.
+      </p>
+
+      <div class="summary-grid">
+        <div class="summary-card">
+          <p class="summary-title">Local by default</p>
+          <p>Core text, character, and most history/settings processing stays on-device.</p>
+        </div>
+        <div class="summary-card">
+          <p class="summary-title">Online only when needed</p>
+          <p>Some URL, domain, reputation, abuse-protection, and optional AI second-opinion stages use GlyphGuard network services or service providers.</p>
+        </div>
+        <div class="summary-card">
+          <p class="summary-title">No ad tracking</p>
+          <p>GlyphGuard does not include advertising SDKs or third-party analytics inside security checks.</p>
+        </div>
       </div>
     </section>
 
     <article class="panel">
-      <h2>Overview</h2>
-      <p>GlyphGuard helps you inspect text, links, QR content, and similar inputs for suspicious look-alike characters, phishing patterns, and known threat indicators.</p>
-      <p>We do not require you to create an account to use the app. We do not sell personal data. We do not use third-party advertising SDKs inside the app.</p>
+      <h2>1. Who We Are</h2>
+      <p>
+        This Privacy Policy applies to the GlyphGuard mobile application and related threat-checking services operated
+        by Voldirex ("GlyphGuard", "we", "our", or "us").
+      </p>
+      <p>
+        Contact: <a href="mailto:glyphguard.app@gmail.com">glyphguard.app@gmail.com</a>
+      </p>
     </article>
 
     <article class="panel">
-      <h2>What Stays on Your Device</h2>
-      <p>Core analysis is designed to run locally on your device. This includes the character-level checks used to identify homoglyph and look-alike substitutions in text and links.</p>
+      <h2>2. Data We Process</h2>
+      <div class="notice">
+        We try to minimize what leaves the device. However, GlyphGuard is not a zero-network app when a user runs
+        online threat checks, downloads threat updates, triggers abuse-protection reporting, reaches the optional
+        AI second-opinion stage, or triggers the IPQS fallback after an uncertain AI result.
+      </div>
+      <table class="table" aria-label="Data processing summary">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Examples</th>
+            <th>Where it is processed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Local content</td>
+            <td>Text you paste, files you open, QR payloads, local history, settings</td>
+            <td>Mainly on your device</td>
+          </tr>
+          <tr>
+            <td>Online check requests</td>
+            <td>Domain or URL submitted for a reputation or threat lookup, plus redacted URL metadata and selected explanation language tag used for AI second-opinion review</td>
+            <td>Sent to GlyphGuard threat services and, when needed, to service providers such as Google Safe Browsing, VirusTotal, the configured AI provider, or IPQS acting on our behalf</td>
+          </tr>
+          <tr>
+            <td>App-scoped identifier</td>
+            <td>A random app-generated device identifier stored by the app</td>
+            <td>Sent with online lookup and abuse-protection requests</td>
+          </tr>
+          <tr>
+            <td>Request context</td>
+            <td>Input source such as manual, QR, clipboard, file, or incoming share</td>
+            <td>Sent with online lookup and threat-report requests</td>
+          </tr>
+          <tr>
+            <td>Security telemetry</td>
+            <td>Abuse or repeated over-limit attempt signals, threat reports for confirmed dangerous URLs</td>
+            <td>Sent to GlyphGuard security endpoints when needed to protect the service</td>
+          </tr>
+          <tr>
+            <td>Network metadata</td>
+            <td>Standard request metadata such as IP address and timing seen by hosting or security infrastructure</td>
+            <td>Processed as part of delivering and securing network services</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article class="panel">
+      <h2>3. How We Use Data</h2>
       <ul>
-        <li>Text you paste into the app for local analysis stays on your device unless you explicitly use an online check.</li>
-        <li>Local history, preferences, and cached threat data are stored on your device and can be removed by clearing app data or uninstalling the app.</li>
-        <li>We do not use your local analysis content to build advertising profiles.</li>
+        <li>To perform local text, character, file, and QR analysis on the device.</li>
+        <li>To run online threat intelligence, domain reputation, and URL safety checks when requested by the app flow.</li>
+        <li>To ask a configured AI provider for a final second opinion on borderline URL or domain cases.</li>
+        <li>To download and refresh threat data used by the app.</li>
+        <li>To enforce quotas, detect bypass attempts, investigate abuse, and keep the lookup service reliable.</li>
+        <li>To accept confirmed dangerous URL reports that help improve future protections.</li>
+        <li>To answer support or privacy requests sent to us by email.</li>
       </ul>
     </article>
 
     <article class="panel">
-      <h2>What May Be Sent Over the Network</h2>
-      <p>Some app features use network services. When you choose or trigger those features, limited data may be transmitted to our backend or infrastructure providers.</p>
+      <h2>4. What Stays on Your Device</h2>
+      <p>GlyphGuard stores certain data locally so the app can work and remember your preferences. This may include:</p>
       <ul>
-        <li>Threat database update requests may send standard technical request metadata such as IP address, app version, and basic delivery information needed to return the update.</li>
-        <li>Optional online URL or reputation checks may send the URL or domain you ask the app to verify, together with limited technical metadata needed for security, abuse prevention, and service operation.</li>
-        <li>Security systems may process pseudonymous device or installation identifiers to rate-limit abuse, protect the service, and enforce basic anti-fraud controls.</li>
+        <li>App settings, language, and visual preferences.</li>
+        <li>Local analysis history and saved results on eligible plans.</li>
+        <li>A random app-scoped identifier used for service protection and quota enforcement.</li>
+        <li>Locally cached threat data and locally cached dangerous verdicts.</li>
       </ul>
-      <p>These network features are used to provide threat intelligence, keep the threat database current, and protect the service from abuse. They are not used to serve ads.</p>
+      <p>
+        You can remove local app data through your device settings or by uninstalling the app.
+      </p>
     </article>
 
     <article class="panel">
-      <h2>Payments and App Stores</h2>
-      <p>If you purchase a subscription, the billing transaction is handled by the platform operator, such as Apple or Google. We do not receive your full payment card number.</p>
-      <p>We may receive store-side purchase status details that are necessary to unlock paid features, restore purchases, prevent fraud, and support subscription entitlement checks.</p>
-    </article>
-
-    <article class="panel">
-      <h2>How We Use Data</h2>
-      <p>Data processed through GlyphGuard may be used to:</p>
+      <h2>5. When Data Leaves the Device</h2>
+      <p>Data may leave the device in the following situations:</p>
       <ul>
-        <li>run local and online security checks;</li>
-        <li>deliver threat database updates;</li>
-        <li>detect abuse, fraud, and service misuse;</li>
-        <li>maintain app reliability, security, and troubleshooting.</li>
+        <li>You run an online URL, domain, or reputation check.</li>
+        <li>The app reaches the optional AI second-opinion stage for a borderline online check.</li>
+        <li>The app refreshes required threat snapshots or manifests.</li>
+        <li>The app sends abuse-prevention or over-limit telemetry.</li>
+        <li>The app reports a confirmed dangerous URL or domain to GlyphGuard services.</li>
+      </ul>
+      <p>
+        In these cases, the app sends only the information needed to complete the security action. GlyphGuard does not
+        use ad SDKs and does not sell personal data.
+      </p>
+    </article>
+
+    <article class="panel">
+      <h2>6. Sharing and Service Providers</h2>
+      <p>
+        We may use hosting, storage, security, infrastructure, and AI service providers to run GlyphGuard services.
+        Those providers may process limited data on our behalf to deliver, secure, and maintain the service.
+      </p>
+      <p>
+        We may also disclose information if required by law or if reasonably necessary to prevent fraud, abuse, or
+        security harm.
+      </p>
+      <p>
+        We do not use third-party advertising SDKs in the app and we do not sell personal data.
+      </p>
+    </article>
+
+    <article class="panel">
+      <h2>7. Retention</h2>
+      <p>
+        Local data remains on your device until you delete it, reset the app, or uninstall the app.
+      </p>
+      <p>
+        Server-side lookup, abuse-prevention, and security records are kept only for as long as reasonably needed to
+        operate the service, investigate abuse, maintain reliability, and meet legal obligations.
+      </p>
+    </article>
+
+    <article class="panel">
+      <h2>8. Your Choices</h2>
+      <ul>
+        <li>You can avoid optional online checks by not using flows that require them.</li>
+        <li>You can clear local history or app data through app and device settings.</li>
+        <li>You can uninstall the app to stop further local storage and app-based processing.</li>
+        <li>You can email us about privacy questions or requests at <a href="mailto:glyphguard.app@gmail.com">glyphguard.app@gmail.com</a>.</li>
       </ul>
     </article>
 
     <article class="panel">
-      <h2>Data Retention</h2>
-      <p>Local data remains on your device until you remove it or uninstall the app.</p>
-      <p>Server-side logs and abuse-prevention records may be retained for a limited period as reasonably necessary for security, fraud prevention, debugging, and service operations.</p>
+      <h2>9. Children</h2>
+      <p>
+        GlyphGuard is not designed to knowingly collect personal data from children. If you believe a child has sent us
+        personal information directly, contact us and we will review the request.
+      </p>
     </article>
 
     <article class="panel">
-      <h2>Your Choices</h2>
-      <p>You can use core offline analysis features without creating an account.</p>
-      <p>You can remove local data by clearing app storage or uninstalling the app. If you contact us about a privacy request, include enough detail for us to understand which feature or request you are referring to.</p>
+      <h2>10. Security</h2>
+      <p>
+        We use reasonable technical and organizational measures to protect the services we operate. No method of
+        transmission or storage is perfectly secure, but we work to limit data exposure and to process as much as
+        possible on-device.
+      </p>
     </article>
 
     <article class="panel">
-      <h2>Children's Privacy</h2>
-      <p>GlyphGuard is not directed to children under 13, and we do not knowingly collect personal data from children through the app.</p>
+      <h2>11. Changes to This Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time. If we make material changes, we will update the effective
+        date on this page.
+      </p>
     </article>
 
     <article class="panel">
-      <h2>Security</h2>
-      <p>We use reasonable technical and organizational measures to protect the service and the limited data processed for app functionality, security, and abuse prevention. No internet transmission or storage system can be guaranteed to be 100% secure.</p>
-    </article>
-
-    <article class="panel">
-      <h2>Changes to This Policy</h2>
-      <p>We may update this Privacy Policy from time to time. The current version will be posted on this page with the updated effective date.</p>
-    </article>
-
-    <article class="panel">
-      <h2>Contact Us</h2>
-      <p>If you have questions about privacy or data handling in GlyphGuard, contact us at <a href="mailto:glyphguard.app@gmail.com">glyphguard.app@gmail.com</a>.</p>
+      <h2>12. Contact</h2>
+      <p>
+        Privacy questions and requests: <a href="mailto:glyphguard.app@gmail.com">glyphguard.app@gmail.com</a>
+      </p>
     </article>
 
     <footer class="footer">
-      <p>© 2026 GlyphGuard · Voldirex</p>
+      <p>&copy; 2026 GlyphGuard · Voldirex</p>
       <div class="footer-links">
-        <a class="footer-link" href="./index.html">← Back to GlyphGuard</a>
-        <a class="footer-link" href="mailto:glyphguard.app@gmail.com">Contact Us</a>
+        <a class="footer-link" href="./index.html">Back to GlyphGuard</a>
+        <a class="footer-link" href="mailto:glyphguard.app@gmail.com">Contact</a>
       </div>
     </footer>
-
   </main>
 </body>
 </html>
