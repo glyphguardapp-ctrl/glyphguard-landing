@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alerivex - Privacy Policy</title>
+  <title>AlertLinkGuard - Privacy Policy</title>
   <meta
     name="description"
-    content="Privacy Policy for Alerivex, an offline-first mobile app for suspicious link, domain, QR, text, and file checks."
+    content="Privacy Policy for AlertLinkGuard, an offline-first mobile app for suspicious link, domain, QR, text, and file checks."
   />
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/png" href="./icon.png" />
@@ -290,25 +290,25 @@
 </head>
 <body>
   <main class="page">
-    <a class="back-link" href="./index.html" aria-label="Back to Alerivex">
+    <a class="back-link" href="./index.html" aria-label="Back to AlertLinkGuard">
       <span>&larr;</span>
-      <span>Back to Alerivex</span>
+      <span>Back to AlertLinkGuard</span>
     </a>
 
     <section class="hero">
       <div class="hero-top">
-        <img class="logo" src="./icon.png" alt="Alerivex icon" onerror="this.style.display='none'" />
+        <img class="logo" src="./icon.png" alt="AlertLinkGuard icon" onerror="this.style.display='none'" />
         <div>
-          <h1>Privacy Policy</h1>
-          <p class="hero-meta">Effective date: July 29, 2026</p>
+          <h1>AlertLinkGuard Privacy Policy</h1>
+          <p class="hero-meta">Effective date: September 27, 2026</p>
         </div>
       </div>
       <p class="hero-copy">
-        Alerivex is an offline-first mobile app that helps people inspect suspicious links, domains, QR content,
+        AlertLinkGuard is an offline-first mobile app that helps people inspect suspicious links, domains, QR content,
         text, and files before opening them. Core character and text analysis runs locally on the device. When a user
-        asks for online threat intelligence or reputation checks, the app may send limited request data to Alerivex
+        asks for online threat intelligence or reputation checks, the app may send limited request data to AlertLinkGuard
         services and, when the final AI second-opinion stage is enabled, to an AI service provider selected by
-        Alerivex so the check can complete.
+        AlertLinkGuard so the check can complete.
       </p>
 
       <div class="summary-grid">
@@ -318,11 +318,15 @@
         </div>
         <div class="summary-card">
           <p class="summary-title">Online only when needed</p>
-          <p>Some URL, domain, reputation, abuse-protection, and optional AI second-opinion stages use Alerivex network services or service providers.</p>
+          <p>Some URL, domain, reputation, abuse-protection, and optional AI second-opinion stages use AlertLinkGuard network services or service providers.</p>
         </div>
         <div class="summary-card">
           <p class="summary-title">No ad tracking</p>
-          <p>Alerivex does not include advertising SDKs or third-party analytics inside security checks.</p>
+          <p>AlertLinkGuard does not include advertising SDKs or third-party analytics inside security checks.</p>
+        </div>
+        <div class="summary-card">
+          <p class="summary-title">Optional crash diagnostics</p>
+          <p>Off by default. If enabled in the app, limited sanitized JavaScript error details are sent to Sentry; checked content is excluded.</p>
         </div>
       </div>
     </section>
@@ -330,8 +334,8 @@
     <article class="panel">
       <h2>1. Who We Are</h2>
       <p>
-        This Privacy Policy applies to the Alerivex mobile application and related threat-checking services operated
-        by Alerivex ("Alerivex", "we", "our", or "us").
+        This Privacy Policy applies to the AlertLinkGuard mobile application and related threat-checking services operated
+        by AlertLinkGuard ("AlertLinkGuard", "we", "our", or "us").
       </p>
       <p>
         Contact: <a href="mailto:glyphguard.app@gmail.com">glyphguard.app@gmail.com</a>
@@ -341,7 +345,7 @@
     <article class="panel">
       <h2>2. Data We Process</h2>
       <div class="notice">
-        We try to minimize what leaves the device. However, Alerivex is not a zero-network app when a user runs
+        We try to minimize what leaves the device. However, AlertLinkGuard is not a zero-network app when a user runs
         online threat checks, downloads threat updates, triggers abuse-protection reporting, reaches the optional
         AI second-opinion stage, or triggers the IPQS fallback after an uncertain AI result.
       </div>
@@ -362,7 +366,7 @@
           <tr>
             <td>Online check requests</td>
             <td>Domain or URL submitted for a reputation or threat lookup, plus redacted URL metadata and selected explanation language tag used for AI second-opinion review</td>
-            <td>Sent to Alerivex threat services and, when needed, to configured providers such as Google Web Risk, VirusTotal, an AI provider, or IPQS acting on our behalf</td>
+            <td>Sent to AlertLinkGuard threat services and, when needed, to configured providers such as Google Web Risk, VirusTotal, an AI provider, or IPQS acting on our behalf</td>
           </tr>
           <tr>
             <td>App-scoped identifier</td>
@@ -377,7 +381,7 @@
           <tr>
             <td>Security telemetry</td>
             <td>Abuse or repeated over-limit attempt signals, threat reports for confirmed dangerous URLs</td>
-            <td>Sent to Alerivex security endpoints when needed to protect the service</td>
+            <td>Sent to AlertLinkGuard security endpoints when needed to protect the service</td>
           </tr>
           <tr>
             <td>Network metadata</td>
@@ -393,6 +397,11 @@
             <td>Purchases and entitlements</td>
             <td>Product identifier, transaction or purchase token, subscription state, and remaining purchased checks</td>
             <td>Processed by Apple, Google, or Huawei and verified only as needed to unlock paid features and prevent duplicate credits</td>
+          </tr>
+          <tr>
+            <td>Crash reports</td>
+            <td>When explicitly enabled in the app: sanitized JavaScript error type and stack location, app version, and OS version</td>
+            <td>Sent to Sentry to help diagnose and fix app errors. This is off by default; enabling takes effect after restarting the app. Checked links, pasted text, and file contents are excluded. Sentry receives the IP address associated with the connection. Turning the setting off stops future captures, but reports already sent cannot be recalled.</td>
           </tr>
         </tbody>
       </table>
@@ -414,15 +423,18 @@
 
     <article class="panel">
       <h2>4. What Stays on Your Device</h2>
-      <p>Alerivex stores certain data locally so the app can work and remember your preferences. This may include:</p>
+      <p>AlertLinkGuard stores certain data locally so the app can work and remember your preferences. This may include:</p>
       <ul>
         <li>App settings, language, and visual preferences.</li>
-        <li>Local analysis history and saved results on eligible plans.</li>
+        <li>Local analysis history and saved results on eligible plans, which may include the content and results you choose to save.</li>
         <li>A random app-scoped identifier used for service protection and quota enforcement.</li>
         <li>Locally cached threat data and locally cached dangerous verdicts.</li>
       </ul>
       <p>
-        You can remove local app data through your device settings or by uninstalling the app.
+        History is kept on this device by default until you clear it or remove the app. In the History screen you can
+        choose automatic deletion after 1, 7, 30, or 90 days, or choose never. Expired entries are removed the next time
+        History or recent history is accessed, or a new history entry is saved; if none of those actions occur after an entry expires,
+        that entry can remain stored locally until the next history cleanup.
       </p>
     </article>
 
@@ -434,11 +446,20 @@
         <li>The app reaches the optional AI second-opinion stage for a borderline online check.</li>
         <li>The app refreshes required threat snapshots or manifests.</li>
         <li>The app sends abuse-prevention or over-limit telemetry.</li>
-        <li>The app reports a confirmed dangerous URL or domain to Alerivex services.</li>
+        <li>The app reports a confirmed dangerous URL or domain to AlertLinkGuard services.</li>
         <li>The app verifies app integrity, a subscription, or a one-time purchase with the relevant platform service.</li>
+        <li>
+          If you generate a PDF report and choose to share it, the report can include up to the first 1,000 characters of
+          analyzed content and derived findings such as a verdict, detected domain, threat indicators, character
+          statistics, date, and app version. The PDF is written temporarily to the app cache. On iOS the app attempts
+          to delete it after the system share sheet closes; after the Android share flow returns, the PDF remains in the
+          app cache so a receiving app can finish importing it if you selected one, and may remain until the operating
+          system clears the cache or the app is removed. The operating system and the app you select to receive the report process the copy you
+          share under their own terms; sharing does not send that copy to AlertLinkGuard.
+        </li>
       </ul>
       <p>
-        In these cases, the app sends only the information needed to complete the security action. Alerivex does not
+        In these cases, the app sends only the information needed to complete the security action. AlertLinkGuard does not
         use ad SDKs and does not sell personal data.
       </p>
     </article>
@@ -446,8 +467,12 @@
     <article class="panel">
       <h2>6. Sharing and Service Providers</h2>
       <p>
-        We may use hosting, storage, app-integrity, payment-platform, security, infrastructure, and AI service providers to run Alerivex services.
+        We may use hosting, storage, app-integrity, payment-platform, security, infrastructure, and AI service providers to run AlertLinkGuard services.
         Those providers may process limited data on our behalf to deliver, secure, and maintain the service.
+      </p>
+      <p>
+        A report you choose to share is handed to the destination selected in the system share sheet. AlertLinkGuard does
+        not receive a copy through that share action, and the receiving app or service may handle it under its own policy.
       </p>
       <p>
         We may also disclose information if required by law or if reasonably necessary to prevent fraud, abuse, or
@@ -461,7 +486,12 @@
     <article class="panel">
       <h2>7. Retention</h2>
       <p>
-        Local data remains on your device until you delete it, reset the app, or uninstall the app.
+        Local settings, history, and cached data remain on your device until deleted, reset, or removed with the app.
+        If you select a history auto-delete period, expired history is removed the next time History is accessed or a new
+        entry is saved; it is not a background process while the app is closed. A temporary report PDF is deleted after
+        the iOS share flow completes when cleanup succeeds. After the Android share flow returns, the PDF remains in the
+        app cache to protect a receiving app's import if you selected one; it may remain until the operating system clears
+        the cache or the app is removed. A PDF is deleted after a failed or unavailable share when cleanup succeeds.
       </p>
       <p>
         Server-side lookup, abuse-prevention, and security records are kept only for as long as reasonably needed to
@@ -474,6 +504,8 @@
       <ul>
         <li>You can avoid optional online checks by not using flows that require them.</li>
         <li>You can clear local history or app data through app and device settings.</li>
+        <li>You can choose a history auto-delete period in the History screen or clear history immediately.</li>
+        <li>You decide whether to share a generated report and which destination receives it.</li>
         <li>You can uninstall the app to stop further local storage and app-based processing.</li>
         <li>You can email us about privacy questions or requests at <a href="mailto:glyphguard.app@gmail.com">glyphguard.app@gmail.com</a>.</li>
       </ul>
@@ -482,7 +514,7 @@
     <article class="panel">
       <h2>9. Children</h2>
       <p>
-        Alerivex is not designed to knowingly collect personal data from children. If you believe a child has sent us
+        AlertLinkGuard is not designed to knowingly collect personal data from children. If you believe a child has sent us
         personal information directly, contact us and we will review the request.
       </p>
     </article>
@@ -512,9 +544,9 @@
     </article>
 
     <footer class="footer">
-      <p>&copy; 2026 Alerivex · Alerivex</p>
+      <p>&copy; 2026 AlertLinkGuard · AlertLinkGuard</p>
       <div class="footer-links">
-        <a class="footer-link" href="./index.html">Back to Alerivex</a>
+        <a class="footer-link" href="./index.html">Back to AlertLinkGuard</a>
         <a class="footer-link" href="mailto:glyphguard.app@gmail.com">Contact</a>
       </div>
     </footer>

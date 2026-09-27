@@ -1,4 +1,4 @@
-# GlyphGuard Landing Gallery Assets
+# AlertLinkGuard Landing Gallery Assets
 
 Put your real 4K screenshots here.
 
@@ -40,3 +40,11 @@ Quick QA checklist:
 2. Every image is portrait 9:16 and sharp on mobile
 3. No critical text near edges
 4. Files are optimized (fast loading)
+
+How to test locally:
+
+1. Put the screenshots into this folder with the exact filenames above.
+2. Open `landing/github-pages/index.html?lang=ru` in a browser.
+3. Scroll to the 4K screenshot gallery and click each card.
+4. If a card shows the fallback icon or a broken image, the filename or format does not match.
+5. Run a Lighthouse or PageSpeed check after upload; if images are too heavy, re-export WEBP at quality 82-90.
