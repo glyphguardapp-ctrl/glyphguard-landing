@@ -1220,6 +1220,9 @@
       privacyPolicy: "https://alertlinkguard.com/privacy-policy.html"
     };
     const SERVICE_LINKS_CONFIG_URL = "https://glyphguard-threat-lookup.glyphguard-app.workers.dev/public/service-links";
+    // These links are brand/legal anchors. Do not let a stale remote override
+    // resurrect a legacy App Store slug or an external privacy document.
+    const REMOTE_LOCKED_SERVICE_LINKS = new Set(["appStore", "privacyPolicy"]);
 
     const APP_LANGS = ["en", "ru", "uk", "bg", "zh", "es", "fr", "ar", "pt", "de", "hi", "ko", "ja", "it", "tr", "id", "vi", "th", "pl", "nl", "sv", "no", "da", "cs", "ro", "hu", "fa", "ms"];
     const RTL_LANGS = new Set(["ar", "fa"]);
@@ -5068,7 +5071,9 @@
 
         for (const key of Object.keys(STORE_LINKS)) {
           const remoteValue = String(remoteLinks[key] || "").trim();
-          if (remoteValue) STORE_LINKS[key] = remoteValue;
+          if (remoteValue && (!REMOTE_LOCKED_SERVICE_LINKS.has(key) || remoteValue === STORE_LINKS[key])) {
+            STORE_LINKS[key] = remoteValue;
+          }
         }
       } catch {
         // keep local fallback links when remote config is unavailable
