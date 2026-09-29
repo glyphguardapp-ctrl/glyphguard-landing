@@ -5845,14 +5845,12 @@
       let autoTimer = null;
       let resumeTimer = null;
       let rafId = null;
-      let settleTimer = null;
       let inertiaRafId = null;
       let programmaticTargetIndex = null;
       let dragState = null;
       let suppressClickUntil = 0;
       let lastPointerType = "mouse";
       let lightboxIndex = 0;
-      const LOOP_SETTLE_MS = 620;
 
       const modulo = (value, size) => ((value % size) + size) % size;
       const realIndexFor = (index) => modulo(index - cloneCount, sourceCount);
@@ -5928,10 +5926,6 @@
         rafId = window.requestAnimationFrame(() => {
           rafId = null;
           if (programmaticTargetIndex === null) updateActiveCard();
-          if (settleTimer) window.clearTimeout(settleTimer);
-          settleTimer = window.setTimeout(() => {
-            if (programmaticTargetIndex === null) settleLoopEdges();
-          }, LOOP_SETTLE_MS);
         });
       }
 
