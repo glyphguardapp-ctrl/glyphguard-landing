@@ -480,9 +480,13 @@
     }
 
     .donate-button:hover {
-      transform: translateY(-1px);
+      /* Keep the card anchored inside the support panel. A vertical lift can
+         hide the top border beneath the paragraph above on narrow layouts. */
+      transform: translateY(0);
       border-color: rgba(247, 198, 78, 0.85);
       background: rgba(247, 198, 78, 0.14);
+      position: relative;
+      z-index: 1;
     }
 
     .donate-button img {
@@ -1375,9 +1379,6 @@
       <article class="panel span6">
         <h2 data-i18n="studioTitle"></h2>
         <p class="muted" data-i18n="studioText"></p>
-        <div class="links-row">
-          <a class="ghost-btn" id="moreAppsLink" href="#" target="_blank" rel="noopener noreferrer" data-i18n="moreApps"></a>
-        </div>
         <div class="support-donate" id="support" aria-labelledby="donateBlockTitle" tabindex="-1">
           <h3 class="support-donate-title" id="donateBlockTitle" data-i18n="donateBlockTitle"></h3>
           <p class="support-donate-text" data-i18n="donateBlockText"></p>
@@ -5489,7 +5490,6 @@
       setHref("appStoreLink", STORE_LINKS.appStore);
       setHref("googlePlayLink", STORE_LINKS.googlePlay);
       setHref("appGalleryLink", STORE_LINKS.appGallery);
-      setHref("moreAppsLink", STORE_LINKS.moreApps);
       setHref("donateCardLink", STORE_LINKS.donate);
       setHref("donateCardFooterLink", STORE_LINKS.donate);
       setHref("donateCryptoDonateModalLink", STORE_LINKS.donateCrypto);
