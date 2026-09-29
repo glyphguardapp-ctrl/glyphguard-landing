@@ -450,6 +450,9 @@
       gap: 10px;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       align-items: stretch;
+      position: relative;
+      isolation: isolate;
+      overflow: visible;
     }
 
     .donate-actions > * {
@@ -486,7 +489,15 @@
       border-color: rgba(247, 198, 78, 0.85);
       background: rgba(247, 198, 78, 0.14);
       position: relative;
-      z-index: 1;
+      z-index: 2;
+      box-shadow: inset 0 1px 0 rgba(255, 239, 165, 0.9), 0 0 0 1px rgba(247, 198, 78, 0.2);
+    }
+
+    .donate-button:focus-visible {
+      position: relative;
+      z-index: 2;
+      outline: 2px solid rgba(255, 239, 165, 0.9);
+      outline-offset: 2px;
     }
 
     .donate-button img {
@@ -525,7 +536,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      position: relative;
+      overflow: visible;
     }
 
     .stripe-buy-wrap .donate-button {
@@ -1483,7 +1495,6 @@
       appStore: "https://apps.apple.com/app/alertlinkguard/id6760777059",
       googlePlay: "https://play.google.com/store/apps/details?id=com.glyphguard.offline",
       appGallery: "",
-      moreApps: "https://github.com/glyphguardapp-ctrl",
       donate: "https://buy.stripe.com/cNibJ2gzv0fJabJbRp0Jq00",
       donateCrypto: "https://nowpayments.io/donation/glyphguard",
       donateCryptoSignup: "https://account.nowpayments.io/create-account?link_id=2260973027",
@@ -5637,7 +5648,7 @@
       const faqSchema = document.getElementById("faqSchema");
       const supportSchema = document.getElementById("supportSchema");
       const baseUrl = new URL("./", window.location.href).toString();
-      const sameAs = [STORE_LINKS.appStore, STORE_LINKS.googlePlay, STORE_LINKS.appGallery, STORE_LINKS.moreApps].filter(Boolean);
+      const sameAs = [STORE_LINKS.appStore, STORE_LINKS.googlePlay, STORE_LINKS.appGallery].filter(Boolean);
       const softwareData = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
