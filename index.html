@@ -766,10 +766,17 @@
     }
 
     .gallery-controls {
-      display: inline-flex;
-      flex: 0 0 auto;
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 8px;
-      padding-top: 2px;
+      padding: 0 8px;
+      pointer-events: none;
+      transform: translateY(-50%);
     }
 
     .gallery-nav {
@@ -783,7 +790,9 @@
       color: #fff8d8;
       font: 800 22px/1 "Manrope", "Segoe UI", Arial, sans-serif;
       cursor: pointer;
-      transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+      pointer-events: auto;
+      transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), background 0.16s ease, border-color 0.16s ease;
     }
 
     .gallery-nav:hover,
@@ -806,6 +815,7 @@
       overflow: hidden;
       position: relative;
       margin: 0 -6px;
+      isolation: isolate;
     }
 
     .gallery-track {
@@ -922,25 +932,10 @@
       pointer-events: none;
     }
 
-    .shot-chip {
-      position: absolute;
-      inset-inline-end: 8px;
-      top: 8px;
-      z-index: 2;
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      font-weight: 800;
-      padding: 3px 6px;
-      border-radius: 999px;
-      color: #fff;
-      background: rgba(4, 8, 18, 0.72);
-      border: 1px solid rgba(255, 255, 255, 0.26);
-    }
-
     .shot-title {
       margin: 10px 0 4px;
       font-size: 14px;
-      line-height: 1.35;
+      line-height: 1.45;
       font-weight: 700;
       letter-spacing: 0.01em;
       min-height: 4.05em;
@@ -1122,7 +1117,7 @@
       }
 
       .gallery-controls {
-        padding-top: 0;
+        padding: 0 4px;
       }
 
       .gallery-nav {
@@ -1286,78 +1281,72 @@
           <p class="muted" data-i18n="gallerySubtitle"></p>
           <p class="muted gallery-help" data-i18n="galleryHelp"></p>
         </div>
+      </div>
+
+      <div class="gallery-carousel">
         <div class="gallery-controls" role="group" aria-label="Gallery controls">
           <button class="gallery-nav" id="galleryPrev" type="button" data-i18n-aria="galleryPrev" aria-label="Previous screenshot">‹</button>
           <button class="gallery-nav" id="galleryNext" type="button" data-i18n-aria="galleryNext" aria-label="Next screenshot">›</button>
         </div>
-      </div>
-
-      <div class="gallery-carousel">
         <div class="gallery-track" id="galleryTrack">
         <article class="shot-card">
           <button class="shot-link" type="button" data-gallery-index="0" data-i18n-aria="galleryOpen" aria-label="Open screenshot">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/dark-theme-4k.png" alt="AlertLinkGuard dark theme screenshot" loading="lazy" decoding="async" />
-              <span class="shot-chip" data-i18n="shotChipDark">Safe</span>
             </div>
           </button>
           <p class="shot-title" data-i18n="shotDark"></p>
-          <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/dark-theme-4k.png</code></p>
+          <p class="shot-note" data-i18n="shotHint"></p>
         </article>
 
         <article class="shot-card">
           <button class="shot-link" type="button" data-gallery-index="1" data-i18n-aria="galleryOpen" aria-label="Open screenshot">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/light-theme-4k.png" alt="AlertLinkGuard light theme screenshot" loading="lazy" decoding="async" />
-              <span class="shot-chip" data-i18n="shotChipLight">Safe</span>
             </div>
           </button>
           <p class="shot-title" data-i18n="shotLight"></p>
-          <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/light-theme-4k.png</code></p>
+          <p class="shot-note" data-i18n="shotHint"></p>
         </article>
 
         <article class="shot-card">
           <button class="shot-link" type="button" data-gallery-index="2" data-i18n-aria="galleryOpen" aria-label="Open screenshot">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/royal-gold-4k.png" alt="AlertLinkGuard royal gold theme screenshot" loading="lazy" decoding="async" />
-              <span class="shot-chip" data-i18n="shotChipRoyal">Plan</span>
             </div>
           </button>
           <p class="shot-title" data-i18n="shotRoyal"></p>
-          <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/royal-gold-4k.png</code></p>
+          <p class="shot-note" data-i18n="shotHint"></p>
         </article>
 
         <article class="shot-card">
           <button class="shot-link" type="button" data-gallery-index="3" data-i18n-aria="galleryOpen" aria-label="Open screenshot">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/robot-buddy-4k.png" alt="AlertLinkGuard robot buddy theme screenshot" loading="lazy" decoding="async" />
-              <span class="shot-chip" data-i18n="shotChipRobot">Menu</span>
             </div>
           </button>
           <p class="shot-title" data-i18n="shotRobot"></p>
-          <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/robot-buddy-4k.png</code></p>
+          <p class="shot-note" data-i18n="shotHint"></p>
         </article>
 
         <article class="shot-card">
           <button class="shot-link" type="button" data-gallery-index="4" data-i18n-aria="galleryOpen" aria-label="Open screenshot">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/obsidian-titan-4k.png" alt="AlertLinkGuard obsidian titan theme screenshot" loading="lazy" decoding="async" />
-              <span class="shot-chip" data-i18n="shotChipObsidian">Danger</span>
             </div>
           </button>
           <p class="shot-title" data-i18n="shotObsidian"></p>
-          <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/obsidian-titan-4k.png</code></p>
+          <p class="shot-note" data-i18n="shotHint"></p>
         </article>
 
         <article class="shot-card">
           <button class="shot-link" type="button" data-gallery-index="5" data-i18n-aria="galleryOpen" aria-label="Open screenshot">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/emerald-vault-4k.png" alt="AlertLinkGuard emerald vault theme screenshot" loading="lazy" decoding="async" />
-              <span class="shot-chip" data-i18n="shotChipEmerald">Analysis</span>
             </div>
           </button>
           <p class="shot-title" data-i18n="shotEmerald"></p>
-          <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/emerald-vault-4k.png</code></p>
+          <p class="shot-note" data-i18n="shotHint"></p>
         </article>
         </div>
       </div>
@@ -5395,6 +5384,78 @@
       if (COPY[lang]) Object.assign(COPY[lang], values);
     });
 
+    // Keep the caption under every screenshot useful on every supported
+    // language. The existing shot title names the scene; this localized
+    // suffix explains why the scene matters to a new visitor.
+    const GALLERY_DESCRIPTION_SUFFIX = {
+      en: " — this view shows how AlertLinkGuard guides a safer decision before a link is opened.",
+      ru: " — этот экран показывает, как AlertLinkGuard помогает принять более безопасное решение до открытия ссылки.",
+      uk: " — цей екран показує, як AlertLinkGuard допомагає прийняти безпечніше рішення до відкриття посилання.",
+      bg: " — този екран показва как AlertLinkGuard помага да вземете по-безопасно решение, преди да отворите връзка.",
+      zh: " — 此界面展示 AlertLinkGuard 如何在打开链接前帮助你做出更安全的决定。",
+      es: " — esta vista muestra cómo AlertLinkGuard ayuda a tomar una decisión más segura antes de abrir un enlace.",
+      fr: " — cet écran montre comment AlertLinkGuard aide à prendre une décision plus sûre avant d’ouvrir un lien.",
+      ar: " — توضح هذه الشاشة كيف يساعد AlertLinkGuard على اتخاذ قرار أكثر أمانًا قبل فتح الرابط.",
+      pt: " — esta tela mostra como o AlertLinkGuard ajuda a tomar uma decisão mais segura antes de abrir um link.",
+      de: " — diese Ansicht zeigt, wie AlertLinkGuard vor dem Öffnen eines Links zu einer sichereren Entscheidung führt.",
+      hi: " — यह स्क्रीन दिखाती है कि लिंक खोलने से पहले AlertLinkGuard सुरक्षित निर्णय लेने में कैसे मदद करता है।",
+      ko: " — 링크를 열기 전에 AlertLinkGuard가 더 안전한 결정을 돕는 과정을 보여 주는 화면입니다.",
+      ja: " — リンクを開く前にAlertLinkGuardがより安全な判断を支援する様子を示す画面です。",
+      it: " — questa schermata mostra come AlertLinkGuard aiuta a scegliere in modo più sicuro prima di aprire un link.",
+      tr: " — bu ekran, bir bağlantıyı açmadan önce AlertLinkGuard'ın daha güvenli karar vermeye nasıl yardımcı olduğunu gösterir.",
+      id: " — tampilan ini menunjukkan cara AlertLinkGuard membantu mengambil keputusan yang lebih aman sebelum membuka tautan.",
+      vi: " — màn hình này cho thấy AlertLinkGuard giúp bạn đưa ra quyết định an toàn hơn trước khi mở liên kết.",
+      th: " — หน้าจอนี้แสดงว่า AlertLinkGuard ช่วยให้ตัดสินใจได้ปลอดภัยขึ้นก่อนเปิดลิงก์อย่างไร",
+      pl: " — ten ekran pokazuje, jak AlertLinkGuard pomaga podjąć bezpieczniejszą decyzję przed otwarciem linku.",
+      nl: " — dit scherm laat zien hoe AlertLinkGuard helpt om vóór het openen van een link een veiligere keuze te maken.",
+      sv: " — den här vyn visar hur AlertLinkGuard hjälper dig att fatta ett säkrare beslut innan du öppnar en länk.",
+      no: " — denne visningen viser hvordan AlertLinkGuard hjelper deg å ta et tryggere valg før du åpner en lenke.",
+      da: " — denne visning viser, hvordan AlertLinkGuard hjælper dig med at træffe et sikrere valg, før du åbner et link.",
+      cs: " — tato obrazovka ukazuje, jak AlertLinkGuard pomáhá zvolit bezpečnější postup před otevřením odkazu.",
+      ro: " — acest ecran arată cum AlertLinkGuard te ajută să iei o decizie mai sigură înainte de a deschide un link.",
+      hu: " — ez a képernyő azt mutatja, hogyan segít az AlertLinkGuard biztonságosabb döntést hozni a hivatkozás megnyitása előtt.",
+      fa: " — این صفحه نشان می‌دهد AlertLinkGuard چگونه پیش از باز کردن پیوند به تصمیمی امن‌تر کمک می‌کند.",
+      ms: " — paparan ini menunjukkan cara AlertLinkGuard membantu membuat keputusan yang lebih selamat sebelum pautan dibuka."
+    };
+    const GALLERY_HINT_COPY = {
+      en: "Preview of the app screen and its protection state.",
+      ru: "Предпросмотр экрана приложения и текущего состояния защиты.",
+      uk: "Попередній перегляд екрана застосунку та поточного стану захисту.",
+      bg: "Преглед на екрана на приложението и текущото състояние на защитата.",
+      zh: "应用界面及当前保护状态的预览。",
+      es: "Vista previa de la pantalla de la app y del estado actual de protección.",
+      fr: "Aperçu de l’écran de l’application et de l’état actuel de la protection.",
+      ar: "معاينة لشاشة التطبيق وحالة الحماية الحالية.",
+      pt: "Prévia da tela do app e do estado atual da proteção.",
+      de: "Vorschau des App-Bildschirms und des aktuellen Schutzstatus.",
+      hi: "ऐप स्क्रीन और मौजूदा सुरक्षा स्थिति का पूर्वावलोकन।",
+      ko: "앱 화면과 현재 보호 상태 미리보기.",
+      ja: "アプリ画面と現在の保護状態のプレビュー。",
+      it: "Anteprima della schermata dell’app e dello stato attuale della protezione.",
+      tr: "Uygulama ekranı ve mevcut koruma durumunun önizlemesi.",
+      id: "Pratinjau layar aplikasi dan status perlindungan saat ini.",
+      vi: "Xem trước màn hình ứng dụng và trạng thái bảo vệ hiện tại.",
+      th: "ตัวอย่างหน้าจอแอปและสถานะการป้องกันปัจจุบัน",
+      pl: "Podgląd ekranu aplikacji i bieżącego stanu ochrony.",
+      nl: "Voorbeeld van het appscherm en de huidige beschermingsstatus.",
+      sv: "Förhandsvisning av appskärmen och aktuell skyddsstatus.",
+      no: "Forhåndsvisning av appskjermen og gjeldende beskyttelsesstatus.",
+      da: "Forhåndsvisning af appskærmen og den aktuelle beskyttelsesstatus.",
+      cs: "Náhled obrazovky aplikace a aktuálního stavu ochrany.",
+      ro: "Previzualizare a ecranului aplicației și a stării actuale de protecție.",
+      hu: "Az alkalmazás képernyőjének és aktuális védelmi állapotának előnézete.",
+      fa: "پیش‌نمایش صفحهٔ برنامه و وضعیت فعلی حفاظت.",
+      ms: "Pratonton skrin aplikasi dan status perlindungan semasa."
+    };
+    Object.entries(GALLERY_DESCRIPTION_SUFFIX).forEach(([lang, suffix]) => {
+      const dict = COPY[lang];
+      if (!dict) return;
+      ["shotDark", "shotLight", "shotRoyal", "shotRobot", "shotObsidian", "shotEmerald"].forEach((key) => {
+        if (dict[key] && !dict[key].endsWith(suffix)) dict[key] = `${dict[key]}${suffix}`;
+      });
+      dict.shotHint = GALLERY_HINT_COPY[lang] || GALLERY_HINT_COPY.en;
+    });
+
     const GALLERY_UI_COPY = {
       en: { galleryHelp: "Drag, use the arrows, or tap a screenshot. Auto-scroll resumes after 10 seconds of inactivity.", galleryPrev: "Previous screenshot", galleryNext: "Next screenshot", galleryClose: "Close screenshot", galleryOpen: "Open screenshot" },
       ru: { galleryHelp: "Перетаскивайте галерею, используйте стрелки или нажмите на скриншот. Автопрокрутка возобновится через 10 секунд бездействия.", galleryPrev: "Предыдущий скриншот", galleryNext: "Следующий скриншот", galleryClose: "Закрыть скриншот", galleryOpen: "Открыть скриншот" },
@@ -5785,14 +5846,26 @@
       let resumeTimer = null;
       let rafId = null;
       let settleTimer = null;
+      let inertiaRafId = null;
       let dragState = null;
       let suppressClickUntil = 0;
       let lastPointerType = "mouse";
       let lightboxIndex = 0;
+      const LOOP_SETTLE_MS = 620;
 
       const modulo = (value, size) => ((value % size) + size) % size;
       const realIndexFor = (index) => modulo(index - cloneCount, sourceCount);
       const loopIndexFor = (realIndex) => cloneCount + modulo(realIndex, sourceCount);
+
+      function positionGalleryControls() {
+        const controls = document.querySelector(".gallery-controls");
+        const carousel = document.querySelector(".gallery-carousel");
+        const visual = cards[firstRealIndex]?.querySelector(".shot-visual");
+        if (!controls || !carousel || !visual) return;
+        const carouselRect = carousel.getBoundingClientRect();
+        const visualRect = visual.getBoundingClientRect();
+        controls.style.top = `${visualRect.top - carouselRect.top + (visualRect.height / 2)}px`;
+      }
 
       function updateActiveCard() {
         const rect = track.getBoundingClientRect();
@@ -5820,6 +5893,10 @@
       function scrollToCard(index, behavior = "smooth") {
         const target = cards[index];
         if (!target) return;
+        if (inertiaRafId) {
+          window.cancelAnimationFrame(inertiaRafId);
+          inertiaRafId = null;
+        }
         const left = target.offsetLeft - (track.clientWidth - target.offsetWidth) / 2;
         track.scrollTo({ left: Math.max(0, left), behavior });
       }
@@ -5838,8 +5915,31 @@
           rafId = null;
           updateActiveCard();
           if (settleTimer) window.clearTimeout(settleTimer);
-          settleTimer = window.setTimeout(settleLoopEdges, 120);
+          settleTimer = window.setTimeout(settleLoopEdges, LOOP_SETTLE_MS);
         });
+      }
+
+      function animateScrollTo(targetLeft, duration = 480, onComplete) {
+        if (inertiaRafId) window.cancelAnimationFrame(inertiaRafId);
+        const startLeft = track.scrollLeft;
+        const distance = targetLeft - startLeft;
+        if (Math.abs(distance) < 1) {
+          if (onComplete) onComplete();
+          return;
+        }
+        const startedAt = performance.now();
+        const easeOut = (value) => 1 - Math.pow(1 - value, 3);
+        const frame = (now) => {
+          const progress = Math.min(1, (now - startedAt) / duration);
+          track.scrollLeft = startLeft + (distance * easeOut(progress));
+          if (progress < 1) {
+            inertiaRafId = window.requestAnimationFrame(frame);
+            return;
+          }
+          inertiaRafId = null;
+          if (onComplete) onComplete();
+        };
+        inertiaRafId = window.requestAnimationFrame(frame);
       }
 
       function stopAuto() {
@@ -5852,9 +5952,12 @@
         if (prefersReducedMotion || cards.length < 2) return;
         stopAuto();
         autoTimer = window.setInterval(() => {
-          const nextIndex = activeIndex + 1;
-          activeIndex = nextIndex > lastRealIndex + cloneCount ? firstRealIndex : nextIndex;
+          // Advance into the matching after-clone instead of jumping to the
+          // first real card. The silent normalization after the motion keeps
+          // the visual sequence continuous forever.
+          activeIndex += 1;
           scrollToCard(activeIndex, "smooth");
+          queueUpdate();
         }, 3200);
       }
 
@@ -5881,15 +5984,32 @@
 
       function endDrag(event) {
         if (!dragState || (event && event.pointerId !== dragState.pointerId)) return;
-        const wasTap = !dragState.moved && (lastPointerType === "touch" || lastPointerType === "pen");
-        const tappedCardIndex = dragState.cardIndex;
+        const completedDrag = dragState;
+        const wasTap = !completedDrag.moved && (lastPointerType === "touch" || lastPointerType === "pen");
+        const tappedCardIndex = completedDrag.cardIndex;
         if (track.releasePointerCapture && track.hasPointerCapture?.(dragState.pointerId)) {
           track.releasePointerCapture(dragState.pointerId);
         }
-        if (dragState.moved) suppressClickUntil = Date.now() + 450;
+        if (completedDrag.moved) suppressClickUntil = Date.now() + 450;
         dragState = null;
         track.classList.remove("is-dragging");
-        queueUpdate();
+        if (completedDrag.moved) {
+          const velocity = Number(completedDrag.velocity) || 0;
+          const momentum = Math.max(-260, Math.min(260, -velocity * 260));
+          if (Math.abs(momentum) > 8) {
+            animateScrollTo(track.scrollLeft + momentum, 480, () => {
+              updateActiveCard();
+              scrollToCard(activeIndex, "smooth");
+              queueUpdate();
+            });
+          } else {
+            updateActiveCard();
+            scrollToCard(activeIndex, "smooth");
+            queueUpdate();
+          }
+        } else {
+          queueUpdate();
+        }
         pauseForInteraction();
         if (wasTap && Number.isInteger(tappedCardIndex)) openLightbox(tappedCardIndex);
       }
@@ -5899,12 +6019,11 @@
         const sourceCard = sourceCards[realIndex];
         const image = sourceCard?.querySelector(".shot-image");
         const title = sourceCard?.querySelector(".shot-title")?.textContent?.trim() || "";
-        const chip = sourceCard?.querySelector(".shot-chip")?.textContent?.trim() || "";
         const lightboxImage = document.getElementById("galleryLightboxImage");
         const lightboxCaption = document.getElementById("galleryLightboxCaption");
         if (!image || !lightboxImage || !lightboxCaption) return;
         lightboxImage.src = image.currentSrc || image.src;
-        lightboxImage.alt = chip ? `${title} — ${chip}` : title;
+        lightboxImage.alt = title;
         lightboxCaption.textContent = title;
         lightboxIndex = realIndex;
       }
@@ -5956,6 +6075,10 @@
       track.addEventListener("pointerdown", (event) => {
         if (event.pointerType === "mouse" && event.button !== 0) return;
         lastPointerType = event.pointerType || "mouse";
+        if (inertiaRafId) {
+          window.cancelAnimationFrame(inertiaRafId);
+          inertiaRafId = null;
+        }
         pauseForInteraction();
         const card = event.target.closest?.(".shot-card");
         dragState = {
@@ -5963,7 +6086,10 @@
           startX: event.clientX,
           startScrollLeft: track.scrollLeft,
           moved: false,
-          cardIndex: card ? realIndexFor(cards.indexOf(card)) : null
+          cardIndex: card ? realIndexFor(cards.indexOf(card)) : null,
+          lastX: event.clientX,
+          lastTime: performance.now(),
+          velocity: 0
         };
         track.classList.add("is-dragging");
         // Keep native mouse clicks targeted at the image button. Touch and
@@ -5974,6 +6100,12 @@
       track.addEventListener("pointermove", (event) => {
         if (!dragState || event.pointerId !== dragState.pointerId) return;
         const delta = event.clientX - dragState.startX;
+        const now = performance.now();
+        const elapsed = Math.max(1, now - dragState.lastTime);
+        const instantVelocity = (event.clientX - dragState.lastX) / elapsed;
+        dragState.velocity = (dragState.velocity * 0.72) + (instantVelocity * 0.28);
+        dragState.lastX = event.clientX;
+        dragState.lastTime = now;
         if (Math.abs(delta) > 6) dragState.moved = true;
         if (dragState.moved) {
           event.preventDefault();
@@ -5983,7 +6115,10 @@
       track.addEventListener("pointerup", endDrag);
       track.addEventListener("pointercancel", endDrag);
       track.addEventListener("lostpointercapture", () => endDrag());
-      window.addEventListener("resize", queueUpdate);
+      window.addEventListener("resize", () => {
+        queueUpdate();
+        positionGalleryControls();
+      });
 
       cards.forEach((card, index) => {
         const link = card.querySelector(".shot-link");
@@ -6028,6 +6163,7 @@
       });
 
       scrollToCard(firstRealIndex, "auto");
+      positionGalleryControls();
       updateActiveCard();
       startAuto();
     }
