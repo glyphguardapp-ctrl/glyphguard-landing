@@ -30,7 +30,10 @@
     :root {
       --bg-1: #0f1629;
       --bg-2: #1a2644;
-      --card: rgba(255, 255, 255, 0.08);
+      /* Content surfaces stay opaque; the artwork is a backdrop, not a texture
+         that can show through readable information. */
+      --card: #142542;
+      --surface-raised: #1b2f52;
       --card-border: rgba(255, 255, 255, 0.18);
       --text: #f7f9ff;
       --text-dim: #c6d0ee;
@@ -67,14 +70,23 @@
     body::before {
       content: "";
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100lvh;
       z-index: 0;
       pointer-events: none;
       background:
         linear-gradient(160deg, rgba(7, 14, 36, 0.7), rgba(5, 10, 26, 0.78)),
         radial-gradient(65vw 65vw at 50% 35%, rgba(38, 205, 255, 0.2) 0%, rgba(38, 205, 255, 0) 72%),
         url("./fon_1024x1024.png") center / cover no-repeat;
-      background-attachment: fixed;
+      /* The element itself is fixed.  A normal background layer avoids the
+         jumpy background-attachment implementation on mobile Safari. */
+      background-attachment: scroll;
+      background-position: center center;
+      transform: translate3d(0, 0, 0);
+      will-change: transform;
     }
 
     @supports (min-height: 100dvh) {
@@ -85,7 +97,7 @@
       width: 100%;
       max-width: 780px;
       position: relative;
-      z-index: 0;
+      z-index: 1;
     }
 
     .hero-lang {
@@ -157,7 +169,7 @@
       border-radius: calc(var(--radius) + 6px);
       padding: 26px 22px 22px;
       border: 1px solid var(--card-border);
-      background: linear-gradient(165deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+      background: linear-gradient(165deg, #1b3155, #142542);
       box-shadow: var(--shadow);
       backdrop-filter: blur(7px);
       text-align: center;
@@ -410,7 +422,7 @@
       padding: 14px;
       border: 1px solid rgba(247, 198, 78, 0.24);
       border-radius: 16px;
-      background: rgba(7, 13, 30, 0.42);
+      background: #101f3b;
       scroll-margin-top: 18px;
     }
 
@@ -577,7 +589,7 @@
     .fact-card {
       border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--surface-raised);
       padding: 14px 12px;
     }
 
@@ -618,7 +630,7 @@
     .pricing-card {
       border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--surface-raised);
       padding: 16px 14px;
       min-height: 100%;
       display: flex;
@@ -629,7 +641,7 @@
     .pricing-card.featured {
       border-color: rgba(247, 198, 78, 0.45);
       background:
-        linear-gradient(180deg, rgba(247, 198, 78, 0.14), rgba(255, 255, 255, 0.05));
+        linear-gradient(180deg, #4a4022, #1f3152);
       box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
     }
 
@@ -698,7 +710,7 @@
     .faq-item {
       border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--surface-raised);
       padding: 14px 14px 12px;
     }
 
@@ -749,20 +761,22 @@
 
     .shot-card {
       flex: 0 0 var(--card-width);
+      display: flex;
+      flex-direction: column;
       border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(10, 18, 39, 0.46);
+      background: #132340;
       padding: 12px;
       scroll-snap-align: center;
-      transition: transform 0.26s ease, opacity 0.26s ease, border-color 0.26s ease;
-      transform: scale(0.92);
-      opacity: 0.58;
+      transition: opacity 0.26s ease, border-color 0.26s ease, box-shadow 0.26s ease;
+      opacity: 0.78;
+      min-height: 100%;
     }
 
     .shot-card.is-active {
-      transform: scale(1);
       opacity: 1;
       border-color: rgba(247, 198, 78, 0.5);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.26);
     }
 
     .shot-visual {
@@ -834,8 +848,10 @@
     .shot-title {
       margin: 10px 0 4px;
       font-size: 14px;
+      line-height: 1.35;
       font-weight: 700;
       letter-spacing: 0.01em;
+      min-height: 4.05em;
     }
 
     .shot-note {
