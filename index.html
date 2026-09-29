@@ -67,6 +67,10 @@
       isolation: isolate;
     }
 
+    body.lightbox-open {
+      overflow: hidden;
+    }
+
     body::before {
       content: "";
       position: fixed;
@@ -734,7 +738,52 @@
     }
 
     .gallery-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
       margin-bottom: 14px;
+    }
+
+    .gallery-head-copy {
+      min-width: 0;
+    }
+
+    .gallery-controls {
+      display: inline-flex;
+      flex: 0 0 auto;
+      gap: 8px;
+      padding-top: 2px;
+    }
+
+    .gallery-nav {
+      width: 38px;
+      height: 38px;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid rgba(247, 198, 78, 0.42);
+      border-radius: 12px;
+      background: #20385f;
+      color: #fff8d8;
+      font: 800 22px/1 "Manrope", "Segoe UI", Arial, sans-serif;
+      cursor: pointer;
+      transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+    }
+
+    .gallery-nav:hover,
+    .gallery-nav:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(255, 221, 128, 0.92);
+      background: #2b4b7b;
+      outline: none;
+    }
+
+    .gallery-nav:active {
+      transform: translateY(0);
+    }
+
+    .gallery-help {
+      max-width: 560px;
     }
 
     .gallery-carousel {
@@ -753,6 +802,16 @@
       scroll-behavior: smooth;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
+      cursor: grab;
+      touch-action: pan-y;
+      user-select: none;
+      overscroll-behavior-x: contain;
+    }
+
+    .gallery-track.is-dragging {
+      cursor: grabbing;
+      scroll-snap-type: none;
+      scroll-behavior: auto;
     }
 
     .gallery-track::-webkit-scrollbar {
@@ -795,12 +854,28 @@
       height: 100%;
       display: block;
       object-fit: cover;
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
     .shot-link {
       display: block;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 12px;
       text-decoration: none;
       color: inherit;
+      background: transparent;
+      font: inherit;
+      text-align: inherit;
+      cursor: zoom-in;
+    }
+
+    .shot-link:focus-visible {
+      outline: 3px solid rgba(247, 198, 78, 0.9);
+      outline-offset: 3px;
     }
 
     .shot-visual::before {
@@ -833,8 +908,9 @@
 
     .shot-chip {
       position: absolute;
-      right: 8px;
+      inset-inline-end: 8px;
       top: 8px;
+      z-index: 2;
       font-size: 10px;
       letter-spacing: 0.08em;
       font-weight: 800;
@@ -867,6 +943,103 @@
       border-radius: 6px;
       padding: 2px 6px;
       word-break: break-all;
+    }
+
+    .gallery-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1001;
+      padding: 24px;
+      background: rgba(3, 8, 20, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      place-items: center;
+    }
+
+    .gallery-lightbox.open {
+      display: grid;
+    }
+
+    .gallery-lightbox-dialog {
+      position: relative;
+      width: min(980px, 100%);
+      max-height: 92vh;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .gallery-lightbox-figure {
+      min-width: 0;
+      margin: 0;
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+    }
+
+    .gallery-lightbox-image {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: calc(92vh - 86px);
+      object-fit: contain;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      background: #0d1326;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+    }
+
+    .gallery-lightbox-caption {
+      width: min(680px, 100%);
+      margin: 0;
+      color: #f7f9ff;
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .gallery-lightbox-nav,
+    .gallery-lightbox-close {
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid rgba(247, 198, 78, 0.48);
+      color: #fff8d8;
+      background: #1b3155;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+      transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+    }
+
+    .gallery-lightbox-nav {
+      width: 46px;
+      height: 54px;
+      border-radius: 14px;
+      font: 800 30px/1 "Manrope", "Segoe UI", Arial, sans-serif;
+    }
+
+    .gallery-lightbox-close {
+      position: absolute;
+      top: -6px;
+      inset-inline-end: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font: 800 24px/1 "Manrope", "Segoe UI", Arial, sans-serif;
+      z-index: 2;
+    }
+
+    .gallery-lightbox-nav:hover,
+    .gallery-lightbox-nav:focus-visible,
+    .gallery-lightbox-close:hover,
+    .gallery-lightbox-close:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(255, 221, 128, 0.95);
+      background: #2b4b7b;
+      outline: none;
     }
 
     .footer {
@@ -926,6 +1099,53 @@
 
       .pricing-grid {
         grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+
+      .gallery-head {
+        align-items: flex-start;
+      }
+
+      .gallery-controls {
+        padding-top: 0;
+      }
+
+      .gallery-nav {
+        width: 36px;
+        height: 36px;
+      }
+
+      .gallery-lightbox {
+        padding: 16px;
+      }
+
+      .gallery-lightbox-dialog {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+          "figure figure"
+          "previous next";
+        gap: 10px;
+      }
+
+      .gallery-lightbox-figure {
+        grid-area: figure;
+      }
+
+      .gallery-lightbox-nav {
+        width: 100%;
+        height: 42px;
+      }
+
+      .gallery-lightbox-prev {
+        grid-area: previous;
+      }
+
+      .gallery-lightbox-next {
+        grid-area: next;
+      }
+
+      .gallery-lightbox-close {
+        top: -12px;
+        inset-inline-end: -4px;
       }
     }
 
@@ -1045,80 +1265,99 @@
 
     <section class="panel gallery">
       <div class="gallery-head">
-        <h2 data-i18n="galleryTitle"></h2>
-        <p class="muted" data-i18n="gallerySubtitle"></p>
+        <div class="gallery-head-copy">
+          <h2 data-i18n="galleryTitle"></h2>
+          <p class="muted" data-i18n="gallerySubtitle"></p>
+          <p class="muted gallery-help" data-i18n="galleryHelp"></p>
+        </div>
+        <div class="gallery-controls" role="group" aria-label="Gallery controls">
+          <button class="gallery-nav" id="galleryPrev" type="button" data-i18n-aria="galleryPrev" aria-label="Previous screenshot">‹</button>
+          <button class="gallery-nav" id="galleryNext" type="button" data-i18n-aria="galleryNext" aria-label="Next screenshot">›</button>
+        </div>
       </div>
 
       <div class="gallery-carousel">
         <div class="gallery-track" id="galleryTrack">
         <article class="shot-card">
-          <a class="shot-link" href="./gallery/dark-theme-4k.png" target="_blank" rel="noopener noreferrer">
+          <button class="shot-link" type="button" data-gallery-index="0" data-i18n-aria="galleryOpen" aria-label="Open screenshot">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/dark-theme-4k.png" alt="AlertLinkGuard dark theme screenshot" loading="lazy" decoding="async" />
               <span class="shot-chip" data-i18n="shotChipDark">Safe</span>
             </div>
-          </a>
+          </button>
           <p class="shot-title" data-i18n="shotDark"></p>
           <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/dark-theme-4k.png</code></p>
         </article>
 
         <article class="shot-card">
-          <a class="shot-link" href="./gallery/light-theme-4k.png" target="_blank" rel="noopener noreferrer">
+          <button class="shot-link" type="button" data-gallery-index="1" data-i18n-aria="galleryOpen" aria-label="Open screenshot">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/light-theme-4k.png" alt="AlertLinkGuard light theme screenshot" loading="lazy" decoding="async" />
               <span class="shot-chip" data-i18n="shotChipLight">Safe</span>
             </div>
-          </a>
+          </button>
           <p class="shot-title" data-i18n="shotLight"></p>
           <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/light-theme-4k.png</code></p>
         </article>
 
         <article class="shot-card">
-          <a class="shot-link" href="./gallery/royal-gold-4k.png" target="_blank" rel="noopener noreferrer">
+          <button class="shot-link" type="button" data-gallery-index="2" data-i18n-aria="galleryOpen" aria-label="Open screenshot">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/royal-gold-4k.png" alt="AlertLinkGuard royal gold theme screenshot" loading="lazy" decoding="async" />
               <span class="shot-chip" data-i18n="shotChipRoyal">Plan</span>
             </div>
-          </a>
+          </button>
           <p class="shot-title" data-i18n="shotRoyal"></p>
           <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/royal-gold-4k.png</code></p>
         </article>
 
         <article class="shot-card">
-          <a class="shot-link" href="./gallery/robot-buddy-4k.png" target="_blank" rel="noopener noreferrer">
+          <button class="shot-link" type="button" data-gallery-index="3" data-i18n-aria="galleryOpen" aria-label="Open screenshot">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/robot-buddy-4k.png" alt="AlertLinkGuard robot buddy theme screenshot" loading="lazy" decoding="async" />
               <span class="shot-chip" data-i18n="shotChipRobot">Menu</span>
             </div>
-          </a>
+          </button>
           <p class="shot-title" data-i18n="shotRobot"></p>
           <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/robot-buddy-4k.png</code></p>
         </article>
 
         <article class="shot-card">
-          <a class="shot-link" href="./gallery/obsidian-titan-4k.png" target="_blank" rel="noopener noreferrer">
+          <button class="shot-link" type="button" data-gallery-index="4" data-i18n-aria="galleryOpen" aria-label="Open screenshot">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/obsidian-titan-4k.png" alt="AlertLinkGuard obsidian titan theme screenshot" loading="lazy" decoding="async" />
               <span class="shot-chip" data-i18n="shotChipObsidian">Danger</span>
             </div>
-          </a>
+          </button>
           <p class="shot-title" data-i18n="shotObsidian"></p>
           <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/obsidian-titan-4k.png</code></p>
         </article>
 
         <article class="shot-card">
-          <a class="shot-link" href="./gallery/emerald-vault-4k.png" target="_blank" rel="noopener noreferrer">
+          <button class="shot-link" type="button" data-gallery-index="5" data-i18n-aria="galleryOpen" aria-label="Open screenshot">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/emerald-vault-4k.png" alt="AlertLinkGuard emerald vault theme screenshot" loading="lazy" decoding="async" />
               <span class="shot-chip" data-i18n="shotChipEmerald">Analysis</span>
             </div>
-          </a>
+          </button>
           <p class="shot-title" data-i18n="shotEmerald"></p>
           <p class="shot-note"><span data-i18n="shotHint"></span> <code>./gallery/emerald-vault-4k.png</code></p>
         </article>
         </div>
       </div>
     </section>
+
+    <div class="gallery-lightbox" id="galleryLightbox" aria-hidden="true">
+      <div class="gallery-lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="galleryLightboxCaption">
+        <button class="gallery-lightbox-close" id="galleryLightboxClose" type="button" data-i18n-aria="galleryClose" aria-label="Close screenshot">×</button>
+        <button class="gallery-lightbox-nav gallery-lightbox-prev" id="galleryLightboxPrev" type="button" data-i18n-aria="galleryPrev" aria-label="Previous screenshot">‹</button>
+        <figure class="gallery-lightbox-figure">
+          <img class="gallery-lightbox-image" id="galleryLightboxImage" alt="" decoding="async" />
+          <figcaption class="gallery-lightbox-caption" id="galleryLightboxCaption"></figcaption>
+        </figure>
+        <button class="gallery-lightbox-nav gallery-lightbox-next" id="galleryLightboxNext" type="button" data-i18n-aria="galleryNext" aria-label="Next screenshot">›</button>
+      </div>
+    </div>
 
     <section class="grid">
       <article class="panel span6">
@@ -5144,6 +5383,40 @@
       if (COPY[lang]) Object.assign(COPY[lang], values);
     });
 
+    const GALLERY_UI_COPY = {
+      en: { galleryHelp: "Drag, use the arrows, or tap a screenshot. Auto-scroll resumes after 10 seconds of inactivity.", galleryPrev: "Previous screenshot", galleryNext: "Next screenshot", galleryClose: "Close screenshot", galleryOpen: "Open screenshot" },
+      ru: { galleryHelp: "Перетаскивайте галерею, используйте стрелки или нажмите на скриншот. Автопрокрутка возобновится через 10 секунд бездействия.", galleryPrev: "Предыдущий скриншот", galleryNext: "Следующий скриншот", galleryClose: "Закрыть скриншот", galleryOpen: "Открыть скриншот" },
+      uk: { galleryHelp: "Перетягуйте галерею, використовуйте стрілки або натисніть на скріншот. Автопрокрутка відновиться через 10 секунд бездіяльності.", galleryPrev: "Попередній скріншот", galleryNext: "Наступний скріншот", galleryClose: "Закрити скріншот", galleryOpen: "Відкрити скріншот" },
+      bg: { galleryHelp: "Плъзнете, използвайте стрелките или докоснете екранна снимка. Автоматичното превъртане се възобновява след 10 секунди бездействие.", galleryPrev: "Предишна екранна снимка", galleryNext: "Следваща екранна снимка", galleryClose: "Затвори екранната снимка", galleryOpen: "Отвори екранната снимка" },
+      zh: { galleryHelp: "拖动、使用箭头或点击截图。无操作 10 秒后将恢复自动滚动。", galleryPrev: "上一张截图", galleryNext: "下一张截图", galleryClose: "关闭截图", galleryOpen: "打开截图" },
+      es: { galleryHelp: "Arrastra, usa las flechas o toca una captura. El desplazamiento automático vuelve tras 10 segundos sin actividad.", galleryPrev: "Captura anterior", galleryNext: "Captura siguiente", galleryClose: "Cerrar captura", galleryOpen: "Abrir captura" },
+      fr: { galleryHelp: "Faites glisser, utilisez les flèches ou touchez une capture. Le défilement automatique reprend après 10 secondes d’inactivité.", galleryPrev: "Capture précédente", galleryNext: "Capture suivante", galleryClose: "Fermer la capture", galleryOpen: "Ouvrir la capture" },
+      ar: { galleryHelp: "اسحب أو استخدم الأسهم أو اضغط على لقطة. يعود التمرير التلقائي بعد 10 ثوانٍ من عدم النشاط.", galleryPrev: "لقطة الشاشة السابقة", galleryNext: "لقطة الشاشة التالية", galleryClose: "إغلاق لقطة الشاشة", galleryOpen: "فتح لقطة الشاشة" },
+      pt: { galleryHelp: "Arraste, use as setas ou toque numa captura. A rolagem automática volta após 10 segundos de inatividade.", galleryPrev: "Captura anterior", galleryNext: "Próxima captura", galleryClose: "Fechar captura", galleryOpen: "Abrir captura" },
+      de: { galleryHelp: "Ziehen Sie, nutzen Sie die Pfeile oder tippen Sie auf einen Screenshot. Nach 10 Sekunden Inaktivität startet das automatische Scrollen wieder.", galleryPrev: "Vorheriger Screenshot", galleryNext: "Nächster Screenshot", galleryClose: "Screenshot schließen", galleryOpen: "Screenshot öffnen" },
+      hi: { galleryHelp: "खींचें, तीरों का उपयोग करें या स्क्रीनशॉट पर टैप करें। 10 सेकंड निष्क्रिय रहने पर ऑटो-स्क्रॉल फिर शुरू होगा।", galleryPrev: "पिछला स्क्रीनशॉट", galleryNext: "अगला स्क्रीनशॉट", galleryClose: "स्क्रीनशॉट बंद करें", galleryOpen: "स्क्रीनशॉट खोलें" },
+      ko: { galleryHelp: "드래그하거나 화살표를 사용하거나 스크린샷을 탭하세요. 10초 동안 동작이 없으면 자동 스크롤이 다시 시작됩니다.", galleryPrev: "이전 스크린샷", galleryNext: "다음 스크린샷", galleryClose: "스크린샷 닫기", galleryOpen: "스크린샷 열기" },
+      ja: { galleryHelp: "ドラッグ、矢印、またはスクリーンショットのタップで操作できます。10秒間操作がないと自動スクロールが再開します。", galleryPrev: "前のスクリーンショット", galleryNext: "次のスクリーンショット", galleryClose: "スクリーンショットを閉じる", galleryOpen: "スクリーンショットを開く" },
+      it: { galleryHelp: "Trascina, usa le frecce o tocca uno screenshot. Lo scorrimento automatico riprende dopo 10 secondi di inattività.", galleryPrev: "Screenshot precedente", galleryNext: "Screenshot successivo", galleryClose: "Chiudi screenshot", galleryOpen: "Apri screenshot" },
+      tr: { galleryHelp: "Sürükleyin, okları kullanın veya bir ekran görüntüsüne dokunun. 10 saniye işlem yapılmazsa otomatik kaydırma yeniden başlar.", galleryPrev: "Önceki ekran görüntüsü", galleryNext: "Sonraki ekran görüntüsü", galleryClose: "Ekran görüntüsünü kapat", galleryOpen: "Ekran görüntüsünü aç" },
+      id: { galleryHelp: "Geser, gunakan panah, atau ketuk tangkapan layar. Gulir otomatis akan aktif lagi setelah 10 detik tanpa aktivitas.", galleryPrev: "Tangkapan layar sebelumnya", galleryNext: "Tangkapan layar berikutnya", galleryClose: "Tutup tangkapan layar", galleryOpen: "Buka tangkapan layar" },
+      vi: { galleryHelp: "Kéo, dùng mũi tên hoặc chạm vào ảnh chụp. Tự động cuộn sẽ tiếp tục sau 10 giây không hoạt động.", galleryPrev: "Ảnh chụp trước", galleryNext: "Ảnh chụp tiếp theo", galleryClose: "Đóng ảnh chụp", galleryOpen: "Mở ảnh chụp" },
+      th: { galleryHelp: "ลาก ใช้ลูกศร หรือแตะภาพหน้าจอ การเลื่อนอัตโนมัติจะทำงานต่อหลังไม่มีการใช้งาน 10 วินาที", galleryPrev: "ภาพหน้าจอก่อนหน้า", galleryNext: "ภาพหน้าจอถัดไป", galleryClose: "ปิดภาพหน้าจอ", galleryOpen: "เปิดภาพหน้าจอ" },
+      pl: { galleryHelp: "Przeciągnij, użyj strzałek lub dotknij zrzutu. Automatyczne przewijanie wznowi się po 10 sekundach bezczynności.", galleryPrev: "Poprzedni zrzut ekranu", galleryNext: "Następny zrzut ekranu", galleryClose: "Zamknij zrzut ekranu", galleryOpen: "Otwórz zrzut ekranu" },
+      nl: { galleryHelp: "Sleep, gebruik de pijlen of tik op een screenshot. Automatisch scrollen wordt na 10 seconden inactiviteit hervat.", galleryPrev: "Vorige screenshot", galleryNext: "Volgende screenshot", galleryClose: "Screenshot sluiten", galleryOpen: "Screenshot openen" },
+      sv: { galleryHelp: "Dra, använd pilarna eller tryck på en skärmbild. Automatisk rullning återupptas efter 10 sekunder utan aktivitet.", galleryPrev: "Föregående skärmbild", galleryNext: "Nästa skärmbild", galleryClose: "Stäng skärmbild", galleryOpen: "Öppna skärmbild" },
+      no: { galleryHelp: "Dra, bruk pilene eller trykk på et skjermbilde. Automatisk rulling starter igjen etter 10 sekunder uten aktivitet.", galleryPrev: "Forrige skjermbilde", galleryNext: "Neste skjermbilde", galleryClose: "Lukk skjermbilde", galleryOpen: "Åpne skjermbilde" },
+      da: { galleryHelp: "Træk, brug pilene, eller tryk på et skærmbillede. Automatisk rulning genoptages efter 10 sekunders inaktivitet.", galleryPrev: "Forrige skærmbillede", galleryNext: "Næste skærmbillede", galleryClose: "Luk skærmbillede", galleryOpen: "Åbn skærmbillede" },
+      cs: { galleryHelp: "Přetáhněte, použijte šipky nebo klepněte na snímek. Automatické posouvání se obnoví po 10 sekundách nečinnosti.", galleryPrev: "Předchozí snímek", galleryNext: "Další snímek", galleryClose: "Zavřít snímek", galleryOpen: "Otevřít snímek" },
+      ro: { galleryHelp: "Glisează, folosește săgețile sau atinge o captură. Derularea automată reîncepe după 10 secunde de inactivitate.", galleryPrev: "Captura anterioară", galleryNext: "Captura următoare", galleryClose: "Închide captura", galleryOpen: "Deschide captura" },
+      hu: { galleryHelp: "Húzza, használja a nyilakat, vagy koppintson egy képernyőképre. Az automatikus görgetés 10 másodperc tétlenség után folytatódik.", galleryPrev: "Előző képernyőkép", galleryNext: "Következő képernyőkép", galleryClose: "Képernyőkép bezárása", galleryOpen: "Képernyőkép megnyitása" },
+      fa: { galleryHelp: "بکشید، از فلش‌ها استفاده کنید یا روی تصویر ضربه بزنید. پس از ۱۰ ثانیه بی‌فعالیتی، پیمایش خودکار از سر گرفته می‌شود.", galleryPrev: "تصویر قبلی", galleryNext: "تصویر بعدی", galleryClose: "بستن تصویر", galleryOpen: "باز کردن تصویر" },
+      ms: { galleryHelp: "Seret, gunakan anak panah atau ketik tangkapan skrin. Tatalan automatik disambung selepas 10 saat tiada aktiviti.", galleryPrev: "Tangkapan skrin sebelumnya", galleryNext: "Tangkapan skrin seterusnya", galleryClose: "Tutup tangkapan skrin", galleryOpen: "Buka tangkapan skrin" }
+    };
+    Object.entries(GALLERY_UI_COPY).forEach(([lang, values]) => {
+      if (COPY[lang]) Object.assign(COPY[lang], values);
+    });
+
     // Release-critical support copy. Keep this small block fully translated
     // instead of inheriting English/Russian fallback text in the donation UI.
     const SUPPORT_COPY = {
@@ -5477,38 +5750,43 @@
       const sourceCards = Array.from(track.querySelectorAll(".shot-card"));
       if (sourceCards.length === 0) return;
 
-      const canLoopSeamlessly = sourceCards.length > 1;
-      if (canLoopSeamlessly) {
-        const firstClone = sourceCards[0].cloneNode(true);
-        firstClone.setAttribute("data-clone", "after");
-        const lastClone = sourceCards[sourceCards.length - 1].cloneNode(true);
-        lastClone.setAttribute("data-clone", "before");
-        track.appendChild(firstClone);
-        track.insertBefore(lastClone, track.firstChild);
-      }
+      // Clone a complete set on both sides. When the visible card reaches a
+      // clone, we can move to the matching real card at the same visual
+      // position, so the carousel never appears to jump back to the start.
+      const cloneSet = (side) => sourceCards.map((sourceCard) => {
+        const clone = sourceCard.cloneNode(true);
+        clone.dataset.clone = side;
+        return clone;
+      });
+      const beforeClones = cloneSet("before");
+      const afterClones = cloneSet("after");
+      beforeClones.slice().reverse().forEach((clone) => track.insertBefore(clone, track.firstChild));
+      afterClones.forEach((clone) => track.appendChild(clone));
 
       const cards = Array.from(track.querySelectorAll(".shot-card"));
-
+      const sourceCount = sourceCards.length;
+      const cloneCount = sourceCount;
+      const firstRealIndex = cloneCount;
+      const lastRealIndex = cloneCount + sourceCount - 1;
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const firstRealIndex = canLoopSeamlessly ? 1 : 0;
-      const lastRealIndex = canLoopSeamlessly ? cards.length - 2 : cards.length - 1;
       let activeIndex = firstRealIndex;
       let autoTimer = null;
+      let resumeTimer = null;
       let rafId = null;
       let settleTimer = null;
+      let dragState = null;
+      let suppressClickUntil = 0;
+      let lastPointerType = "mouse";
+      let lightboxIndex = 0;
 
-      function normalizeIndex(index) {
-        if (!canLoopSeamlessly) return index;
-        if (index <= 0) return lastRealIndex;
-        if (index >= cards.length - 1) return firstRealIndex;
-        return index;
-      }
+      const modulo = (value, size) => ((value % size) + size) % size;
+      const realIndexFor = (index) => modulo(index - cloneCount, sourceCount);
+      const loopIndexFor = (realIndex) => cloneCount + modulo(realIndex, sourceCount);
 
       function updateActiveCard() {
         const rect = track.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
-
-        let nearestIndex = 0;
+        let nearestIndex = firstRealIndex;
         let nearestDistance = Number.POSITIVE_INFINITY;
 
         cards.forEach((card, index) => {
@@ -5522,37 +5800,9 @@
         });
 
         activeIndex = nearestIndex;
-        const activeRealIndex = normalizeIndex(nearestIndex);
+        const activeRealIndex = realIndexFor(nearestIndex);
         cards.forEach((card, index) => {
-          card.classList.toggle("is-active", normalizeIndex(index) === activeRealIndex);
-        });
-      }
-
-      function settleLoopEdges() {
-        if (!canLoopSeamlessly) return;
-        if (activeIndex <= 0) {
-          activeIndex = lastRealIndex;
-          scrollToCard(activeIndex, "auto");
-          queueUpdate();
-          return;
-        }
-        if (activeIndex >= cards.length - 1) {
-          activeIndex = firstRealIndex;
-          scrollToCard(activeIndex, "auto");
-          queueUpdate();
-        }
-      }
-
-      function queueUpdate() {
-        if (rafId) return;
-        rafId = window.requestAnimationFrame(() => {
-          rafId = null;
-          updateActiveCard();
-
-          if (settleTimer) window.clearTimeout(settleTimer);
-          settleTimer = window.setTimeout(() => {
-            settleLoopEdges();
-          }, 90);
+          card.classList.toggle("is-active", realIndexFor(index) === activeRealIndex);
         });
       }
 
@@ -5561,6 +5811,24 @@
         if (!target) return;
         const left = target.offsetLeft - (track.clientWidth - target.offsetWidth) / 2;
         track.scrollTo({ left: Math.max(0, left), behavior });
+      }
+
+      function settleLoopEdges() {
+        if (activeIndex >= firstRealIndex && activeIndex <= lastRealIndex) return;
+        const equivalentIndex = loopIndexFor(realIndexFor(activeIndex));
+        activeIndex = equivalentIndex;
+        scrollToCard(equivalentIndex, "auto");
+        updateActiveCard();
+      }
+
+      function queueUpdate() {
+        if (rafId) return;
+        rafId = window.requestAnimationFrame(() => {
+          rafId = null;
+          updateActiveCard();
+          if (settleTimer) window.clearTimeout(settleTimer);
+          settleTimer = window.setTimeout(settleLoopEdges, 120);
+        });
       }
 
       function stopAuto() {
@@ -5574,24 +5842,178 @@
         stopAuto();
         autoTimer = window.setInterval(() => {
           const nextIndex = activeIndex + 1;
-          activeIndex = nextIndex;
-          scrollToCard(nextIndex, "smooth");
+          activeIndex = nextIndex > lastRealIndex + cloneCount ? firstRealIndex : nextIndex;
+          scrollToCard(activeIndex, "smooth");
         }, 3200);
       }
 
+      function scheduleAutoResume() {
+        stopAuto();
+        if (resumeTimer) window.clearTimeout(resumeTimer);
+        if (prefersReducedMotion) return;
+        resumeTimer = window.setTimeout(() => {
+          resumeTimer = null;
+          startAuto();
+        }, 10000);
+      }
+
+      function pauseForInteraction() {
+        scheduleAutoResume();
+      }
+
+      function moveBy(delta) {
+        pauseForInteraction();
+        activeIndex += delta;
+        scrollToCard(activeIndex, "smooth");
+        queueUpdate();
+      }
+
+      function endDrag(event) {
+        if (!dragState || (event && event.pointerId !== dragState.pointerId)) return;
+        const wasTap = !dragState.moved && (lastPointerType === "touch" || lastPointerType === "pen");
+        const tappedCardIndex = dragState.cardIndex;
+        if (track.releasePointerCapture && track.hasPointerCapture?.(dragState.pointerId)) {
+          track.releasePointerCapture(dragState.pointerId);
+        }
+        if (dragState.moved) suppressClickUntil = Date.now() + 450;
+        dragState = null;
+        track.classList.remove("is-dragging");
+        queueUpdate();
+        pauseForInteraction();
+        if (wasTap && Number.isInteger(tappedCardIndex)) openLightbox(tappedCardIndex);
+      }
+
+      function renderLightbox(index) {
+        const realIndex = modulo(index, sourceCount);
+        const sourceCard = sourceCards[realIndex];
+        const image = sourceCard?.querySelector(".shot-image");
+        const title = sourceCard?.querySelector(".shot-title")?.textContent?.trim() || "";
+        const chip = sourceCard?.querySelector(".shot-chip")?.textContent?.trim() || "";
+        const lightboxImage = document.getElementById("galleryLightboxImage");
+        const lightboxCaption = document.getElementById("galleryLightboxCaption");
+        if (!image || !lightboxImage || !lightboxCaption) return;
+        lightboxImage.src = image.currentSrc || image.src;
+        lightboxImage.alt = chip ? `${title} — ${chip}` : title;
+        lightboxCaption.textContent = title;
+        lightboxIndex = realIndex;
+      }
+
+      function openLightbox(index) {
+        const lightbox = document.getElementById("galleryLightbox");
+        if (!lightbox) return;
+        renderLightbox(index);
+        lightbox.classList.add("open");
+        lightbox.setAttribute("aria-hidden", "false");
+        document.body.classList.add("lightbox-open");
+        pauseForInteraction();
+        document.getElementById("galleryLightboxClose")?.focus();
+      }
+
+      function closeLightbox() {
+        const lightbox = document.getElementById("galleryLightbox");
+        if (!lightbox) return;
+        lightbox.classList.remove("open");
+        lightbox.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("lightbox-open");
+      }
+
+      function moveLightbox(delta) {
+        renderLightbox(lightboxIndex + delta);
+      }
+
+      // Keep a tiny public bridge for the inline fallback on image links. It
+      // guarantees that a tap still opens the viewer in embedded/mobile
+      // browsers that synthesize link clicks without pointer details.
+      window.__alertLinkGuardGallery = {
+        openFromElement(element) {
+          openLightbox(Number(element?.dataset?.galleryIndex || 0));
+          return false;
+        }
+      };
+
+      track.tabIndex = 0;
       track.addEventListener("scroll", queueUpdate, { passive: true });
-      track.addEventListener("pointerenter", stopAuto);
-      track.addEventListener("pointerleave", startAuto);
-      track.addEventListener("touchstart", stopAuto, { passive: true });
-      track.addEventListener("touchend", startAuto);
+      track.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          moveBy(-1);
+        } else if (event.key === "ArrowRight") {
+          event.preventDefault();
+          moveBy(1);
+        }
+      });
+      track.addEventListener("pointerdown", (event) => {
+        if (event.pointerType === "mouse" && event.button !== 0) return;
+        lastPointerType = event.pointerType || "mouse";
+        pauseForInteraction();
+        const card = event.target.closest?.(".shot-card");
+        dragState = {
+          pointerId: event.pointerId,
+          startX: event.clientX,
+          startScrollLeft: track.scrollLeft,
+          moved: false,
+          cardIndex: card ? realIndexFor(cards.indexOf(card)) : null
+        };
+        track.classList.add("is-dragging");
+        // Keep native mouse clicks targeted at the image button. Touch and
+        // pen input still use pointer capture so a horizontal swipe can leave
+        // the card without losing the drag gesture.
+        if (event.pointerType !== "mouse") track.setPointerCapture?.(event.pointerId);
+      });
+      track.addEventListener("pointermove", (event) => {
+        if (!dragState || event.pointerId !== dragState.pointerId) return;
+        const delta = event.clientX - dragState.startX;
+        if (Math.abs(delta) > 6) dragState.moved = true;
+        if (dragState.moved) {
+          event.preventDefault();
+          track.scrollLeft = dragState.startScrollLeft - delta;
+        }
+      }, { passive: false });
+      track.addEventListener("pointerup", endDrag);
+      track.addEventListener("pointercancel", endDrag);
+      track.addEventListener("lostpointercapture", () => endDrag());
       window.addEventListener("resize", queueUpdate);
 
       cards.forEach((card, index) => {
-        card.addEventListener("click", () => {
-          activeIndex = normalizeIndex(index);
-          scrollToCard(activeIndex);
+        const link = card.querySelector(".shot-link");
+        link?.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          openLightbox(realIndexFor(index));
+        });
+        card.addEventListener("click", (event) => {
+          if (Date.now() < suppressClickUntil) return;
+          pauseForInteraction();
+          activeIndex = index;
+          scrollToCard(index, "smooth");
           queueUpdate();
         });
+        link?.addEventListener("dblclick", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          openLightbox(realIndexFor(index));
+        });
+        card.addEventListener("dblclick", (event) => {
+          if (event.target.closest?.(".shot-link")) return;
+          event.preventDefault();
+          openLightbox(realIndexFor(index));
+        });
+      });
+
+      document.getElementById("galleryPrev")?.addEventListener("click", () => moveBy(-1));
+      document.getElementById("galleryNext")?.addEventListener("click", () => moveBy(1));
+      document.getElementById("galleryLightboxPrev")?.addEventListener("click", () => moveLightbox(-1));
+      document.getElementById("galleryLightboxNext")?.addEventListener("click", () => moveLightbox(1));
+      document.getElementById("galleryLightboxClose")?.addEventListener("click", closeLightbox);
+      document.getElementById("galleryLightbox")?.addEventListener("click", (event) => {
+        if (event.target.id === "galleryLightbox") closeLightbox();
+      });
+      document.addEventListener("keydown", (event) => {
+        const lightbox = document.getElementById("galleryLightbox");
+        if (!lightbox?.classList.contains("open")) return;
+        if (event.key === "Escape") closeLightbox();
+        if (event.key === "ArrowLeft") moveLightbox(-1);
+        if (event.key === "ArrowRight") moveLightbox(1);
       });
 
       scrollToCard(firstRealIndex, "auto");
