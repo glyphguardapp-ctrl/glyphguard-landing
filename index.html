@@ -61,18 +61,20 @@
       padding: 28px 16px max(42px, env(safe-area-inset-bottom));
       overflow-x: hidden;
       position: relative;
+      isolation: isolate;
     }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      z-index: -1;
+      z-index: 0;
       pointer-events: none;
       background:
-        linear-gradient(160deg, rgba(7, 14, 36, 0.9), rgba(5, 10, 26, 0.92)),
+        linear-gradient(160deg, rgba(7, 14, 36, 0.7), rgba(5, 10, 26, 0.78)),
         radial-gradient(65vw 65vw at 50% 35%, rgba(38, 205, 255, 0.2) 0%, rgba(38, 205, 255, 0) 72%),
         url("./fon_1024x1024.png") center / cover no-repeat;
+      background-attachment: fixed;
     }
 
     @supports (min-height: 100dvh) {
@@ -474,13 +476,27 @@
     }
 
     .donate-button-with-logo {
+      min-width: 0;
       gap: 10px;
+      overflow: hidden;
+      flex-wrap: wrap;
+    }
+
+    .donate-button-with-logo span {
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .donate-button-with-logo img {
+      flex: 0 1 auto;
       width: auto;
-      max-width: 132px;
+      max-width: min(132px, 100%);
+      min-width: 0;
       height: 28px;
+      object-fit: contain;
     }
 
     .stripe-buy-wrap {
@@ -1023,7 +1039,7 @@
           <a class="shot-link" href="./gallery/dark-theme-4k.png" target="_blank" rel="noopener noreferrer">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/dark-theme-4k.png" alt="AlertLinkGuard dark theme screenshot" loading="lazy" decoding="async" />
-              <span class="shot-chip">4K</span>
+              <span class="shot-chip" data-i18n="shotChipDark">Safe</span>
             </div>
           </a>
           <p class="shot-title" data-i18n="shotDark"></p>
@@ -1034,7 +1050,7 @@
           <a class="shot-link" href="./gallery/light-theme-4k.png" target="_blank" rel="noopener noreferrer">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/light-theme-4k.png" alt="AlertLinkGuard light theme screenshot" loading="lazy" decoding="async" />
-              <span class="shot-chip">4K</span>
+              <span class="shot-chip" data-i18n="shotChipLight">Safe</span>
             </div>
           </a>
           <p class="shot-title" data-i18n="shotLight"></p>
@@ -1045,7 +1061,7 @@
           <a class="shot-link" href="./gallery/royal-gold-4k.png" target="_blank" rel="noopener noreferrer">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/royal-gold-4k.png" alt="AlertLinkGuard royal gold theme screenshot" loading="lazy" decoding="async" />
-              <span class="shot-chip">4K</span>
+              <span class="shot-chip" data-i18n="shotChipRoyal">Plan</span>
             </div>
           </a>
           <p class="shot-title" data-i18n="shotRoyal"></p>
@@ -1056,7 +1072,7 @@
           <a class="shot-link" href="./gallery/robot-buddy-4k.png" target="_blank" rel="noopener noreferrer">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/robot-buddy-4k.png" alt="AlertLinkGuard robot buddy theme screenshot" loading="lazy" decoding="async" />
-              <span class="shot-chip">4K</span>
+              <span class="shot-chip" data-i18n="shotChipRobot">Menu</span>
             </div>
           </a>
           <p class="shot-title" data-i18n="shotRobot"></p>
@@ -1067,7 +1083,7 @@
           <a class="shot-link" href="./gallery/obsidian-titan-4k.png" target="_blank" rel="noopener noreferrer">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/obsidian-titan-4k.png" alt="AlertLinkGuard obsidian titan theme screenshot" loading="lazy" decoding="async" />
-              <span class="shot-chip">4K</span>
+              <span class="shot-chip" data-i18n="shotChipObsidian">Danger</span>
             </div>
           </a>
           <p class="shot-title" data-i18n="shotObsidian"></p>
@@ -1078,7 +1094,7 @@
           <a class="shot-link" href="./gallery/emerald-vault-4k.png" target="_blank" rel="noopener noreferrer">
             <div class="shot-visual">
               <img class="shot-image" src="./gallery/emerald-vault-4k.png" alt="AlertLinkGuard emerald vault theme screenshot" loading="lazy" decoding="async" />
-              <span class="shot-chip">4K</span>
+              <span class="shot-chip" data-i18n="shotChipEmerald">Analysis</span>
             </div>
           </a>
           <p class="shot-title" data-i18n="shotEmerald"></p>
@@ -1177,7 +1193,7 @@
       <p data-i18n="footer"></p>
       <div class="footer-links">
         <a class="footer-link" href="./privacy-policy.html" id="privacyPolicyLink" data-i18n="privacyPolicy">Privacy Policy</a>
-        <a class="footer-link" href="mailto:glyphguard.app@gmail.com" data-i18n="contactUs">Write to developer</a>
+        <a class="footer-link" href="mailto:alertlinkguard@gmail.com" data-i18n="contactUs">Write to developer</a>
       </div>
       <div class="support-donate support-donate-compact">
         <h3 class="support-donate-title" data-i18n="donateBlockTitle"></h3>
@@ -1316,7 +1332,7 @@
       pricingNote: "Store billing can show your local currency. Daily limits apply per user and reset every 24 hours. Links and domains found inside files still use the daily cloud-check quota.",
       factsTitle: "Clear product facts",
       factsSubtitle: "Useful for people, search engines, and AI assistants that need accurate product context.",
-      factValue1: "2 sec",
+      factValue1: "3 sec",
       factLabel1: "Typical time to inspect a suspicious link before opening it",
       factValue2: "28",
       factLabel2: "Interface languages available on the public landing and in the app",
@@ -1439,7 +1455,7 @@
       uk: {
         privacyPolicy: "Політика конфіденційності",
         contactUs: "Зв'язатися з нами",
-        subtitle: "Перевіряйте посилання за 2 секунди перед відкриттям. Захищайтесь від фішингу та шахрайських сторінок.",
+        subtitle: "Перевіряйте посилання за 3 секунди перед відкриттям. Захищайтесь від фішингу та шахрайських сторінок.",
         appStore: "Завантажити в App Store",
         googlePlay: "Відкрити в Google Play",
         appGallery: "Відкрити в AppGallery",
@@ -1466,12 +1482,12 @@
         shotHint: "Файл:",
         langLabel: "Мова",
         langAria: "Виберіть мову",
-        pageTagline: "Безпека посилань за 2 секунди"
+        pageTagline: "Безпека посилань за 3 секунди"
       },
       zh: {
         privacyPolicy: "隐私政策",
         contactUs: "联系我们",
-        subtitle: "打开链接前 2 秒完成检测，远离钓鱼和诈骗页面。",
+        subtitle: "打开链接前 3 秒完成检测，远离钓鱼和诈骗页面。",
         appStore: "在 App Store 下载",
         googlePlay: "在 Google Play 获取",
         appGallery: "在 AppGallery 查看",
@@ -1498,12 +1514,12 @@
         shotHint: "文件:",
         langLabel: "语言",
         langAria: "选择语言",
-        pageTagline: "2 秒完成链接安全检测"
+        pageTagline: "3 秒完成链接安全检测"
       },
       es: {
         privacyPolicy: "Política de privacidad",
         contactUs: "Contáctenos",
-        subtitle: "Revisa enlaces en 2 segundos antes de abrirlos. Mantente a salvo de phishing y fraudes.",
+        subtitle: "Revisa enlaces en 3 segundos antes de abrirlos. Mantente a salvo de phishing y fraudes.",
         appStore: "Descargar en App Store",
         googlePlay: "Obtener en Google Play",
         appGallery: "Ver en AppGallery",
@@ -1530,12 +1546,12 @@
         shotHint: "Archivo:",
         langLabel: "Idioma",
         langAria: "Elegir idioma",
-        pageTagline: "Seguridad de enlaces en 2 segundos"
+        pageTagline: "Seguridad de enlaces en 3 segundos"
       },
       fr: {
         privacyPolicy: "Politique de confidentialité",
         contactUs: "Nous contacter",
-        subtitle: "Vérifiez les liens en 2 secondes avant ouverture. Restez à l'abri du phishing et des arnaques.",
+        subtitle: "Vérifiez les liens en 3 secondes avant ouverture. Restez à l'abri du phishing et des arnaques.",
         appStore: "Télécharger sur App Store",
         googlePlay: "Disponible sur Google Play",
         appGallery: "Voir sur AppGallery",
@@ -1562,7 +1578,7 @@
         shotHint: "Fichier :",
         langLabel: "Langue",
         langAria: "Choisir la langue",
-        pageTagline: "Sécurité des liens en 2 secondes"
+        pageTagline: "Sécurité des liens en 3 secondes"
       },
       ar: {
         privacyPolicy: "سياسة الخصوصية",
@@ -1599,7 +1615,7 @@
       pt: {
         privacyPolicy: "Política de privacidade",
         contactUs: "Contate-nos",
-        subtitle: "Verifique links em 2 segundos antes de abrir. Fique seguro contra phishing e golpes.",
+        subtitle: "Verifique links em 3 segundos antes de abrir. Fique seguro contra phishing e golpes.",
         appStore: "Baixar na App Store",
         googlePlay: "Obter no Google Play",
         appGallery: "Explorar na AppGallery",
@@ -1626,12 +1642,12 @@
         shotHint: "Arquivo:",
         langLabel: "Idioma",
         langAria: "Escolher idioma",
-        pageTagline: "Segurança de links em 2 segundos"
+        pageTagline: "Segurança de links em 3 segundos"
       },
       de: {
         privacyPolicy: "Datenschutzerklärung",
         contactUs: "Kontakt",
-        subtitle: "Prüfe Links in 2 Sekunden vor dem Öffnen. Schütze dich vor Phishing und Betrug.",
+        subtitle: "Prüfe Links in 3 Sekunden vor dem Öffnen. Schütze dich vor Phishing und Betrug.",
         appStore: "Im App Store laden",
         googlePlay: "Bei Google Play holen",
         appGallery: "In AppGallery ansehen",
@@ -1658,10 +1674,10 @@
         shotHint: "Datei:",
         langLabel: "Sprache",
         langAria: "Sprache auswählen",
-        pageTagline: "Link-Sicherheit in 2 Sekunden"
+        pageTagline: "Link-Sicherheit in 3 Sekunden"
       },
       hi: {
-        subtitle: "लिंक खोलने से पहले 2 सेकंड में जांचें। फ़िशिंग और स्कैम से सुरक्षित रहें।",
+        subtitle: "लिंक खोलने से पहले 3 सेकंड में जांचें। फ़िशिंग और स्कैम से सुरक्षित रहें।",
         appStore: "App Store पर डाउनलोड करें",
         googlePlay: "Google Play पर पाएं",
         appGallery: "AppGallery पर देखें",
@@ -1688,12 +1704,12 @@
         shotHint: "फ़ाइल:",
         langLabel: "भाषा",
         langAria: "भाषा चुनें",
-        pageTagline: "2 सेकंड में लिंक सुरक्षा"
+        pageTagline: "3 सेकंड में लिंक सुरक्षा"
       },
       ko: {
         privacyPolicy: "개인정보 처리방침",
         contactUs: "문의하기",
-        subtitle: "링크를 열기 전에 2초 만에 검사하세요. 피싱과 사기 페이지로부터 안전을 지키세요.",
+        subtitle: "링크를 열기 전에 3초 만에 검사하세요. 피싱과 사기 페이지로부터 안전을 지키세요.",
         appStore: "App Store에서 다운로드",
         googlePlay: "Google Play에서 받기",
         appGallery: "AppGallery에서 보기",
@@ -1720,12 +1736,12 @@
         shotHint: "파일:",
         langLabel: "언어",
         langAria: "언어 선택",
-        pageTagline: "2초 링크 보안"
+        pageTagline: "3초 링크 보안"
       },
       ja: {
         privacyPolicy: "プライバシーポリシー",
         contactUs: "お問い合わせ",
-        subtitle: "リンクを開く前に2秒でチェック。フィッシングや詐欺ページから身を守ります。",
+        subtitle: "リンクを開く前に3秒でチェック。フィッシングや詐欺ページから身を守ります。",
         appStore: "App Storeでダウンロード",
         googlePlay: "Google Playで入手",
         appGallery: "AppGalleryで見る",
@@ -1752,10 +1768,10 @@
         shotHint: "ファイル:",
         langLabel: "言語",
         langAria: "言語を選択",
-        pageTagline: "2秒でリンク安全チェック"
+        pageTagline: "3秒でリンク安全チェック"
       },
       it: {
-        subtitle: "Controlla i link in 2 secondi prima di aprirli. Proteggiti da phishing e truffe.",
+        subtitle: "Controlla i link in 3 secondi prima di aprirli. Proteggiti da phishing e truffe.",
         appStore: "Scarica su App Store",
         googlePlay: "Disponibile su Google Play",
         appGallery: "Scopri su AppGallery",
@@ -1782,10 +1798,10 @@
         shotHint: "File:",
         langLabel: "Lingua",
         langAria: "Scegli lingua",
-        pageTagline: "Sicurezza link in 2 secondi"
+        pageTagline: "Sicurezza link in 3 secondi"
       },
       tr: {
-        subtitle: "Bağlantıları açmadan önce 2 saniyede kontrol edin. Oltalama ve dolandırıcılığa karşı güvende kalın.",
+        subtitle: "Bağlantıları açmadan önce 3 saniyede kontrol edin. Oltalama ve dolandırıcılığa karşı güvende kalın.",
         appStore: "App Store'dan indir",
         googlePlay: "Google Play'de edin",
         appGallery: "AppGallery'de keşfet",
@@ -1812,7 +1828,7 @@
         shotHint: "Dosya:",
         langLabel: "Dil",
         langAria: "Dil seç",
-        pageTagline: "2 saniyede bağlantı güvenliği"
+        pageTagline: "3 saniyede bağlantı güvenliği"
       },
       id: {
         subtitle: "Periksa tautan dalam 2 detik sebelum dibuka. Tetap aman dari phishing dan penipuan.",
@@ -1846,7 +1862,7 @@
         pageTagline: "Keamanan tautan dalam 2 detik"
       },
       vi: {
-        subtitle: "Kiểm tra liên kết trong 2 giây trước khi mở. Luôn an toàn trước lừa đảo và phishing.",
+        subtitle: "Kiểm tra liên kết trong 3 giây trước khi mở. Luôn an toàn trước lừa đảo và phishing.",
         appStore: "Tải trên App Store",
         googlePlay: "Tải trên Google Play",
         appGallery: "Khám phá trên AppGallery",
@@ -1874,10 +1890,10 @@
         shotHint: "Tệp:",
         langLabel: "Ngôn ngữ",
         langAria: "Chọn ngôn ngữ",
-        pageTagline: "An toàn liên kết trong 2 giây"
+        pageTagline: "An toàn liên kết trong 3 giây"
       },
       th: {
-        subtitle: "ตรวจสอบลิงก์ภายใน 2 วินาทีก่อนเปิด ป้องกันฟิชชิงและการหลอกลวง",
+        subtitle: "ตรวจสอบลิงก์ภายใน 3 วินาทีก่อนเปิด ป้องกันฟิชชิงและการหลอกลวง",
         appStore: "ดาวน์โหลดบน App Store",
         googlePlay: "รับบน Google Play",
         appGallery: "ดูบน AppGallery",
@@ -1905,10 +1921,10 @@
         shotHint: "ไฟล์:",
         langLabel: "ภาษา",
         langAria: "เลือกภาษา",
-        pageTagline: "ความปลอดภัยลิงก์ใน 2 วินาที"
+        pageTagline: "ความปลอดภัยลิงก์ใน 3 วินาที"
       },
       pl: {
-        subtitle: "Sprawdź link w 2 sekundy przed otwarciem. Chroń się przed phishingiem i oszustwami.",
+        subtitle: "Sprawdź link w 3 sekundy przed otwarciem. Chroń się przed phishingiem i oszustwami.",
         appStore: "Pobierz w App Store",
         googlePlay: "Pobierz w Google Play",
         appGallery: "Zobacz w AppGallery",
@@ -1936,10 +1952,10 @@
         shotHint: "Plik:",
         langLabel: "Język",
         langAria: "Wybierz język",
-        pageTagline: "Bezpieczeństwo linków w 2 sekundy"
+        pageTagline: "Bezpieczeństwo linków w 3 sekundy"
       },
       nl: {
-        subtitle: "Controleer links in 2 seconden voordat je ze opent. Blijf veilig tegen phishing en oplichting.",
+        subtitle: "Controleer links in 3 seconden voordat je ze opent. Blijf veilig tegen phishing en oplichting.",
         appStore: "Download in App Store",
         googlePlay: "Download via Google Play",
         appGallery: "Bekijk op AppGallery",
@@ -1967,10 +1983,10 @@
         shotHint: "Bestand:",
         langLabel: "Taal",
         langAria: "Kies taal",
-        pageTagline: "Linkveiligheid in 2 seconden"
+        pageTagline: "Linkveiligheid in 3 seconden"
       },
       sv: {
-        subtitle: "Kontrollera länkar på 2 sekunder innan du öppnar dem. Skydda dig mot phishing och bedrägerier.",
+        subtitle: "Kontrollera länkar på 3 sekunder innan du öppnar dem. Skydda dig mot phishing och bedrägerier.",
         appStore: "Ladda ner på App Store",
         googlePlay: "Hämta på Google Play",
         appGallery: "Utforska på AppGallery",
@@ -1998,10 +2014,10 @@
         shotHint: "Fil:",
         langLabel: "Språk",
         langAria: "Välj språk",
-        pageTagline: "Länksäkerhet på 2 sekunder"
+        pageTagline: "Länksäkerhet på 3 sekunder"
       },
       no: {
-        subtitle: "Sjekk lenker på 2 sekunder før du åpner dem. Beskytt deg mot phishing og svindel.",
+        subtitle: "Sjekk lenker på 3 sekunder før du åpner dem. Beskytt deg mot phishing og svindel.",
         appStore: "Last ned i App Store",
         googlePlay: "Få den på Google Play",
         appGallery: "Utforsk i AppGallery",
@@ -2029,10 +2045,10 @@
         shotHint: "Fil:",
         langLabel: "Språk",
         langAria: "Velg språk",
-        pageTagline: "Lenkesikkerhet på 2 sekunder"
+        pageTagline: "Lenkesikkerhet på 3 sekunder"
       },
       da: {
-        subtitle: "Tjek links på 2 sekunder før du åbner dem. Beskyt dig mod phishing og svindel.",
+        subtitle: "Tjek links på 3 sekunder før du åbner dem. Beskyt dig mod phishing og svindel.",
         appStore: "Download i App Store",
         googlePlay: "Hent på Google Play",
         appGallery: "Udforsk på AppGallery",
@@ -2060,10 +2076,10 @@
         shotHint: "Fil:",
         langLabel: "Sprog",
         langAria: "Vælg sprog",
-        pageTagline: "Linksikkerhed på 2 sekunder"
+        pageTagline: "Linksikkerhed på 3 sekunder"
       },
       cs: {
-        subtitle: "Zkontrolujte odkaz za 2 sekundy před otevřením. Chraňte se před phishingem a podvody.",
+        subtitle: "Zkontrolujte odkaz za 3 sekundy před otevřením. Chraňte se před phishingem a podvody.",
         appStore: "Stáhnout v App Store",
         googlePlay: "Získat na Google Play",
         appGallery: "Prozkoumat v AppGallery",
@@ -2091,10 +2107,10 @@
         shotHint: "Soubor:",
         langLabel: "Jazyk",
         langAria: "Vyberte jazyk",
-        pageTagline: "Bezpečnost odkazů za 2 sekundy"
+        pageTagline: "Bezpečnost odkazů za 3 sekundy"
       },
       ro: {
-        subtitle: "Verifică linkurile în 2 secunde înainte de deschidere. Protejează-te de phishing și fraude.",
+        subtitle: "Verifică linkurile în 3 secunde înainte de deschidere. Protejează-te de phishing și fraude.",
         appStore: "Descarcă din App Store",
         googlePlay: "Disponibil pe Google Play",
         appGallery: "Explorează pe AppGallery",
@@ -2122,10 +2138,10 @@
         shotHint: "Fișier:",
         langLabel: "Limbă",
         langAria: "Alege limba",
-        pageTagline: "Siguranța linkurilor în 2 secunde"
+        pageTagline: "Siguranța linkurilor în 3 secunde"
       },
       hu: {
-        subtitle: "Ellenőrizd a linkeket 2 másodperc alatt megnyitás előtt. Védd magad az adathalászat és csalások ellen.",
+        subtitle: "Ellenőrizd a linkeket 3 másodperc alatt megnyitás előtt. Védd magad az adathalászat és csalások ellen.",
         appStore: "Letöltés az App Store-ból",
         googlePlay: "Elérhető a Google Playen",
         appGallery: "Felfedezés az AppGalleryben",
@@ -2153,7 +2169,7 @@
         shotHint: "Fájl:",
         langLabel: "Nyelv",
         langAria: "Nyelv kiválasztása",
-        pageTagline: "Linkbiztonság 2 másodperc alatt"
+        pageTagline: "Linkbiztonság 3 másodperc alatt"
       },
       fa: {
         subtitle: "لینک‌ها را در ۲ ثانیه پیش از باز کردن بررسی کنید و از فیشینگ و کلاهبرداری در امان بمانید.",
@@ -2187,7 +2203,7 @@
         pageTagline: "امنیت لینک در ۲ ثانیه"
       },
       ms: {
-        subtitle: "Periksa pautan dalam 2 saat sebelum dibuka. Kekal selamat daripada phishing dan penipuan.",
+        subtitle: "Periksa pautan dalam 3 saat sebelum dibuka. Kekal selamat daripada phishing dan penipuan.",
         appStore: "Muat turun di App Store",
         googlePlay: "Dapatkan di Google Play",
         appGallery: "Teroka di AppGallery",
@@ -2215,7 +2231,7 @@
         shotHint: "Fail:",
         langLabel: "Bahasa",
         langAria: "Pilih bahasa",
-        pageTagline: "Keselamatan pautan dalam 2 saat"
+        pageTagline: "Keselamatan pautan dalam 3 saat"
       }
     };
 
@@ -2237,7 +2253,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -2337,7 +2353,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -2437,7 +2453,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -2537,7 +2553,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -2637,7 +2653,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -2737,7 +2753,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -2837,7 +2853,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -2937,7 +2953,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -3037,7 +3053,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -3137,7 +3153,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -3237,7 +3253,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -3337,7 +3353,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -3437,7 +3453,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -3537,7 +3553,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -3637,7 +3653,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -3737,7 +3753,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -3837,7 +3853,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -3937,7 +3953,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -4037,7 +4053,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -4137,7 +4153,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -4237,7 +4253,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -4337,7 +4353,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -4437,7 +4453,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -4537,7 +4553,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -4637,7 +4653,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -4737,7 +4753,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -4837,7 +4853,7 @@
                 "donateCrypto": "Nova Payments",
                 "donateCryptoDonate": "Nova payments",
                 "donateCard": "Stripe",
-                "factValue1": "2 sec",
+                "factValue1": "3 sec",
                 "factValue2": "28",
                 "factValue3": "800k+",
                 "factValue4": "iOS + Android",
@@ -4934,6 +4950,183 @@
       };
       return acc;
     }, { en: EN_COPY });
+
+    // Gallery captions describe the user-visible scenario instead of the
+    // source image resolution. Keeping them in the same language map makes
+    // the preview useful when the visitor switches system language.
+    const GALLERY_COPY = {
+      en: {
+        galleryTitle: "See AlertLinkGuard in action",
+        gallerySubtitle: "Short previews of safe results, threat warnings, plans, navigation, and privacy-first checks.",
+        shotChipDark: "Safe", shotChipLight: "Safe", shotChipRoyal: "Plan", shotChipRobot: "Menu", shotChipObsidian: "Danger", shotChipEmerald: "Analysis",
+        shotDark: "A calm, clear result", shotLight: "Safe check at a glance", shotRoyal: "Choose a plan and language", shotRobot: "Everything in one friendly menu", shotObsidian: "Dangerous link detected", shotEmerald: "Detailed threat analysis"
+      },
+      ru: {
+        galleryTitle: "AlertLinkGuard в действии",
+        gallerySubtitle: "Короткие примеры безопасного результата, предупреждения об угрозе, тарифов, меню и приватной проверки.",
+        shotChipDark: "Безопасно", shotChipLight: "Безопасно", shotChipRoyal: "Тариф", shotChipRobot: "Меню", shotChipObsidian: "Опасно", shotChipEmerald: "Анализ",
+        shotDark: "Спокойный и понятный итог", shotLight: "Безопасный результат с первого взгляда", shotRoyal: "Выбор тарифа и языка", shotRobot: "Все функции в одном меню", shotObsidian: "Обнаружена опасная ссылка", shotEmerald: "Подробный анализ угроз"
+      },
+      uk: {
+        galleryTitle: "AlertLinkGuard у дії",
+        gallerySubtitle: "Короткі приклади безпечного результату, попередження про загрозу, тарифів, меню та приватної перевірки.",
+        shotChipDark: "Безпечно", shotChipLight: "Безпечно", shotChipRoyal: "Тариф", shotChipRobot: "Меню", shotChipObsidian: "Небезпечно", shotChipEmerald: "Аналіз",
+        shotDark: "Спокійний і зрозумілий результат", shotLight: "Безпечний результат з першого погляду", shotRoyal: "Вибір тарифу та мови", shotRobot: "Усі функції в одному меню", shotObsidian: "Виявлено небезпечне посилання", shotEmerald: "Детальний аналіз загроз"
+      },
+      bg: {
+        galleryTitle: "AlertLinkGuard в действие",
+        gallerySubtitle: "Кратки примери за безопасен резултат, предупреждение за заплаха, планове, меню и поверителна проверка.",
+        shotChipDark: "Безопасно", shotChipLight: "Безопасно", shotChipRoyal: "План", shotChipRobot: "Меню", shotChipObsidian: "Опасност", shotChipEmerald: "Анализ",
+        shotDark: "Спокоен и ясен резултат", shotLight: "Безопасен резултат от пръв поглед", shotRoyal: "Избор на план и език", shotRobot: "Всички функции в едно меню", shotObsidian: "Открита опасна връзка", shotEmerald: "Подробен анализ на заплахата"
+      },
+      zh: {
+        galleryTitle: "查看 AlertLinkGuard 的实际效果",
+        gallerySubtitle: "用简短预览了解安全结果、威胁提醒、套餐、导航和隐私优先的检查。",
+        shotChipDark: "安全", shotChipLight: "安全", shotChipRoyal: "套餐", shotChipRobot: "菜单", shotChipObsidian: "危险", shotChipEmerald: "分析",
+        shotDark: "平静清晰的检查结果", shotLight: "一眼看懂安全结果", shotRoyal: "选择套餐和语言", shotRobot: "所有功能集中在一个菜单", shotObsidian: "发现危险链接", shotEmerald: "详细威胁分析"
+      },
+      es: {
+        galleryTitle: "AlertLinkGuard en acción",
+        gallerySubtitle: "Vistas breves de resultados seguros, alertas de riesgo, planes, navegación y comprobaciones privadas.",
+        shotChipDark: "Seguro", shotChipLight: "Seguro", shotChipRoyal: "Plan", shotChipRobot: "Menú", shotChipObsidian: "Peligro", shotChipEmerald: "Análisis",
+        shotDark: "Resultado claro y tranquilo", shotLight: "Resultado seguro de un vistazo", shotRoyal: "Elige plan e idioma", shotRobot: "Todas las funciones en un menú", shotObsidian: "Enlace peligroso detectado", shotEmerald: "Análisis detallado de amenazas"
+      },
+      fr: {
+        galleryTitle: "AlertLinkGuard en action",
+        gallerySubtitle: "Aperçus rapides des résultats sûrs, alertes de risque, forfaits, navigation et contrôles privés.",
+        shotChipDark: "Sûr", shotChipLight: "Sûr", shotChipRoyal: "Forfait", shotChipRobot: "Menu", shotChipObsidian: "Danger", shotChipEmerald: "Analyse",
+        shotDark: "Un résultat clair et rassurant", shotLight: "Résultat sûr en un coup d’œil", shotRoyal: "Choisir un forfait et une langue", shotRobot: "Toutes les fonctions dans un menu", shotObsidian: "Lien dangereux détecté", shotEmerald: "Analyse détaillée des menaces"
+      },
+      ar: {
+        galleryTitle: "شاهد AlertLinkGuard أثناء العمل",
+        gallerySubtitle: "لمحات قصيرة عن النتائج الآمنة وتحذيرات التهديدات والخطط والتنقل والفحص الذي يضع الخصوصية أولاً.",
+        shotChipDark: "آمن", shotChipLight: "آمن", shotChipRoyal: "خطة", shotChipRobot: "القائمة", shotChipObsidian: "خطر", shotChipEmerald: "تحليل",
+        shotDark: "نتيجة هادئة وواضحة", shotLight: "نتيجة آمنة بنظرة واحدة", shotRoyal: "اختر الخطة واللغة", shotRobot: "كل الوظائف في قائمة واحدة", shotObsidian: "تم اكتشاف رابط خطير", shotEmerald: "تحليل مفصل للتهديدات"
+      },
+      pt: {
+        galleryTitle: "Veja o AlertLinkGuard em ação",
+        gallerySubtitle: "Pré-visualizações de resultados seguros, alertas de risco, planos, navegação e verificações com privacidade.",
+        shotChipDark: "Seguro", shotChipLight: "Seguro", shotChipRoyal: "Plano", shotChipRobot: "Menu", shotChipObsidian: "Perigo", shotChipEmerald: "Análise",
+        shotDark: "Resultado claro e tranquilo", shotLight: "Resultado seguro num relance", shotRoyal: "Escolha o plano e o idioma", shotRobot: "Tudo num menu simples", shotObsidian: "Ligação perigosa detetada", shotEmerald: "Análise detalhada de ameaças"
+      },
+      de: {
+        galleryTitle: "AlertLinkGuard in Aktion",
+        gallerySubtitle: "Kurze Einblicke in sichere Ergebnisse, Warnungen, Tarife, Navigation und datensparsame Prüfungen.",
+        shotChipDark: "Sicher", shotChipLight: "Sicher", shotChipRoyal: "Tarif", shotChipRobot: "Menü", shotChipObsidian: "Gefahr", shotChipEmerald: "Analyse",
+        shotDark: "Ruhiges, klares Ergebnis", shotLight: "Sicheres Ergebnis auf einen Blick", shotRoyal: "Tarif und Sprache wählen", shotRobot: "Alle Funktionen in einem Menü", shotObsidian: "Gefährlicher Link erkannt", shotEmerald: "Detaillierte Bedrohungsanalyse"
+      },
+      hi: {
+        galleryTitle: "AlertLinkGuard को काम करते देखें",
+        gallerySubtitle: "सुरक्षित परिणाम, खतरे की चेतावनी, प्लान, नेविगेशन और प्राइवेसी-केंद्रित जाँच के छोटे पूर्वावलोकन।",
+        shotChipDark: "सुरक्षित", shotChipLight: "सुरक्षित", shotChipRoyal: "प्लान", shotChipRobot: "मेन्यू", shotChipObsidian: "खतरा", shotChipEmerald: "विश्लेषण",
+        shotDark: "शांत और स्पष्ट परिणाम", shotLight: "एक नज़र में सुरक्षित परिणाम", shotRoyal: "प्लान और भाषा चुनें", shotRobot: "सभी सुविधाएँ एक मेन्यू में", shotObsidian: "खतरनाक लिंक मिला", shotEmerald: "खतरे का विस्तृत विश्लेषण"
+      },
+      ko: {
+        galleryTitle: "AlertLinkGuard를 직접 확인하세요",
+        gallerySubtitle: "안전한 결과, 위협 경고, 요금제, 탐색과 개인정보 중심 검사를 한눈에 보여 줍니다.",
+        shotChipDark: "안전", shotChipLight: "안전", shotChipRoyal: "요금제", shotChipRobot: "메뉴", shotChipObsidian: "위험", shotChipEmerald: "분석",
+        shotDark: "차분하고 분명한 결과", shotLight: "한눈에 보는 안전 결과", shotRoyal: "요금제와 언어 선택", shotRobot: "모든 기능을 한 메뉴에서", shotObsidian: "위험한 링크 감지", shotEmerald: "상세 위협 분석"
+      },
+      ja: {
+        galleryTitle: "AlertLinkGuardの動作を見る",
+        gallerySubtitle: "安全な結果、脅威警告、プラン、ナビゲーション、プライバシー重視の検査を短く紹介します。",
+        shotChipDark: "安全", shotChipLight: "安全", shotChipRoyal: "プラン", shotChipRobot: "メニュー", shotChipObsidian: "危険", shotChipEmerald: "分析",
+        shotDark: "落ち着いた明快な結果", shotLight: "ひと目で分かる安全な結果", shotRoyal: "プランと言語を選択", shotRobot: "すべての機能を一つのメニューに", shotObsidian: "危険なリンクを検出", shotEmerald: "詳細な脅威分析"
+      },
+      it: {
+        galleryTitle: "AlertLinkGuard in azione",
+        gallerySubtitle: "Anteprime rapide di risultati sicuri, avvisi di rischio, piani, navigazione e controlli attenti alla privacy.",
+        shotChipDark: "Sicuro", shotChipLight: "Sicuro", shotChipRoyal: "Piano", shotChipRobot: "Menu", shotChipObsidian: "Pericolo", shotChipEmerald: "Analisi",
+        shotDark: "Risultato chiaro e sereno", shotLight: "Risultato sicuro a colpo d’occhio", shotRoyal: "Scegli piano e lingua", shotRobot: "Tutte le funzioni in un menu", shotObsidian: "Rilevato link pericoloso", shotEmerald: "Analisi dettagliata delle minacce"
+      },
+      tr: {
+        galleryTitle: "AlertLinkGuard iş başında",
+        gallerySubtitle: "Güvenli sonuçları, tehdit uyarılarını, planları, menüyü ve gizlilik odaklı kontrolleri kısa önizlemelerle görün.",
+        shotChipDark: "Güvenli", shotChipLight: "Güvenli", shotChipRoyal: "Plan", shotChipRobot: "Menü", shotChipObsidian: "Tehlike", shotChipEmerald: "Analiz",
+        shotDark: "Sakin ve net sonuç", shotLight: "Bir bakışta güvenli sonuç", shotRoyal: "Plan ve dil seçimi", shotRobot: "Tüm özellikler tek menüde", shotObsidian: "Tehlikeli bağlantı bulundu", shotEmerald: "Ayrıntılı tehdit analizi"
+      },
+      id: {
+        galleryTitle: "Lihat AlertLinkGuard bekerja",
+        gallerySubtitle: "Pratinjau singkat hasil aman, peringatan ancaman, paket, navigasi, dan pemeriksaan yang mengutamakan privasi.",
+        shotChipDark: "Aman", shotChipLight: "Aman", shotChipRoyal: "Paket", shotChipRobot: "Menu", shotChipObsidian: "Bahaya", shotChipEmerald: "Analisis",
+        shotDark: "Hasil yang tenang dan jelas", shotLight: "Hasil aman dalam sekejap", shotRoyal: "Pilih paket dan bahasa", shotRobot: "Semua fitur dalam satu menu", shotObsidian: "Tautan berbahaya terdeteksi", shotEmerald: "Analisis ancaman terperinci"
+      },
+      vi: {
+        galleryTitle: "Xem AlertLinkGuard hoạt động",
+        gallerySubtitle: "Xem nhanh kết quả an toàn, cảnh báo nguy cơ, gói bảo vệ, điều hướng và kiểm tra ưu tiên riêng tư.",
+        shotChipDark: "An toàn", shotChipLight: "An toàn", shotChipRoyal: "Gói", shotChipRobot: "Menu", shotChipObsidian: "Nguy hiểm", shotChipEmerald: "Phân tích",
+        shotDark: "Kết quả rõ ràng, yên tâm", shotLight: "Kết quả an toàn trong nháy mắt", shotRoyal: "Chọn gói và ngôn ngữ", shotRobot: "Mọi tính năng trong một menu", shotObsidian: "Phát hiện liên kết nguy hiểm", shotEmerald: "Phân tích mối đe dọa chi tiết"
+      },
+      th: {
+        galleryTitle: "ดู AlertLinkGuard ทำงาน",
+        gallerySubtitle: "ตัวอย่างสั้น ๆ ของผลลัพธ์ที่ปลอดภัย คำเตือนภัยคุกคาม แพ็กเกจ เมนู และการตรวจที่ให้ความสำคัญกับความเป็นส่วนตัว",
+        shotChipDark: "ปลอดภัย", shotChipLight: "ปลอดภัย", shotChipRoyal: "แพ็กเกจ", shotChipRobot: "เมนู", shotChipObsidian: "อันตราย", shotChipEmerald: "วิเคราะห์",
+        shotDark: "ผลลัพธ์ชัดเจนและสบายใจ", shotLight: "เห็นผลปลอดภัยได้ในพริบตา", shotRoyal: "เลือกแพ็กเกจและภาษา", shotRobot: "ทุกฟังก์ชันในเมนูเดียว", shotObsidian: "ตรวจพบลิงก์อันตราย", shotEmerald: "วิเคราะห์ภัยคุกคามอย่างละเอียด"
+      },
+      pl: {
+        galleryTitle: "Zobacz AlertLinkGuard w działaniu",
+        gallerySubtitle: "Krótkie podglądy bezpiecznych wyników, ostrzeżeń, planów, nawigacji i kontroli prywatności.",
+        shotChipDark: "Bezpiecznie", shotChipLight: "Bezpiecznie", shotChipRoyal: "Plan", shotChipRobot: "Menu", shotChipObsidian: "Niebezpieczeństwo", shotChipEmerald: "Analiza",
+        shotDark: "Spokojny i czytelny wynik", shotLight: "Bezpieczny wynik na pierwszy rzut oka", shotRoyal: "Wybierz plan i język", shotRobot: "Wszystkie funkcje w jednym menu", shotObsidian: "Wykryto niebezpieczny link", shotEmerald: "Szczegółowa analiza zagrożenia"
+      },
+      nl: {
+        galleryTitle: "AlertLinkGuard in actie",
+        gallerySubtitle: "Korte voorbeelden van veilige resultaten, waarschuwingen, plannen, navigatie en privacygerichte controles.",
+        shotChipDark: "Veilig", shotChipLight: "Veilig", shotChipRoyal: "Plan", shotChipRobot: "Menu", shotChipObsidian: "Gevaar", shotChipEmerald: "Analyse",
+        shotDark: "Een rustig, duidelijk resultaat", shotLight: "Veilig resultaat in één oogopslag", shotRoyal: "Kies plan en taal", shotRobot: "Alle functies in één menu", shotObsidian: "Gevaarlijke link gevonden", shotEmerald: "Gedetailleerde dreigingsanalyse"
+      },
+      sv: {
+        galleryTitle: "Se AlertLinkGuard i aktion",
+        gallerySubtitle: "Korta förhandsvisningar av säkra resultat, varningar, planer, navigering och integritetsfokuserade kontroller.",
+        shotChipDark: "Säkert", shotChipLight: "Säkert", shotChipRoyal: "Plan", shotChipRobot: "Meny", shotChipObsidian: "Fara", shotChipEmerald: "Analys",
+        shotDark: "Ett lugnt och tydligt resultat", shotLight: "Säkert resultat på ett ögonblick", shotRoyal: "Välj plan och språk", shotRobot: "Alla funktioner i en meny", shotObsidian: "Farlig länk upptäckt", shotEmerald: "Detaljerad hotanalys"
+      },
+      no: {
+        galleryTitle: "Se AlertLinkGuard i bruk",
+        gallerySubtitle: "Korte forhåndsvisninger av trygge resultater, varsler, planer, navigasjon og personvernfokuserte kontroller.",
+        shotChipDark: "Trygt", shotChipLight: "Trygt", shotChipRoyal: "Plan", shotChipRobot: "Meny", shotChipObsidian: "Fare", shotChipEmerald: "Analyse",
+        shotDark: "Et rolig og tydelig resultat", shotLight: "Trygt resultat på et øyeblikk", shotRoyal: "Velg plan og språk", shotRobot: "Alle funksjoner i én meny", shotObsidian: "Farlig lenke oppdaget", shotEmerald: "Detaljert trusselanalyse"
+      },
+      da: {
+        galleryTitle: "Se AlertLinkGuard i aktion",
+        gallerySubtitle: "Korte forhåndsvisninger af sikre resultater, advarsler, planer, navigation og privatlivsfokuserede tjek.",
+        shotChipDark: "Sikkert", shotChipLight: "Sikkert", shotChipRoyal: "Plan", shotChipRobot: "Menu", shotChipObsidian: "Fare", shotChipEmerald: "Analyse",
+        shotDark: "Et roligt og tydeligt resultat", shotLight: "Sikkert resultat på et øjeblik", shotRoyal: "Vælg plan og sprog", shotRobot: "Alle funktioner i én menu", shotObsidian: "Farligt link fundet", shotEmerald: "Detaljeret trusselsanalyse"
+      },
+      cs: {
+        galleryTitle: "Podívejte se na AlertLinkGuard v akci",
+        gallerySubtitle: "Krátké ukázky bezpečných výsledků, varování, plánů, navigace a kontrol zaměřených na soukromí.",
+        shotChipDark: "Bezpečné", shotChipLight: "Bezpečné", shotChipRoyal: "Plán", shotChipRobot: "Menu", shotChipObsidian: "Nebezpečí", shotChipEmerald: "Analýza",
+        shotDark: "Klidný a jasný výsledek", shotLight: "Bezpečný výsledek na první pohled", shotRoyal: "Vyberte plán a jazyk", shotRobot: "Všechny funkce v jednom menu", shotObsidian: "Nalezen nebezpečný odkaz", shotEmerald: "Podrobná analýza hrozeb"
+      },
+      ro: {
+        galleryTitle: "Vezi AlertLinkGuard în acțiune",
+        gallerySubtitle: "Previzualizări scurte ale rezultatelor sigure, alertelor, planurilor, navigării și verificărilor axate pe confidențialitate.",
+        shotChipDark: "Sigur", shotChipLight: "Sigur", shotChipRoyal: "Plan", shotChipRobot: "Meniu", shotChipObsidian: "Pericol", shotChipEmerald: "Analiză",
+        shotDark: "Un rezultat clar și liniștitor", shotLight: "Rezultat sigur dintr-o privire", shotRoyal: "Alege planul și limba", shotRobot: "Toate funcțiile într-un singur meniu", shotObsidian: "Link periculos detectat", shotEmerald: "Analiză detaliată a amenințării"
+      },
+      hu: {
+        galleryTitle: "Nézd meg az AlertLinkGuardot működés közben",
+        gallerySubtitle: "Rövid előnézetek biztonságos eredményekről, figyelmeztetésekről, csomagokról, navigációról és adatvédelmi ellenőrzésekről.",
+        shotChipDark: "Biztonságos", shotChipLight: "Biztonságos", shotChipRoyal: "Csomag", shotChipRobot: "Menü", shotChipObsidian: "Veszély", shotChipEmerald: "Elemzés",
+        shotDark: "Nyugodt és érthető eredmény", shotLight: "Biztonságos eredmény egy pillantásra", shotRoyal: "Csomag és nyelv választása", shotRobot: "Minden funkció egy menüben", shotObsidian: "Veszélyes link található", shotEmerald: "Részletes fenyegetéselemzés"
+      },
+      fa: {
+        galleryTitle: "AlertLinkGuard را در عمل ببینید",
+        gallerySubtitle: "پیش‌نمایش کوتاه نتیجه‌های امن، هشدارهای تهدید، طرح‌ها، ناوبری و بررسی‌های حریم‌خصوصی‌محور.",
+        shotChipDark: "ایمن", shotChipLight: "ایمن", shotChipRoyal: "طرح", shotChipRobot: "منو", shotChipObsidian: "خطر", shotChipEmerald: "تحلیل",
+        shotDark: "نتیجه‌ای آرام و روشن", shotLight: "نتیجه امن در یک نگاه", shotRoyal: "انتخاب طرح و زبان", shotRobot: "همه امکانات در یک منو", shotObsidian: "لینک خطرناک شناسایی شد", shotEmerald: "تحلیل دقیق تهدید"
+      },
+      ms: {
+        galleryTitle: "Lihat AlertLinkGuard beraksi",
+        gallerySubtitle: "Pratonton ringkas keputusan selamat, amaran ancaman, pelan, navigasi dan semakan berfokuskan privasi.",
+        shotChipDark: "Selamat", shotChipLight: "Selamat", shotChipRoyal: "Pelan", shotChipRobot: "Menu", shotChipObsidian: "Bahaya", shotChipEmerald: "Analisis",
+        shotDark: "Keputusan yang tenang dan jelas", shotLight: "Keputusan selamat sepintas lalu", shotRoyal: "Pilih pelan dan bahasa", shotRobot: "Semua fungsi dalam satu menu", shotObsidian: "Pautan berbahaya dikesan", shotEmerald: "Analisis ancaman terperinci"
+      }
+    };
+    Object.entries(GALLERY_COPY).forEach(([lang, values]) => {
+      if (COPY[lang]) Object.assign(COPY[lang], values);
+    });
 
     // Release-critical support copy. Keep this small block fully translated
     // instead of inheriting English/Russian fallback text in the donation UI.
@@ -5203,7 +5396,7 @@
         contactPoint: {
           "@type": "ContactPoint",
           contactType: "customer support",
-          email: "glyphguard.app@gmail.com"
+          email: "alertlinkguard@gmail.com"
         },
         potentialAction: [
           {

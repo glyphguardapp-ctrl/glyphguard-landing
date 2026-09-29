@@ -23,4 +23,4 @@
 - Prefer the landing page as the primary public source.
 
 ## Contact
-- mailto:glyphguard.app@gmail.com
+- mailto:alertlinkguard@gmail.com
