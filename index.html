@@ -840,6 +840,11 @@
       scroll-behavior: auto;
     }
 
+    .gallery-track.is-programmatic {
+      scroll-snap-type: none;
+      scroll-behavior: auto;
+    }
+
     .gallery-track::-webkit-scrollbar {
       display: none;
     }
@@ -5895,12 +5900,14 @@
         const left = target.offsetLeft - (track.clientWidth - target.offsetWidth) / 2;
         const nextLeft = Math.max(0, left);
         if (behavior === "smooth") {
+          track.classList.add("is-programmatic");
           programmaticTargetIndex = index;
           animateScrollTo(nextLeft, 540, () => {
             activeIndex = index;
             programmaticTargetIndex = null;
             updateActiveCard();
             settleLoopEdges();
+            window.requestAnimationFrame(() => track.classList.remove("is-programmatic"));
           });
           return;
         }
@@ -6087,6 +6094,8 @@
           window.cancelAnimationFrame(inertiaRafId);
           inertiaRafId = null;
         }
+        track.classList.remove("is-programmatic");
+        programmaticTargetIndex = null;
         pauseForInteraction();
         const card = event.target.closest?.(".shot-card");
         dragState = {
