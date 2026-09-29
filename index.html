@@ -5847,6 +5847,7 @@
       let rafId = null;
       let settleTimer = null;
       let inertiaRafId = null;
+      let programmaticTargetIndex = null;
       let dragState = null;
       let suppressClickUntil = 0;
       let lastPointerType = "mouse";
@@ -5893,12 +5894,25 @@
       function scrollToCard(index, behavior = "smooth") {
         const target = cards[index];
         if (!target) return;
+        const left = target.offsetLeft - (track.clientWidth - target.offsetWidth) / 2;
+        const nextLeft = Math.max(0, left);
+        if (behavior === "smooth") {
+          programmaticTargetIndex = index;
+          animateScrollTo(nextLeft, 540, () => {
+            activeIndex = index;
+            programmaticTargetIndex = null;
+            updateActiveCard();
+            settleLoopEdges();
+          });
+          return;
+        }
         if (inertiaRafId) {
           window.cancelAnimationFrame(inertiaRafId);
           inertiaRafId = null;
         }
-        const left = target.offsetLeft - (track.clientWidth - target.offsetWidth) / 2;
-        track.scrollTo({ left: Math.max(0, left), behavior });
+        programmaticTargetIndex = null;
+        track.scrollTo({ left: nextLeft, behavior: "auto" });
+        activeIndex = index;
       }
 
       function settleLoopEdges() {
@@ -5913,9 +5927,11 @@
         if (rafId) return;
         rafId = window.requestAnimationFrame(() => {
           rafId = null;
-          updateActiveCard();
+          if (programmaticTargetIndex === null) updateActiveCard();
           if (settleTimer) window.clearTimeout(settleTimer);
-          settleTimer = window.setTimeout(settleLoopEdges, LOOP_SETTLE_MS);
+          settleTimer = window.setTimeout(() => {
+            if (programmaticTargetIndex === null) settleLoopEdges();
+          }, LOOP_SETTLE_MS);
         });
       }
 
@@ -5957,7 +5973,6 @@
           // the visual sequence continuous forever.
           activeIndex += 1;
           scrollToCard(activeIndex, "smooth");
-          queueUpdate();
         }, 3200);
       }
 
@@ -5979,7 +5994,6 @@
         pauseForInteraction();
         activeIndex += delta;
         scrollToCard(activeIndex, "smooth");
-        queueUpdate();
       }
 
       function endDrag(event) {
